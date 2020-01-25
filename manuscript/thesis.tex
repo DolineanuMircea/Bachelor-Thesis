@@ -1,0 +1,27 @@
+\documentclass[12pt, twoside]{report}
+
+\usepackage{Thesis}
+\appendtographicspath{{cover/img/}}
+
+\begin{document}
+
+\newgeometry{margin=lin}
+\input{cover/title.tex}
+\restoregeometry
+
+{\pagestyle{empty}\cleardoublepage}
+
+\tableofcontents
+{\pagestyle{empty}\cleardoublepage}
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+
+\pagenumbering{arabic}
+\import{}{intro}
+\import{}{physics}
+\import{}{pic}
+\import{}{results}
+\import{}{conclusions}
+
+\printbibliography
+
+\end{document}
