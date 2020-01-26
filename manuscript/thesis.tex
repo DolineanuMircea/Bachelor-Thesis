@@ -1,13 +1,14 @@
 \documentclass[12pt, twoside]{report}
+% \documentclass[12pt]{report}
 
-\usepackage{Thesis}
+\usepackage{ba_thesis}
 \appendtographicspath{{cover/img/}}
 
 \begin{document}
 
-\newgeometry{margin=lin}
+\newgeometry{margin=1in}
 \input{cover/title.tex}
-\restoregeometry
+\restoregeometry%
 
 {\pagestyle{empty}\cleardoublepage}
 
@@ -17,8 +18,10 @@
 
 \pagenumbering{arabic}
 \import{}{intro}
+% add chapters
+\import{}{results}
+\import{}{conclusions}
 
-
-% \printbibliography
+\printbibliography%
 
 \end{document}

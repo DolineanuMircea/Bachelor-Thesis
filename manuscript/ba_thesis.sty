@@ -1,4 +1,4 @@
-\ProvidesPackage{Thesis}
+\ProvidesPackage{ba_thesis}
 
 %%% PACKAGES
 % Math and Physics
@@ -20,17 +20,6 @@
 \graphicspath{{../figures/}}
 \usepackage{subcaption}        % subfigures
 
-% \usepackage{ifluatex}
-% \ifluatex
-%   \usepackage{pdftexcmds}
-%   \makeatletter
-%   \let\pdfstrcmp\pdf@strcmp
-%   \let\pdffilemoddate\pdf@filemoddate
-%   \makeatother
-% \fi
-% \usepackage{svg}
-% \svgpath{{../figures}}
-
 % Tables
 \usepackage{booktabs}
 
@@ -50,7 +39,7 @@
   }
 \usepackage{setspace}
 
-% \usepackage[utf8]{inputenc}
+\usepackage[utf8]{inputenc}
 
 % Bibliography
 \usepackage[style=authoryear,sorting=none]{biblatex}
@@ -64,7 +53,6 @@
 \newcommand{\ad}[1]{a_{#1}^{\dagger}}       % creation operator
 \newcommand*\mean[1]{\overline{#1}}         % mean
 \DeclareMathOperator{\dalambert}{\Box}      % d'Alambertian operator
-\DeclareMathOperator{\cay}{cay}             % Cayley transform
 
 % appendtographicspath command
 \makeatletter
@@ -72,16 +60,6 @@
   \g@addto@macro\Ginput@path{#1}%
 }
 \makeatother
-
-% \set command
-\usepackage{xparse}
-%
-\DeclarePairedDelimiterX{\set}[1]{\{}{\}}{\setargs{#1}}
-\NewDocumentCommand{\setargs}{>{\SplitArgument{1}{;}}m}
-{\setargsaux#1}
-\NewDocumentCommand{\setargsaux}{mm}
-{\IfNoValueTF{#2}{#1} {#1\,\delimsize|\,\mathopen{}#2}}%{#1\:;\:#2}
-
 
 % et al. in italics
 \usepackage{xpatch}
