@@ -1,0 +1,38 @@
+\documentclass[12pt, class=report, crop=false]{standalone}
+\usepackage{ba_thesis}
+
+\begin{document}
+
+% \addcontentsline{toc}{chapter}{Introduction}
+\chapter{Electromagnetism and Laser Profiles}%
+\label{chap:electromagnetism}
+
+\section{Classical Electrodynamics}
+
+The main principles and laws that govern the phenomena behind lasers, plasma and their interaction are those of classical electrodynamics. As such, like many others tackling this area of research, I find that adding an overview of electrodynamics is simply mandatory. My aim when it comes to differentiating this introductory review from the millions of others out there, if at all possible, is to offer through calculations on some aspects where I personally felt like I wanted to see things from a clearer perspective.
+
+\subsection{Maxwell's Equations}
+
+The Maxwell equations in vacuum are: %cite Jackson
+
+\begin{subequations}%
+  \label{eq:maxwell}
+  \begin{align}
+    \div{\vb{E}} & = \frac{\rho}{\varepsilon_0} \label{eq:coulomb-law} \\
+    \div{\vb{B}} & = 0 \label{eq:gauss-law} \\
+    \curl{\vb{E}} & = - \pdv{\vb{B}}{t} \label{eq:faraday-law} \\
+    \curl{\vb{B}} & = \mu_0 \vb{j} + \frac{1}{c^2} \pdv{\vb{E}}{t} \,, \label{eq:ampere-law}
+  \end{align}
+\end{subequations}
+
+\par
+While most readers probably have already had at least a basic introduction to the phenomena from which these equations arise and are well acquainted to how to make use of these equations, I would direct those who haven't towards the book by Fleisch. %add citation
+\par
+These equations directly imply the continuity equation, which relates only the field sources to one another:
+
+\begin{equation}
+  \label{eq:continuity-equation}
+  \div{\vb{j}(\vb{r}, t)} + \pdv{\rho(\vb{r}, t)}{t} = 0 \,.
+\end{equation}
+
+\end{document}
