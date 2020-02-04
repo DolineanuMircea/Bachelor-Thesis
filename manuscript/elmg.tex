@@ -13,7 +13,18 @@ The main principles and laws that govern the phenomena behind lasers, plasma and
 
 \subsection{Maxwell's Equations}
 
-The Maxwell equations in the absence of magnetic and polarizable media are~(\cite{jacksonClassicalElectrodynamics1999}):
+The Maxwell equations are~(\cite{jacksonClassicalElectrodynamics1999}):
+
+\begin{subequations}
+  \begin{align}
+    \div{\vb{D}} & = \rho \\
+    \curl{\vb{H}} & = \vb{j} + \pdv{\vb{D}}{t} \\
+    \curl{\vb{E}} & = - \pdv{\vb{B}}{t} \\
+    \div{\vb{B}} & = 0
+  \end{align}
+\end{subequations}
+
+In the absence of magnetic and polarizable media, \(\vb{D}=\varepsilon_0 \vb{E}\) and \(\vb{B}=\mu_0 \vb{H}\) and the equations become:
 
 \begin{subequations}%
   \label{eq:maxwell}
@@ -48,6 +59,7 @@ These equations are also complemented by the Lorentz force, which describes how 
 
 Since the electric~(\(\vb{E}\)) and magnetic~(\(\vb{B}\)) fields are vectors, they can be described together by a total of six quantities. The sources on the other hand can be described using only four quantities: the electric charge density~\(\rho\) and the three components of the electric current density~\(\vb{j}\). This points to the fact that there is a more convenient way to describe the fields. In finding this alternative, we shall employ the following basic results from algebra:
 \begin{subequations}
+  \label{id:algebra}
   \begin{align}
     \div{(\curl{\vb{v}})}=0
     \label{id:div-rot} \\
@@ -102,9 +114,64 @@ Considering that at every step in the derivation of~\cref{eq:coulomb-scalar-pote
 \par
 In general, when studying the dynamics of particles in an electomagnetic field, once the potentials are computed using~\cref{eq:coulomb-scalar-potential,eq:ampere-potentials} the fields are obtained from~\cref{eq:vector-potential,eq:faraday-scalar-potential} and can be used further in the expression of the Lorentz force.
 
-\newpage
-
 \subsection{Gauge Transformation}
+By a direct application of~\cref{id:algebra} one can show that a simultaneous transformation by an arbitrary well-behaved (continuous with continuous derivatives) scalar function~\(f=f(\vb{r},t)\) of the potentials:
 
+\begin{subequations}
+  \label{gauge}
+  \begin{align}
+    \phi \rightarrow \phi + \pdv{f}{t} \\
+    \vb{A} \rightarrow \vb{A} - \grad{f} \,,
+  \end{align}
+\end{subequations}
+leaves the electric and magnetic field unchanged. This is actually a quite natural equivalent of the intuitive fact that any potential is defined up to a constant. In the particular case of the electromagnetic potential,~\cref{gauge} define a gauge transformation. There are two widely used gauges.
+
+\paragraph{Lorenz gauge}
+
+\begin{equation}
+  \label{eq:lorenz-gauge}
+  \div{\vb{A}} + \frac{1}{c^2} \pdv{\phi}{t}=0
+\end{equation}
+
+\par
+This gauge cancels the gradient in~\cref{eq:ampere-potentials}. If one works in the usual Mikovski metric~(\cite{weinbergGravitationCosmologyPrinciples1972})
+
+\[
+\eta_{\mu \nu} =
+\begin{pmatrix}
+  -c^{2} & 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 1 & 0 \\
+  0 & 0 & 0 & 1
+\end{pmatrix}
+\]
+the d'Alembert operator is then defined as
+\[
+\Box = \partial^{\mu} \partial_{\mu} = \eta^{\mu \nu} \partial_{\nu} \partial_{\mu} = \frac{1}{c^{2}} \pdv[2]{}{t} - \laplacian{}
+\]
+where \(\mu,\,\nu=\overline{0,3}\) with 0 being the temporal index and 1, 2, 3 being the spatial indices. By replacing this definition in~\cref{eq:coulomb-scalar-potential,eq:ampere-potentials}, it is easy to see that both \(\vb{A}\) and \(\phi\) obey a free wave equation:
+
+\begin{subequations}
+  \begin{align}
+    \Box \vb{A} = -\mu_0 \vb{j}\\
+    \Box \phi = -\frac{\rho}{\varepsilon_0}  \,.
+  \end{align}
+\end{subequations}
+
+\paragraph{Coulomb Gauge (sometimes found as transversal/velocity gauge)}
+
+\begin{equation}
+  \div{\vb{A}} = 0
+\end{equation}
+
+\par
+Under this gauge, the potential equations~\cref{eq:coulomb-scalar-potential,eq:ampere-potentials} take the form:
+
+\begin{subequations}
+  \begin{align}
+    \Box \vb{A} = -\mu_0 \vb{j} + \frac{1}{c^{2}} \grad{\pdv{\phi}{t}}\\
+    \laplacian{\phi} = -\frac{\rho}{\varepsilon_0}  \,.
+  \end{align}
+\end{subequations}
 
 \end{document}
