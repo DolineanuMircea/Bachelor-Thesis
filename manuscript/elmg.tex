@@ -13,7 +13,7 @@ The main principles and laws that govern the phenomena behind lasers, plasma and
 
 \subsection{Maxwell's Equations}
 
-The Maxwell equations in vacuum are: %cite Jackson
+The Maxwell equations in the absence of magnetic and polarizable media are~(\cite{jacksonClassicalElectrodynamics1999}):
 
 \begin{subequations}%
   \label{eq:maxwell}
@@ -26,13 +26,85 @@ The Maxwell equations in vacuum are: %cite Jackson
 \end{subequations}
 
 \par
-While most readers probably have already had at least a basic introduction to the phenomena from which these equations arise and are well acquainted to how to make use of these equations, I would direct those who haven't towards the book by Fleisch. %add citation
+While most readers probably have already had at least a basic introduction to the phenomena from which these equations arise and are well acquainted to how to make use of these equations, I would direct those who haven't towards the book by~\cite{fleischStudentGuideMaxwell2008}%
+
 \par
-These equations directly imply the continuity equation, which relates only the field sources to one another:
+By extracting the current density from~\cref{eq:ampere-law}, computing its divergence and then replacing the electric field term using~\cref{eq:coulomb-law} one obtains the continuity equation, which relates only the field sources to one another:
 
 \begin{equation}
   \label{eq:continuity-equation}
   \div{\vb{j}(\vb{r}, t)} + \pdv{\rho(\vb{r}, t)}{t} = 0 \,.
 \end{equation}
+
+\par
+These equations are also complemented by the Lorentz force, which describes how the fields act on the sources. The expression of the Lorentz force in the contiuous case is:
+
+\[
+  \vb{F} = \int \dd{\vb{r}'} \left[ \rho(\vb{r}', t) \vb{E}(\vb{r}', t) +
+           \frac{1}{c} \vb{j}(\vb{r}', t) \cross \vb{B}(\vb{r}', t)\right] .
+\]
+
+\subsection{The Scalar and Vector Potentials}
+
+Since the electric~(\(\vb{E}\)) and magnetic~(\(\vb{B}\)) fields are vectors, they can be described together by a total of six quantities. The sources on the other hand can be described using only four quantities: the electric charge density~\(\rho\) and the three components of the electric current density~\(\vb{j}\). This points to the fact that there is a more convenient way to describe the fields. In finding this alternative, we shall employ the following basic results from algebra:
+\begin{subequations}
+  \begin{align}
+    \div{(\curl{\vb{v}})}=0
+    \label{id:div-rot} \\
+    \curl{(\div{\vb{v}})}=0
+    \label{id:rot-div} \\
+    \curl{(\grad{f})}=0
+    \label{id:rot-grad} \,,
+  \end{align}
+\end{subequations}
+which are valid for any vector function~\(\vb{v}\) and for any scalar function~\(f\).
+
+\par
+From~\cref{eq:gauss-law,id:div-rot} one can define the vector potential \(\vb{A}\) such that
+
+\begin{equation}
+  \label{eq:vector-potential}
+  \vb{B}(\vb{r}, t) = \curl{\vb{A}(\vb{r}, t)}\,.
+\end{equation}
+By substituting~\eqref{eq:vector-potential} in~\eqref{eq:faraday-law} one obtains
+
+\begin{equation}
+  \label{eq:faraday-vector-potential}
+  \curl(\vb{E} + \pdv{\vb{A}}{t}) = 0
+\end{equation}
+which together with~\cref{id:rot-grad} defines the scalar potential \(\phi\)
+
+\begin{equation}
+  \label{eq:faraday-scalar-potential}
+  \grad{\phi}(\vb{r}, t) = -\vb{E}(\vb{r}, t) - \pdv{\vb{A}}{t}\,.
+\end{equation}
+Using this in~\cref{eq:coulomb-law}
+
+\begin{equation}
+  \label{eq:coulomb-scalar-potential}
+  \laplacian{\phi} + \pdv{t}\div{\vb{A}} = - \frac{\rho}{\varepsilon_0}\,.
+\end{equation}
+Similarly, using~\cref{eq:faraday-scalar-potential} in~\cref{eq:ampere-law} and making use of the following vector identity
+
+\begin{equation}
+  \label{eq:curl-of-curl}
+  \curl(\curl{\vb{v}}) = \grad(\div{\vb{v}}) - \laplacian{\vb{v}}\,,
+\end{equation}
+another equation of the potentials is obtained
+
+\begin{equation}
+  \label{eq:ampere-potentials}
+  \laplacian{\vb{A}} - \frac{1}{c^2}\pdv[2]{\vb{A}}{t} =
+    -\mu_0 \vb{j} + \grad(\div{\vb{A}} + \frac{1}{c^2} \pdv{\phi}{t})\,.
+\end{equation}
+
+Considering that at every step in the derivation of~\cref{eq:coulomb-scalar-potential,eq:ampere-potentials} we only imposed the Maxwell equations and basic algebraic identities, it follows that~\cref{eq:coulomb-scalar-potential,eq:ampere-potentials} and~\cref{eq:maxwell} are completely equivalent. We now have reduced the six quantities describing the fields to only four: the scalar potential~\(\phi\) and the three components of the vector potential~\(\vb{A}\). This description of the fields through the potentials is quite useful since it is easily integrated in the formalism of special relativity. One can define the electomagnetic potential 4-vector such that the scalar field is the time-like component and the vector field is the space-like component.
+\par
+In general, when studying the dynamics of particles in an electomagnetic field, once the potentials are computed using~\cref{eq:coulomb-scalar-potential,eq:ampere-potentials} the fields are obtained from~\cref{eq:vector-potential,eq:faraday-scalar-potential} and can be used further in the expression of the Lorentz force.
+
+\newpage
+
+\subsection{Gauge Transformation}
+
 
 \end{document}
