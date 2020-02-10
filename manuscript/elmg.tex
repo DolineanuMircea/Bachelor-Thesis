@@ -9,18 +9,23 @@
 
 \section{Classical Electrodynamics}
 
-The main principles and laws that govern the phenomena behind lasers, plasma and their interaction are those of classical electrodynamics. As such, like many others tackling this area of research, I find that adding an overview of electrodynamics is simply mandatory. My aim when it comes to differentiating this introductory review from the millions of others out there, if at all possible, is to offer through calculations on some aspects where I personally felt like I wanted to see things from a clearer perspective.
+The main principles and laws that govern the phenomena behind lasers, plasma and their interaction are those of classical electrodynamics. As such, like many others tackling this area of research, I find that adding an overview of electrodynamics is simply mandatory. My aim when it comes to differentiating this introductory review from the millions of others out there, if at all possible, is to offer thorough calculations and explanations on some aspects where I personally felt like I wanted to see things from a clearer perspective.
 
 \subsection{Maxwell's Equations}
 
 The Maxwell equations are~(\cite{jacksonClassicalElectrodynamics1999}):
 
 \begin{subequations}
+  \label{eq:maxwell-general}
   \begin{align}
-    \div{\vb{D}} & = \rho \\
-    \curl{\vb{H}} & = \vb{j} + \pdv{\vb{D}}{t} \\
-    \curl{\vb{E}} & = - \pdv{\vb{B}}{t} \\
+    \div{\vb{D}} & = \rho
+    \label{eq:coulomb-law-general} \\
     \div{\vb{B}} & = 0
+    \label{eq:gauss-law-general} \\
+    \curl{\vb{E}} & = - \pdv{\vb{B}}{t}
+    \label{eq:faraday-law-general} \\
+    \curl{\vb{H}} & = \vb{j} + \pdv{\vb{D}}{t}
+    \label{eq:ampere-law-general} \,.
   \end{align}
 \end{subequations}
 
@@ -51,7 +56,7 @@ By extracting the current density from~\cref{eq:ampere-law}, computing its diver
 These equations are also complemented by the Lorentz force, which describes how the fields act on the sources. The expression of the Lorentz force in the contiuous case is:
 
 \[
-  \vb{F} = \int \dd{\vb{r}'} \left[ \rho(\vb{r}', t) \vb{E}(\vb{r}', t) +
+  \vb{F} = \int_\mathcal{V} \dd{\vb{r}'} \left[ \rho(\vb{r}', t) \vb{E}(\vb{r}', t) +
            \frac{1}{c} \vb{j}(\vb{r}', t) \cross \vb{B}(\vb{r}', t)\right] .
 \]
 
@@ -139,7 +144,7 @@ This gauge cancels the gradient in~\cref{eq:ampere-potentials}. If one works in 
 \[
 \eta_{\mu \nu} =
 \begin{pmatrix}
-  -c^{2} & 0 & 0 & 0 \\
+  -1 & 0 & 0 & 0 \\
   0 & 1 & 0 & 0 \\
   0 & 0 & 1 & 0 \\
   0 & 0 & 0 & 1
@@ -147,7 +152,7 @@ This gauge cancels the gradient in~\cref{eq:ampere-potentials}. If one works in 
 \]
 the d'Alembert operator is then defined as
 \[
-\Box = \partial^{\mu} \partial_{\mu} = \eta^{\mu \nu} \partial_{\nu} \partial_{\mu} = \frac{1}{c^{2}} \pdv[2]{}{t} - \laplacian{}
+\Box = \partial^{\mu} \partial_{\mu} = \eta^{\mu \nu} \partial_{\nu} \partial_{\mu} = \laplacian{} - \frac{1}{c^{2}} \pdv[2]{}{t} \,,
 \]
 where \(\mu,\,\nu=\overline{0,3}\) with 0 being the temporal index and 1, 2, 3 being the spatial indices. By replacing this definition in~\cref{eq:coulomb-scalar-potential,eq:ampere-potentials}, it is easy to see that both \(\vb{A}\) and \(\phi\) obey a free wave equation:
 
@@ -173,5 +178,204 @@ Under this gauge, the potential equations~\cref{eq:coulomb-scalar-potential,eq:a
     \laplacian{\phi} = -\frac{\rho}{\varepsilon_0}  \,.
   \end{align}
 \end{subequations}
+
+\subsection{The Poynting Theorem}
+
+The Poynting theorem is the form of the conservation of energy in the case of electromagnetic fields interacting with charges and currents. Since it is such an important and general result, this presentation of it will start from the more general form of the Maxwell equations~\cref{eq:maxwell-general}.
+\par
+In the derivation of this theorem, one usually starts from the local form of the Lorentz force~(\cite{griffithsIntroductionElectrodynamics1999}):
+
+\begin{equation*}
+  \vb{F} = \delta q \vb{E} + \delta q \vb{v} \cp \vb{B}
+\end{equation*}
+
+\par
+
+The work done by the electric field part of the force on the volume element with charge \( \delta q \) and velocity \( \vb{v} = \dv{\vb{l}}{t} \) is
+
+\begin{equation*}
+  \dd{W_{e}} = q \dd{\vb{l}} \vdot \vb{E}
+\end{equation*}
+and the corresponding rate of work done is
+
+\begin{equation*}
+  \dv{W_{e}}{t} = q \vb{v} \vdot \vb{E}
+\end{equation*}
+while for the magnetic part we have (as expected)
+
+\begin{equation*}
+  \dd{W_{m}} = \dd{\vb{l}} \vdot \vb{F_{b}} = q \dd{\vb{l}} \vdot ( \vb{v} \cp \vb{B})
+\end{equation*}
+
+\begin{equation*}
+  \dv{W_{b}}{t} = q \vb{v} \vdot ( \vb{v} \cp \vb{B}) = 0 \,.
+\end{equation*}
+
+\par
+Adding these contributions and generalizing for the case of a distribution of charges and currents one obtains
+
+\begin{equation}
+  \dv{W}{t} = \int_\mathcal{V} \dd{\vb{r}} \vb{E}\vdot\vb{j}
+\end{equation}
+
+By extracting \(\vb{j}\) from~\cref{eq:ampere-law-general} and replacing in the above equation we have
+
+\begin{equation*}
+  \dv{W}{t} = \int_\mathcal{V} \dd{\vb{r}} \left[ \vb{E}\vdot (\curl{\vb{H}}) - \vb{E}\vdot \pdv{\vb{D}}{t} \right]
+\end{equation*}
+Employing here the vector identity here
+
+\begin{equation}
+  \label{id:grad-of-vector-product}
+  \grad{(\vb{u}\cp\vb{v})} = \vb{v}\vdot(\curl{\vb{u}})-\vb{u}\vdot(\curl{\vb{v}})
+\end{equation}
+gives
+
+\begin{equation*}
+  \dv{W}{t} = \int_\mathcal{V} \dd{\vb{r}} \left[ \vb{H}\vdot (\curl{\vb{E}}) - \grad{(\vb{E}\cp\vb{H})} - \vb{E}\vdot \pdv{\vb{D}}{t} \right] \,.
+\end{equation*}
+Replacing the curl of \( \vb{E}\) using Faraday's law~(\ref{eq:faraday-law-general}) we finally obtain
+
+\begin{equation*}
+  \dv{W}{t} = - \int_\mathcal{V} \dd{\vb{r}} \left[ \grad{(\vb{E}\cp\vb{H})} + \vb{E}\vdot \pdv{\vb{D}}{t} + \vb{H}\vdot \pdv{\vb{B}}{t} \right] \,.
+\end{equation*}
+
+If we restric the discussion now only to linar media (\textit{i}.\textit{e}. \(\vb{D}=\varepsilon \vb{E}\) and \(\vb{B} = \mu \vb{H}\)) a new important quantity can be defined
+
+\begin{equation}
+  w_{em} = \frac{1}{2} (\vb{E}\vdot\vb{D}+\vb{H}\vdot\vb{B})
+\end{equation}
+which leads to a new way to write the expression of the rate of work done by the electromagnetic field
+
+\begin{equation}
+  \dv{W}{t} = - \int_\mathcal{V} \dd{\vb{r}} \left[\grad{(\vb{E}\cp\vb{H})} + \pdv{w_{em}}{t}\right] \,,
+\end{equation}
+where the Poynting vector is
+
+\begin{equation}
+  \vb{S}=\vb{E}\cp\vb{H}\,.
+\end{equation}
+
+In order to complete the derivation of Poynting's theorem, an we must see how it is to be interpreted. As such, a short paranthesis concerning \( w_{em}\) is in order.
+
+\subsubsection{Electrostatic field energy density}
+For a system of N stationary point-like charged particles of charges \(q_{i}\) placed at \(\vb{r_{i}} \,,\,i=\overline{1,N}\) in a medium with permittivity \(\varepsilon\), the total potential energy of the system, when neglecting the infinite self-interaction terms, is~(\cite{jacksonClassicalElectrodynamics1999})
+
+\begin{equation*}
+  W_{e} = \frac{1}{2} \sum_{i,j=1}^{N} \frac{q_{i} q_{j}}{4 \pi \varepsilon \abs{\vb{r_{i}}-\vb{r_{j}}}}
+\end{equation*}
+or, factoring out the scalar potential \(\phi (\vb{r_{i}})\) generated by all the other particles at the position of particle i,
+
+\begin{equation*}
+  W_{e} = \frac{1}{2} \sum_{i=1}^{N} q_{i} \phi (\vb{r_{i}})
+\end{equation*}
+This is easily generalized in integral form
+
+\begin{equation*}
+  W_{e} = \frac{1}{2} \int_\mathcal{V} \dd{\vb{r}} \rho (\vb{r}) \phi (\vb{r}) \, ,
+\end{equation*}
+where we use the delta-Dirac function for pointlike particles if needed.
+
+\par
+Using the fact that the electrostatic potential is defined by \(\vb{E} = - \grad{\phi}\) and replacing this in~\cref{eq:coulomb-law-general} one obtains the poison equation
+
+\begin{equation}
+ \label{eq:poisson}
+ \laplacian{\phi} = - \frac{\rho}{\varepsilon} \,.
+\end{equation}
+With this, the integral above becomes
+
+\begin{equation*}
+  W_{e} = \frac{\varepsilon}{2} \int_\mathcal{V} \dd{\vb{r}} \phi \laplacian{\phi} = - \frac{\varepsilon}{2} \int_\mathcal{V} \dd{\vb{r}} \phi \grad{\phi} + \frac{\varepsilon}{2} \int_\mathcal{V} \dd{\vb{r}} \abs{\grad{\phi}}^{2} \, ,
+\end{equation*}
+where integration by parts has been used.
+
+\par
+In order to reach the desired result, we still have to perform one more integration by parts
+
+\begin{equation*}
+  \int_\mathcal{V} \dd{\vb{r}} \phi \grad{\phi} = \frac{1}{2} \int_\mathcal{V} \dd{\vb{r}} \grad{\phi^2} = \int_{\mathcal{S}_{\mathcal{V}}} \dd{\vb{a}} \phi^{2} \, ,
+\end{equation*}
+where in the last step we used Gauss' theorem. Now, if we itegrate over the entire space and keep in mind that the electrostatic potential should be zero at infinity, the above integral becames null. Using again the realtion between the gradient of the potential and the electric field we get
+
+\begin{equation}
+  W_{e} = \frac{\varepsilon}{2} \int_\mathcal{V} \dd{\vb{r}} \vb{E}^{2}
+\end{equation}
+or, equivalently,
+
+\begin{equation}
+  W_{e} = \frac{1}{2} \int_\mathcal{V} \dd{\vb{r}} \vb{E} \vdot \vb{D} \,.
+\end{equation}
+
+\par
+This leads to the definition of the energy density of the electrostatic field
+
+\begin{equation}
+  \label{def:electrostatic-en-density}
+  w_{e} = \frac{1}{2} \vb{E} \vdot \vb{D} \,.
+\end{equation}
+
+\subsubsection{Magnetostatic field energy density}
+
+This time around we start with a current loop in the case of magnetostatics (\(\div{\vb{j}}=0\)). No matter the current distribution in space, since the current density is rotational, we can always divide it in individual infinitesimal current loops. A change in the magnetic flux through such a loop is given by the integral form of Faraday's law~(\ref{eq:faraday-law-general})
+
+\begin{equation}
+  e = \oint_{\gamma} \dd{\vb{l}}\vdot\vb{E} = - \dv{\phi_{B}}{t} \,,
+\end{equation}
+where \(\gamma\) is the closed curve describing the loop and \(\phi_{B}\) is the magnetic flux through the loop.
+
+\par
+Since the autoinduced magnetic flux is \(\phi_{B}=LI\), where \(L\) is the inductance of the loop and \(I\) the intensity of the electric current flowing in it, the electromotive force caused by autoinduction is
+
+\begin{equation*}
+  e = -L \dv{I}{t} \,.
+\end{equation*}
+Thus the rate of work against the increase of the current is
+
+\begin{equation*}
+  \dv{W_{B}}{t} = - I e = LI \dv{I}{t} = \dv{t} (\frac{LI^{2}}{2})\,.
+\end{equation*}
+With this result we obtain the energy necessary to get a current of intensity \(I\) starting through a loop:
+
+\begin{equation*}
+  W_{B} = \frac{LI^2}{2} \,.
+\end{equation*}
+
+\par
+We will now eliminate \(L\) the same way we introduced it
+
+\begin{equation*}
+  \phi_{B} = LI = \int_{\mathcal{S}_\mathcal{\gamma}} \dd{\vb{a}} \vdot \vb{B} =  \int_{\mathcal{S}_\mathcal{\gamma}} \dd{\vb{a}} \vdot (\curl{\vb{A}}) = \oint_{\gamma} \dd{\vb{l}}\vdot \vb{A} \,,
+\end{equation*}
+where the vector potential was introduced and Stokes' theorem  was applyed.
+
+\begin{equation*}
+  W_{B} = \frac{1}{2} I \oint_{\gamma} \dd{\vb{l}}\vdot \vb{A} = \frac{1}{2} \int_\mathcal{V} \dd{\vb{r}} \vb{j}\vdot\vb{A} \,.
+\end{equation*}
+Here we naturally introduced the electric current density in our calculations. It can be replaced though using~\cref{eq:ampere-law-general} (we work in the confinements of magnetostatics, so there is no time dependent electric field)
+
+\begin{equation*}
+  W_{B} = \frac{1}{2} \int_\mathcal{V} \dd{\vb{r}} \vb{A}\vdot (\curl{\vb{H}}) \,.
+\end{equation*}
+We employ here the identity~(\ref{id:grad-of-vector-product}) to reach
+
+\begin{equation*}
+  W_{B} = \frac{1}{2} \int_\mathcal{V} \dd{\vb{r}} \vb{H}\vdot (\curl{\vb{A}}) - \frac{1}{2} \int_\mathcal{V} \dd{\vb{r}} \div{(\vb{A}\cp\vb{H})} = \frac{1}{2} \int_\mathcal{V} \dd{\vb{r}} \vb{H}\vdot \vb{B} - \frac{1}{2} \int_{\mathcal{S}_\mathcal{V}} \dd{\vb{a}} \vdot (\vb{A}\cp\vb{H}) \,.
+\end{equation*}
+The same trick as in the previous subsection is appliable here. By extending the integration volume over the entire space and using the fact that the vector potential should be zero at infinity, the second integral vanishes.
+
+\begin{equation}
+  W_{B} = \frac{1}{2} \int_\mathcal{V} \dd{\vb{r}} \vb{H}\vdot \vb{B}
+\end{equation}
+
+\par
+The energy density of the magnetostatic field is defined to be
+
+\begin{equation}
+  w_{B} = \frac{1}{2} \vb{H}\vdot\vb{B} \,.
+\end{equation}
+
+\subsubsection{Interpretation of the Poynting theorem}
+
 
 \end{document}
