@@ -120,6 +120,7 @@ Considering that at every step in the derivation of~\cref{eq:coulomb-scalar-pote
 In general, when studying the dynamics of particles in an electomagnetic field, once the potentials are computed using~\cref{eq:coulomb-scalar-potential,eq:ampere-potentials} the fields are obtained from~\cref{eq:vector-potential,eq:faraday-scalar-potential} and can be used further in the expression of the Lorentz force.
 
 \subsection{Gauge Transformation}
+\label{ch-ref-1}
 By a direct application of~\cref{id:algebra} one can show that a simultaneous transformation by an arbitrary well-behaved (continuous with continuous derivatives) scalar function~\(f=f(\vb{r},t)\) of the potentials:
 
 \begin{subequations}
@@ -182,7 +183,7 @@ Under this gauge, the potential equations~\cref{eq:coulomb-scalar-potential,eq:a
 \end{subequations}
 
 \subsection{The Poynting Theorem}
-
+\label{section:poynting}
 The Poynting theorem is the form of the conservation of energy in the case of electromagnetic fields interacting with charges and currents. Since it is such an important and general result, this presentation of it will start from the more general form of the Maxwell equations~\cref{eq:maxwell-general}.
 \par
 In the derivation of this theorem, one usually starts from the local form of the Lorentz force~(\cite{griffithsIntroductionElectrodynamics1999}):
@@ -403,6 +404,7 @@ or in its differential form by eliminating the integrals
 The Poynting vector has units of \(\frac{J}{m^2 s}\) and decribes the flux of energy through a surface. From this, we can conclude that the physical meaning behind~\cref{th:poynting-integral,th:poynting-differential} is that the rate of change in time of the energy inside a volume  added with the flow of energy in and out of that volume is equal to minus the work done by the fields on the sources inside the volume.
 
 \subsection{Momentum of a System of Fields and Field Sources}
+\label{section:momentum}
 By taking the vector product of \(\vb{D}\) with~\cref{eq:faraday-law-general} and of \(\vb{B}\) with~\cref{eq:ampere-law-general} and then adding them up the following equality can be obtained:
 
 \begin{equation}
@@ -490,6 +492,7 @@ or
 where the volumic density of the fields' electromagnetic momentum \(\vb{g}\) is defined to be
 
 \begin{equation}
+  \label{def:electromagnetic-momentum}
   \vb{g} = \frac{1}{c^{2}} \vb{S} = \vb{D}\cp \vb{B} \,.
 \end{equation}
 
@@ -509,7 +512,7 @@ where \(\vb{P_{em}}\) and \(\vb{P_{mech}}\) are the electromagnetic and mechanic
 The short review of classical electrodynamics had as an ultimate goal to introduce the definitions, equations and formalism required in order to study electromagnetic waves. In this section I will start from the definition and properties of an electromagnetic wave and I will follow up with how one can describe laser pulses. The second part will contain a short introduction to the laser profiles used in research.
 
 \subsection{Maxwell's Equations in Vacuum}
-The concept of electromagnetic waves arises naturally from the Maxwell equations~\cref{eq:maxwell-general} if we consider them in vacuum
+The concept of electromagnetic waves arises naturally from the Maxwell equations~\cref{eq:maxwell-general} if we consider them in the absence of any sources
 
 \begin{subequations}
   \label{eq:maxwell-vacuum}
@@ -524,6 +527,289 @@ The concept of electromagnetic waves arises naturally from the Maxwell equations
     \label{eq:ampere-law-vacuum} \,.
   \end{align}
 \end{subequations}
+
+The last equation~(\ref{eq:ampere-law-vacuum}) can be rewritten using \(\vb{H}=\frac{1}{\mu} \vb{B}\) and \(\vb{D} = \varepsilon \vb{E}\) as
+
+\begin{equation}
+  \curl{\vb{B}} = \varepsilon \mu \pdv{\vb{E}}{t}
+\end{equation}
+By taking the curl of~\cref{eq:faraday-law-vacuum} one gets
+
+\begin{equation*}
+  \curl{(\curl{\vb{E}})} + \pdv{t} (\curl{\vb{B}}) = 0\,,
+\end{equation*}
+which, using the vector identity
+
+\begin{equation}
+  \label{id:curl-curl}
+  \curl{(\curl{\vb{v}})} = \grad{(\div{\vb{v}})} - \laplacian{\vb{v}}
+\end{equation}
+and~\cref{eq:coulomb-law-vacuum}, becomes
+
+\begin{equation}
+  \left[ \laplacian{} - \varepsilon\mu \pdv[2]{t} \right] \vb{E} = 0 \,.
+\end{equation}
+Through an analogous procedure, one obtains that the magnetic field \(\vb{B}\) satisfies the same equation. Using the D'Alembertian defined in section~\ref{ch-ref-1} we can conclude that both the electric and magnetic fields satisfy the Helmholtz equation
+
+\begin{subequations}
+  \label{eq:helmhotz}
+  \begin{align}
+    \Box \vb{E} = 0 \\
+    \Box \vb{B} = 0 \,,
+  \end{align}
+\end{subequations}
+with \(v^2=\frac{1}{\varepsilon\mu}\) giving the speed of the wave (also called phase velocity) and \(c^2=\frac{1}{\varepsilon_0 \mu_0} \) the speed of electromagnetic waves in vacuum.
+
+\par
+The reader most probably has encountered waves in various contexts before, but I will add a reminder of the relevant parameters describing solutions of the Helmholtz equation just for the sake of completeness:
+
+\begin{itemize}
+  \item if \(\vb{n}\) is the unit vector along the direction of propagation, the wave vector is defined as \(\vb{k}=\vb{n} k \), where \( k =\frac{2\pi}{\lambda}\) is the wave number and \(\lambda\) is the wavelength;
+  \item if \(T\) is the period in time of the wave, the frequency is defined as \(\nu = \frac{1}{T}\) and, equivalently, the angular frequency is defined as \(\omega  = 2\pi \nu\);
+  \item \(v=\lambda\nu=\frac{\omega}{k}= \frac{1}{\sqrt{\varepsilon\mu}}\) is the phase velocity and \(v_g = \pdv{\omega}{k}\) is the group velocity.
+\end{itemize}
+
+\par
+There is one more property we can derive before discussing the particular solutions of~\cref{eq:helmhotz}, namely the transverse character of electromagnetic waves in vacuum.
+
+\par
+A very general form for a solution of~\cref{eq:helmhotz} can be written as
+\begin{equation*}
+  \vb{E} = \vb{E_0} f(\vb{k}\vdot\vb{r} -\omega t) \,,
+\end{equation*}
+where \(\vb{E_0}\) is a constant vector.
+Using it in~\cref{eq:faraday-law-vacuum} leads to the following developement
+
+\begin{equation*}
+  0 = \div{\vb{E}} = \div{\left[\vb{E_0} f(\vb{k}\vdot\vb{r} -\omega t) \right]} = \vb{E_0} \grad{f(\vb{k}\vdot\vb{r} -\omega t)} = \vb{k}\vdot\vb{E_0} f'(\vb{k}\vdot\vb{r} -\omega t)
+\end{equation*}
+which concludes that
+
+\begin{equation}
+  \label{rez:1}
+  \vb{k}\vdot\vb{E} = 0 \,.
+\end{equation}
+Similarly,~\cref{eq:faraday-law-vacuum} leads to
+
+\begin{equation*}
+  - \pdv{\vb{B}}{t}  = \curl{\vb{E}} = \curl{\left[\vb{E_0} f(\vb{k}\vdot\vb{r} -\omega t) \right]} = \vb{k}\cp \vb{E_0} f'(\vb{k}\vdot\vb{r} -\omega t) \, ,
+\end{equation*}
+where in the last step this identity was used
+
+\begin{equation}
+  \label{id:curl-scalar*vector}
+  \curl{(a\vb{v})} = a (\curl{\vb{v}}) + (\grad{a})\cp\vb{v}\,.
+\end{equation}
+This suggests that
+
+\begin{equation}
+  \label{rez:2}
+  \vb{B} \propto \vb{k}\cp\vb{E} \,.
+\end{equation}
+Looking at~\cref{rez:1,rez:2} it is easy to conclude that the electromagnetic waves are transverse and that at any moment, the magnetic and electric fields are perpendicular to one another.
+
+\par
+Note: Electromagnetic waves can only be transversal in ``free space'' or homogeneous media~(\cite{heavisideElectromagneticTheoryIncluding1971}). Longitudinal modes can also be achieved in special conditions, like inside confined spaces and in plasmas~(\cite{jacksonClassicalElectrodynamics1999,griffithsIntroductionElectrodynamics1999}). However, there has been work done on the production of longitudinal waves in vacuum~(\cite{wangCreationNeedleLongitudinally2008}) as a consequence of theoretical work showing the possibility of having a small longitudinal component in electromagnetic waves in vacuum~(\cite{cicchitelliLongitudinalFieldComponents1990}).
+
+\subsection{Plane Waves}
+
+The simplest solution to the Helmholtz~\cref{eq:helmhotz} is the plane wave
+\begin{equation}
+  \sin(\vb{k}\vdot\vb{r} - \omega t + \delta)
+\end{equation}
+In the research literature it is common to employ a complex formulation~(\cite{vrejoiuElectrodinamicaSiTeoria1987}). Thus, the complex fields are defined as
+
+\begin{subequations}
+  \begin{align}
+    \label{def:complex-field}
+    \vb{\tilde{E}}(\vb{r},t) = E_0 \vb{s} \ee^{\ii (\vb{k}\vdot\vb{r} - \omega t)} \\
+    \vb{\tilde{B}}(\vb{r},t) = B_0 \vb{n}\cp\vb{s} \ee^{\ii (\vb{k}\vdot\vb{r} - \omega t)} \,,
+  \end{align}
+\end{subequations}
+where \(E_0\) and \(B_0\) are the real amplitudes and \(\vb{s}\) is a complex vector of norm one
+\begin{equation*}
+  \vb{s} = \vb{s_r} + \ii \vb{s_i}, \; \abs{\vb{s}}^2 = \vb{s^*}\vdot\vb{s} = \vb{s_r}^{2} + \vb{s_i}^{2} =1
+\end{equation*}
+With this setup, the real fields are to be obtained as
+
+\begin{subequations}
+  \begin{align}
+    \label{def:real-electric-field}
+    \vb{E}(\vb{r},t) = \Re{\vb{\tilde{E}}(\vb{r},t)} = E_0 \left[\vb{s_r} \cos(\vb{k}\vdot\vb{r} - \omega t) - \vb{s_i} \sin(\vb{k}\vdot\vb{r} - \omega t) \right] \\
+    \vb{B}(\vb{r},t) = \Re{\vb{\tilde{B}}(\vb{r},t)} = B_0 \vb{n}\cp\left[\vb{s_r} \cos(\vb{k}\vdot\vb{r} - \omega t) - \vb{s_i} \sin(\vb{k}\vdot\vb{r} - \omega t) \right] \,.
+  \end{align}
+\end{subequations}
+
+\par
+In what follows we are interested in analyzing the plane wave solution from the perspective of energy in the formalism developed in sections~\ref{section:poynting}~and~\ref{section:momentum}.
+
+\par
+From the discussion in the previous subsection it is easy to deduce the relation between the magnetic and electric fields of a wave (it is the same for both the real and complex fields)
+
+\begin{equation}
+  \vb{\tilde{B}} = \frac{1}{c} \vb{n}\cp\vb{\tilde{E}} \,.
+\end{equation}
+With this, the energy density~(\ref{def:energy-density}) of the fields is
+
+\begin{equation}
+  w_{em} = \frac{1}{2} \varepsilon_0 \vb{E}^2+ \frac{1}{2\mu_0} \vb{B}^2 = \varepsilon_0 \vb{E}^2 \,,
+\end{equation}
+which can be computed using~\cref{def:real-electric-field} to be
+
+\begin{equation}
+  w_{em} = \varepsilon_0 E_{0}^{2} \left[ \vb{s_r}^2 \cos[2](\vb{k}\vdot\vb{r}-\omega t) + \vb{s_i}^2 \sin[2](\vb{k}\vdot\vb{r}-\omega t) - \vb{s_r}\vdot\vb{s_i} \sin(2\vb{k}\vdot \vb{r} - 2 \omega t) \right] \,.
+\end{equation}
+This quantity could vary quite wildly in time depending on the wave's frequency, so we would rather compute a quantity that can be easured experimentally, which is of course the time average of the energy density
+
+\begin{equation}
+  \expval{w_{em}} = \frac{1}{T} \int_{0}^{T} \dd{t} w_{em} = \frac{\varepsilon_0 E_0^2}{T} \int_{0}^{T} \dd{t} \left[ \vb{s_r}^2 \cos[2](\vb{k}\vdot\vb{r}-\omega t) + \vb{s_i}^2 \sin[2](\vb{k}\vdot\vb{r}-\omega t) - \vb{s_r}\vdot\vb{s_i} \sin(2\vb{k}\vdot \vb{r} - 2 \omega t) \right] \,.
+\end{equation}
+Since we know that the average of sine over one period is zero and the averages of both sine and cosine squared over one period are one half, we get
+
+\begin{equation}
+  \expval{w_{em}} = \frac{\varepsilon_0 E_0^2}{2} \,.
+\end{equation}
+But looking at definition~(\ref{def:complex-field}) we see that
+
+\begin{equation}
+  \expval{w_{em}} = \frac{\varepsilon_0}{2} \vb{\tilde{E}^*} \vdot \vb{\tilde{E}} \,.
+\end{equation}
+
+\par
+In a very similar way we have for the Poynting vector the following developement
+
+\begin{equation}
+  \vb{S} = \frac{1}{\mu_0} \vb{E}\vdot\vb{B} = \frac{1}{\mu_0 c} \vb{n} \vb{E}^2
+\end{equation}
+
+\begin{equation}
+\expval{\vb{S}} = \sqrt{\frac{\varepsilon_0}{\mu_0}} \expval{\vb{E}^2} \vb{n} = \frac{1}{2} \sqrt{\frac{\varepsilon_0}{\mu_0}} E_0^2 \vb{n} = c \expval{w_{em}} \vb{n}
+\end{equation}
+
+\begin{equation}
+\expval{\vb{S}} = \frac{1}{2\mu_0} \vb{\tilde{E}}\cp \vb{\tilde{B}^*} \,.
+\end{equation}
+And, obviously, the electromagnetic momentum~(\ref{def:electromagnetic-momentum}) is
+
+\begin{equation}
+  \expval{g} = \expval{\frac{1}{c^2} \vb{S}} = \frac{\expval{w_{em}}}{c^2} \vb{n} \,.
+\end{equation}
+
+\subsubsection{Polarization of Plane Waves}
+
+For any arbitrary complex field we can find a decomposition of the real field in orthogonal components. In oreder to do that, we make the following notations concerning the complex vector of~(\ref{def:complex-field})
+
+\begin{equation}
+  \vb{s}\vdot\vb{s} = \alpha^2 \ee^{2 \ii \theta} \; with \; \alpha , \, \theta \in \mathbb{R} \,.
+\end{equation}
+We can define \(\vb{u} = \vb{s} \ee^{-\ii \theta}\) such that \(\vb{u_r}\vdot\vb{u_i}=0\). In this way the orthogonal coordinates system can be chosen as
+
+\begin{equation}
+  \vb{e_x} = \frac{\vb{u_r}}{\abs{\vb{u_r}}}, \; \vb{e_y} = \pm \frac{\vb{u_i}}{\abs{\vb{u_i}}}, \; \vb{e_z} = \vb{n} \,,
+\end{equation}
+with the sign of \(\vb{e_y}\) being conveniently chosen in order to have a right-handed system (\textit{i}.\textit{e}. \(\vb{e_x}\cp\vb{e_y} = \vb{e_z}\)).
+
+\par
+The real field~(\ref{def:real-electric-field}) is in this basis
+
+\begin{equation}
+  \vb{E} = E_0 \left[ u_r \vb{e_x} \cos(\vb{k}\vdot\vb{r}-\omega t + \theta) \mp u_i \vb{e_y} \sin(\vb{k}\vdot\vb{r}-\omega t + \theta) \right] \,.
+\end{equation}
+For time-independent \(\vb{e_x}\), \(\vb{e_y}\) and \(\vb{e_z}\), the following cases are to be distinguished:
+
+\begin{itemize}
+  \item \(u_r\), \(u_i\) arbitrary and non-zero: eliptically polarized wave;
+  \item \(u_r=u_i\neq 0\): circularly polarized wave;
+  \item either \(u_r=0\) or \(u_i=0\): linearly polarized wave.
+\end{itemize}
+
+\subsection{Paraxial Approximation}
+
+This and the next section discuss the ways in which we can describe beams of electromagnetic waves (like, say, laser beams) and follows ideas from~\cite{goldsmithQuasiopticalSystemsGaussian1998}.
+
+\par
+The paraxial approximation aims to simplify the Helmholtz equation
+
+\begin{equation}
+  \left[\laplacian{} - \frac{1}{c^2} \pdv[2]{t} \right] \vb{\psi} = 0\,.
+\end{equation}
+We can treat this equation by the method of separation of variables \(\psi = \zeta (\vb{r}) T(t)\) in order for it to become
+
+\begin{equation}
+  \frac{1}{\zeta} \laplacian{\zeta} = \frac{1}{c^2} \frac{T''}{T} = - k^2 \,,
+\end{equation}
+where \(k\) is simply the wave number. It is clear that the solution of the time equation is a combination of sine and cosine functions, so the real problem consists in solving the spatial equation
+
+\begin{equation}
+\label{Helmholtz}
+  \laplacian{\zeta} + k^2 \zeta =0 \,.
+\end{equation}
+In the particular case of electromagnetic waves, this equation must hold for the complex vector \(\vb{\tilde{E}}\), so it must hold for each of its components. The Helmholtz equation for the electric field can be reduced by considering a solution of the form
+
+\begin{equation}
+\label{simplifing-solution}
+  \zeta (\vb{r}) = u (\vb{r}) \ee^{-\ii kz} \,,
+\end{equation}
+where the z-axis was chosen as the propagation direction for the wave.
+
+\par
+Inserting~(\ref{simplifing-solution}) in~\cref{Helmholtz} we get
+
+\begin{equation*}
+  0 = \laplacian{\zeta} + k^2 \zeta = (\partial_x^2 u + \partial_y^2 u) \ee^{-\ii kz} + \partial_z^2 (u \ee^{-\ii kz}) + k^2 u \ee^{-\ii kz} =
+\end{equation*}
+
+\begin{equation*}
+  = (\partial_x^2 u + \partial_y^2 u) \ee^{-\ii kz} + (\partial_z^2 u) \ee^{-\ii kz} - 2 \ii k (\partial_z u) \ee^{-\ii kz} - k^2 u\ee^{-\ii kz} + k^2 u \ee^{-\ii kz} =
+\end{equation*}
+
+\begin{equation*}
+  = \ee^{-\ii kz} \laplacian{u} - 2 \ii k \ee^{-\ii kz} \partial_z u\,.
+\end{equation*}
+Multiplying with \(\ee^{\ii kz}\) leads to
+
+\begin{equation}
+  \laplacian{u} - 2 \ii k \partial_z u = 0\,.
+\end{equation}
+
+\par
+The first paraxial approximation argument says that, due to diffraction, the variation of the amplitude \(u\) along the direction of propagation is very small compared to distances of the order of the wave's wavelength. This can be summarized by the mathematical condition
+
+\begin{equation}
+  \lambda \frac{\Delta (\partial_z u)}{\Delta z} \ll \partial_z u \,,
+\end{equation}
+which indicates that the double partial derivative with respect to z (the propagation axis) is negligible compared to the \(2 \ii k \partial_z u\) term. The second argument says that in the laplacian, the double partial derivative with respect to the z-axis can be neglected, such that one obtains
+
+\begin{equation}
+  \label{eq:paraxial-wave-equation}
+  \partial_x^2 u+ \partial_y^2 u -2 \ii k \partial_z u = 0 \,.
+\end{equation}
+which is the paraxial wave equation.
+
+\subsection{Gaussian Beams}
+
+One can find solutions to~\cref{eq:paraxial-wave-equation} working in various coordinate systems, but the most convenient and useful for our purpose (and in practical aplications in general) is to work in cylindrical coordinated. In this case, the equation becomes
+
+\begin{equation}
+  \partial_r^2 u +\frac{1}{r} \partial_r u + \frac{1}{r} \partial_\phi^2 u - 2 \ii k \partial_z u = 0 \,.
+\end{equation}
+To simplify our calculations even more, we can remove the \(\phi\) dependence of \(u\), which is to imply axial symmetry for the wave. This gives
+
+\begin{equation}
+  \label{eq:axial-symmetry-paraxial-equation}
+  \partial_r^2 u +\frac{1}{r} \partial_r u- 2 \ii k \partial_z u = 0 \,.
+\end{equation}
+The radial part of the equation suggests that we should have a dependence of a complex exponential of \(r^2\). An educated guess would be a Gaussian distribution-like function of the form
+
+\begin{equation}
+  \label{def:guess-gauss}
+  u(r,z) = G(z) \ee^{-i\frac{kr^2}{2q(z)}} \,,
+\end{equation}
+where the complex functions \(A(z)\) and \(q(z)\) are to be determined. Let us do just that by inserting~(\ref{def:guess-gauss}) in~\cref{eq:axial-symmetry-paraxial-equation}:
+\begin{equation}
+  to be continued
+\end{equation}
+
 
 \section{Electron Dynamics in Electromagnetic Fields}
 \section{The Ponderomotive Force}
