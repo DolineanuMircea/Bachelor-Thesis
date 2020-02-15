@@ -649,6 +649,7 @@ In what follows we are interested in analyzing the plane wave solution from the 
 From the discussion in the previous subsection it is easy to deduce the relation between the magnetic and electric fields of a wave (it is the same for both the real and complex fields)
 
 \begin{equation}
+  \label{othogonality-of-fields}
   \vb{\tilde{B}} = \frac{1}{c} \vb{n}\cp\vb{\tilde{E}} \,.
 \end{equation}
 With this, the energy density~(\ref{def:energy-density}) of the fields is
@@ -936,7 +937,7 @@ or
 \begin{equation}
   \frac{G(z)}{G(0)} = \frac{1}{1 - \ii \frac{\lambda z}{\pi w_0^2}} = \frac{1 + \ii \frac{\lambda z}{\pi w_0^2}}{1 +\left(\frac{\lambda z}{\pi w_0^2}\right)^2}\,.
 \end{equation}
-For convenience, this is usually expressed interms of a phasor defined as
+For convenience, this is usually expressed interms of a phasor (commonly called Gouy phase) defined as
 
 \begin{equation}
   \tan(\phi_0) = \frac{\lambda z}{\pi w_0^2}\,.
@@ -988,7 +989,7 @@ The \(x\) and \(y\) components of the electric field are now expressed using~\cr
 where we choose \(\alpha_x=1\), \(\alpha_y=0\) for linear polarization, and \(\alpha_x=\frac{1}{\sqrt{2}}\), \(\alpha_y=\pm \frac{\ii}{\sqrt{2}}\) for right and left-handed circular polarization, respectively. In order to obtain the \(z\) component, we have to impose the condition \(\div{\vb{E}} = 0\) and to use the approximation \(\partial_z E_z \approx -\ii k E_z\) (which holds if the pulse is long enough or quasi-rectangular). The immediate result is
 
 \begin{equation}
-  E_z (r,z) = - \frac{\ii}{k} \left( \partial_x E_x (r,z) +\partial_y E_y (r,z)\right)
+  E_z (r,z) = - \frac{\ii}{k} \left( \partial_x E_x (r,z) +\partial_y E_y (r,z)\right)\,,
 \end{equation}
 or, explicitly
 
@@ -997,17 +998,66 @@ or, explicitly
 \end{equation}
 
 \subsubsection{The Magnetic Field}
-To be added
+In order to derive the magnetic, one can impose the relation~(\ref{othogonality-of-fields})
 
-\subsubsection{The Temporal Profile}
-One observation must be made now. These extressions only describe the spatial part of the field. In order to give the exact field we must add the time-dependent part of the solution \(\ee^{\ii \omega t}\). However, this is not all there is to it. Since we are interested in describing laser beams, we must take into consideration the fact that the pulse has a finite duration. One does this by adding a Gaussian envelope over time. The time-dependent part will now be
+\begin{equation*}
+  \vb{B} = \frac{1}{c} \vb{n} \cp\vb{E} = \frac{1}{c} \vb{e_z} \cp\vb{E} = \frac{1}{c} E_x \vb{e_z} \cp\vb{e_x} + \frac{1}{c} E_y \vb{e_z} \cp\vb{e_y} = - \frac{1}{c} E_y \vb{e_x}+\frac{1}{c} E_x \vb{e_y} \,,
+\end{equation*}
+which indicates that
+
+\begin{subequations}
+  \begin{align}
+    B_x(r,z) = -\frac{1}{c}E_y(r,z)\\
+    B_y(r,z) = \frac{1}{c}E_x(r,z)\,.
+  \end{align}
+\end{subequations}
+The third component is found exactly in the same way as for the electric field, taking into account that \(\div{\vb{B}}=0\) and using the same approximation \(\partial_z B_z \approx -\ii k B_z\) (the conditions for its validity are the same):
 
 \begin{equation}
-  g(z,t) = \exp(\ii \omega t - \left( \frac{t-\frac{z-z_F}{c}}{\tau_0}\right))\,,
+  B_z (r,z) = - \frac{\ii}{k} \left( \partial_x B_x (r,z) +\partial_y B_y (r,z)\right) = -\frac{\ii}{ck} \left( \partial_y E_x (r,z) - \partial_x E_y (r,z) \right)\,,
 \end{equation}
-where \(\tau_0\) is the duration of the pulse and \(z_F\) is the original position of the intensity peak. In what follows, I aim to provide a short proof of the fact that even with this envelope, the final fields are still solutions of the axialy symmetric paraxial Helmholtz equation.
+or rather
 
-to be continued
+\begin{equation}
+  B_z (r,z) = \frac{2 \left(\ii -\frac{z}{z_0}\right)}{ckw^2 (z)} [yE_x (r,z) -xE_y(r,z)]\,.
+\end{equation}
+
+\subsubsection{The Temporal Profile}
+One observation must be made now. These expressions only describe the spatial part of the field. In order to give the exact field we must add the time-dependent part of the solution \(\ee^{\ii \omega t}\). However, this is not all there is to it. Since we are interested in describing laser beams, we must take into consideration the fact that the pulse has a finite duration. One does this by adding a Gaussian envelope over time. The time-dependent part will now be
+
+\begin{equation}
+  g(z,t) = \exp(\ii \omega t - \left( \frac{t-\frac{z-z_F}{c}}{\tau_0}\right)^2)\,,
+\end{equation}
+where \(\tau_0\) is the duration of the pulse and \(z_F\) is the original position of the intensity peak.
+%everything here might be bullshit
+ In what follows, I aim to provide a short proof of the fact that even with this envelope, the final fields are still solutions of the axialy symmetric paraxial Helmholtz equation.
+
+If we reintroduce the time derivative term into~\cref{eq:axial-symmetry-paraxial-equation} and the double derrivative with respect to \(z\) (but we still neglect its action on the spatial solution!)
+
+\begin{equation}
+  \partial_r^2 u +\frac{1}{r} \partial_r u +\partial_z^2 u - 2\ii k \partial_z u -\frac{1}{c} \partial_t^2 u = 0
+\end{equation}
+and suppose that \(f(r,z)\) is a solution of the spatial equation, we must show then that \(f(r,z)g(z,t)\) is a solution of this new equation.
+The direct approach gives
+
+\begin{equation*}
+  \partial_r^2 (fg) +\frac{1}{r} \partial_r (fg) +\partial_z^2 (fg) - 2\ii k \partial_z (fg) -\frac{1}{c^2} \partial_t^2 (fg) = 0
+\end{equation*}
+
+\begin{equation*}
+  \left[\partial_r^2 f +\frac{1}{r} \partial_r f - 2\ii k \partial_z f \right] g - \left[-\partial_z^2 g + 2\ii k \partial_z g +\frac{1}{c^2} \partial_t^2 g\right] f=0\,.
+\end{equation*}
+The first term is zero since \(f\) is a solution, so we must have the second term also equal to zero
+
+\begin{equation*}
+  2 \ii c^2 k \partial_z g +\partial_t^2 g= \partial_z^2 g\,,
+\end{equation*}
+or, using \(ck=\omega\)
+
+\begin{equation}
+  2 \ii \omega c \partial_z g +\partial_t^2 g=c^2 \partial_z^2 g\,.
+\end{equation}
+
 
 \subsubsection{The Final Fields}
 
@@ -1020,8 +1070,7 @@ The final relations are straightforward
   \end{align}
 \end{subequations}
 
+\subsection{Laguerre-Gauss Beams}
 
-\section{Electron Dynamics in Electromagnetic Fields}
-\section{The Ponderomotive Force}
-\section{Simulations for the Visualization of the Ponderomotive Force}
+\section{Angular Momentum of Electromagnetic Waves}
 \end{document}
