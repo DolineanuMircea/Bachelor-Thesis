@@ -794,9 +794,9 @@ which is the paraxial wave equation.
 One can find solutions to~\cref{eq:paraxial-wave-equation} working in various coordinate systems, but the most convenient and useful for our purpose (and in practical aplications in general) is to work in cylindrical coordinated. In this case, the equation becomes
 
 \begin{equation}
-  \partial_r^2 u +\frac{1}{r} \partial_r u + \frac{1}{r} \partial_\phi^2 u - 2 \ii k \partial_z u = 0 \,.
+  \partial_r^2 u +\frac{1}{r} \partial_r u + \frac{1}{r} \partial_\varphi^2 u - 2 \ii k \partial_z u = 0 \,.
 \end{equation}
-To simplify our calculations even more, we can remove the \(\phi\) dependence of \(u\), which is to imply axial symmetry for the wave. This gives
+To simplify our calculations even more, we can remove the \(\varphi\) dependence of \(u\), which is to imply axial symmetry for the wave. This gives
 
 \begin{equation}
   \label{eq:axial-symmetry-paraxial-equation}
@@ -1081,6 +1081,8 @@ Summing everything up, we still remain with a
   - \omega^2 g = 0\,.
 \end{equation}
 
+It is important to mention that this profile is not always usable. According to~\cite{quesnelTheorySimulationInteraction1998} finite pulse effects are important for \(c\tau_0  \lessapprox 2w_0\), and in this situation we must put an additional \(2 \partial_z
+ g \partial_z \vb{E}\) in the paraxial wave equation.
 
 \subsubsection{The Final Fields}
 
@@ -1094,6 +1096,41 @@ The final relations are straightforward
 \end{subequations}
 
 \subsection{Laguerre-Gauss Beams}
+This tipe of beam represents a correction for the Gauss one in order to remove the axial symmetry approximation. That is, we want fo find a function \(f(r,z,\varphi) = \zeta (r,z) s(r,z,\varphi)\) to be a solution of
+
+\begin{equation}
+  \partial_r^2 f +\frac{1}{r} \partial_r f + \frac{1}{r} \partial_\varphi^2 f - 2 \ii k \partial_z f = 0 \,,
+\end{equation}
+where \(\zeta\) is found in~(\ref{sol:final}). Actually, we would rather make an educated guess for a trial solution
+
+\begin{equation}
+  f(r,z,\varphi) = \zeta (r,z) S(r) \ee^{im\varphi}\,,
+\end{equation}
+with \(m\) can be a real number. In this case, it is straightforward to find that \(S(r)\) turns out to satisfy an equation similar to that of the associated Laguerre polynomials. One can reach through not so short computations the expression
+
+\begin{equation}
+  S(r) = \left(\frac{\sqrt{2r}}{w(z)}\right)^m L_{pm}\left(\frac{2r^2}{w^2(z)}\right)\,.
+\end{equation}
+
+The associated (or sometimes also called generalized) Laguerre polynomials are a solution of~(\cite{abramowitzHandbookMathematicalFunctions2013})
+
+\begin{equation}
+  x L_{pm}''(x) + (m+1-x) L_{pm}'(x) + p L_{pm}(x) =0\,,
+\end{equation}
+where \(p\in\mathbb{N}\) and \(m\in\mathbb{R}\).
+Their expression can be obtained using the Rodrigues formula
+
+\begin{equation}
+  L_{pm} (x) = \frac{x^{-m} e^x}{p!} \dv[p]{x} (e^{-x} x^{m+p})\,.
+\end{equation}
+
+The final expressions for the electric field, after dealing with normalization, are
+
+\begin{subequations}
+  \begin{align}
+    E_x^{pm} (r,z,\varphi) =
+  \end{align}
+\end{subequations}
 
 \section{Angular Momentum of Electromagnetic Waves}
 \end{document}
