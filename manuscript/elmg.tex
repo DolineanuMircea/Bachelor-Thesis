@@ -1026,6 +1026,7 @@ or rather
 One observation must be made now. These expressions only describe the spatial part of the field. In order to give the exact field we must add the time-dependent part of the solution \(\ee^{\ii \omega t}\). However, this is not all there is to it. Since we are interested in describing laser beams, we must take into consideration the fact that the pulse has a finite duration. One does this by adding a Gaussian envelope over time. The time-dependent part will now be
 
 \begin{equation}
+  \label{temporal-profile}
   g(z,t) = \exp(\ii \omega t - \left( \frac{t-\frac{z-z_F}{c}}{\tau_0}\right)^2)\,,
 \end{equation}
 where \(\tau_0\) is the duration of the pulse and \(z_F\) is the original position of the intensity peak.
@@ -1056,6 +1057,28 @@ or, using \(ck=\omega\)
 
 \begin{equation}
   2 \ii \omega c \partial_z g +\partial_t^2 g=c^2 \partial_z^2 g\,.
+\end{equation}
+Based on~\cref{temporal-profile} we have
+
+\begin{equation}
+  \partial_z g = \frac{2}{c} \frac{t-\frac{z-z_F}{c}}{\tau_0^2} g \Rightarrow 2 \ii \omega c \partial_z g = 4\ii \omega \frac{t-\frac{z-z_F}{c}}{\tau_0^2} g
+\end{equation}
+
+\begin{equation}
+  \partial_z^2 g = - \frac{2}{c^2} \frac{1}{\tau_0^2} g + \frac{4}{c^2} \left(\frac{t-\frac{z-z_F}{c}}{\tau_0^2} \right)^2 g \Rightarrow \partial_z^2 g = - 2 \frac{1}{\tau_0^2} g+ 4 \left(\frac{t-\frac{z-z_F}{c}}{\tau_0^2} \right)^2 g
+\end{equation}
+
+\begin{equation}
+  \partial_t g = \left(\ii \omega - 2 \frac{t-\frac{z-z_F}{c}}{\tau_0^2} \right) g
+\end{equation}
+
+\begin{equation}
+  \partial_t^2 g = - 2 \frac{1}{\tau_0^2} g + \left(\ii \omega - 2 \frac{t-\frac{z-z_F}{c}}{\tau_0^2} \right)^2 g = - 4\ii \omega \frac{t-\frac{z-z_F}{c}}{\tau_0^2} g - 2 \frac{1}{\tau_0^2} g - \omega^2 g+ 4 \left(\frac{t-\frac{z-z_F}{c}}{\tau_0^2} \right)^2 g
+\end{equation}
+Summing everything up, we still remain with a
+
+\begin{equation}
+  - \omega^2 g = 0\,.
 \end{equation}
 
 
