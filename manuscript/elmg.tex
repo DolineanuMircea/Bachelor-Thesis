@@ -981,6 +981,7 @@ Including it, all the relevant auxiliary functions become
 The \(x\) and \(y\) components of the electric field are now expressed using~\cref{sol:final} as
 
 \begin{subequations}
+  \label{def:gauss-beam-fields-xy}
   \begin{align}
     E_x (r,z) = \alpha_x E_0 \frac{w_0}{w} \exp(-\frac{r^2}{w^2}  -\ii k z -\ii \frac{k r^2}{2 R} + \ii \phi_0)\\
     E_y (r,z) = \alpha_y E_0 \frac{w_0}{w} \exp(-\frac{r^2}{w^2}  -\ii k z -\ii \frac{k r^2}{2 R} + \ii \phi_0)\,,
@@ -1128,9 +1129,64 @@ The final expressions for the electric field, after dealing with normalization, 
 
 \begin{subequations}
   \begin{align}
-    E_x^{pm} (r,z,\varphi) =
+    E_x^{pm} (r,z,\varphi) = E_x(r,z) \sqrt{\frac{p!}{(\abs{m}+p)!}} \left(\frac{\sqrt{2}r}{w(z)}\right)^{\abs{m}} L_{p\abs{m}} \left(\frac{2r^2}{w^2(z)}\right) \exp(\ii (2p+\abs{m}) \arctan(\frac{z}{z_0}))\ee^{-\ii m \varphi} \\
+    E_y^{pm} (r,z,\varphi) = E_y(r,z) \sqrt{\frac{p!}{(\abs{m}+p)!}} \left(\frac{\sqrt{2}r}{w(z)}\right)^{\abs{m}} L_{p\abs{m}} \left(\frac{2r^2}{w^2(z)}\right) \exp(\ii (2p+\abs{m}) \arctan(\frac{z}{z_0}))\ee^{-\ii m \varphi} \\
+    E_z^{pm} (r,z,\varphi) = - \frac{i}{k} \left(\partial_x E_x^{pm} (r,z,\varphi) + \partial_y E_y^{pm} (r,z,\varphi) \right) \,,
   \end{align}
 \end{subequations}
+where \(E_x(r,z)\) and \(E_y(r,z)\) are to be taken from the Gaussian beam~(\ref{def:gauss-beam-fields-xy}). For the sake of use in numerical simulations (mainly to eliminate the need for numerical differentiation) the \(z\) component of the field can be computed explicitly to be
 
+\begin{equation}
+  \begin{aligned}
+    E_z^{pm} = - \frac{\ii}{k} \left(-2\frac{1+\ii\frac{z}{z_0}}{w^2(z)} +\frac{L_{p\abs{m}}'\left(\frac{2r^2}{w^2(z)}\right)}{L_{p\abs{m}}\left(\frac{2r^2}{w^2(z)}\right)}\right) \left( xE_x^{pm} + yE_y^{pm} \right) - \\
+    -\frac{\ii}{k}\sqrt{\frac{p!}{(\abs{m}+p)!}} \left(\frac{\sqrt{2}}{w(z)}\right)^{\abs{m}} L_{p\abs{m}} \left(\frac{2r^2}{w^2(z)}\right) \exp(\ii (2p+\abs{m}) \arctan(\frac{z}{z_0})) (A_x E_x + A_y E_y)\,,
+  \end{aligned}
+\end{equation}
+with
+
+\begin{subequations}
+  \begin{align}
+    A_x =
+    \begin{cases}
+      l (x - \ii y)^{l-1} , \; l>0 \\
+      0,\;l=0\\
+      -l(x+\ii y)^{-l-1},\; l<0
+    \end{cases} \\
+    A_y =
+    \begin{cases}
+      -\ii l (x - \ii y)^{l-1} , \; l>0 \\
+      0,\;l=0\\
+      -\ii l(x+\ii y)^{-l-1},\; l<0\,.
+    \end{cases}
+  \end{align}
+\end{subequations}
+The magnetic field is derived exactly as in the case of the Gaussian beam
+
+\begin{subequations}
+  \begin{align}
+    B_x(r,z,\varphi) = -\frac{1}{c}E_y(r,z,\varphi)\\
+    B_y(r,z,\varphi) = \frac{1}{c}E_x(r,z,\varphi)\\
+    B_z (r,z,\varphi) = -\frac{\ii}{ck} \left[ \partial_y E_x (r,z,\varphi) - \partial_x E_y (r,z,\varphi) \right] \,.
+  \end{align}
+\end{subequations}
+The explicit third component of \(\vb{B}\) is
+
+\begin{equation}
+  \begin{aligned}
+  B_z^{pm} = - \frac{\ii}{ck} \left(-2\frac{1+\ii\frac{z}{z_0}}{w^2(z)} +\frac{L_{p\abs{m}}'\left(\frac{2r^2}{w^2(z)}\right)}{L_{p\abs{m}}\left(\frac{2r^2}{w^2(z)}\right)}\right) \left( yE_x^{pm} - xE_y^{pm} \right) - \\
+  -\frac{\ii}{ck}\sqrt{\frac{p!}{(\abs{m}+p)!}} \left(\frac{\sqrt{2}}{w(z)}\right)^{\abs{m}} L_{p\abs{m}} \left(\frac{2r^2}{w^2(z)}\right) \exp(\ii (2p+\abs{m}) \arctan(\frac{z}{z_0})) (A_y E_x - A_x E_y)\,.
+  \end{aligned}
+\end{equation}
+These expressions are easier to derive if we bring together the terms \(\left(\frac{\sqrt{2}r}{w(z)}\right)^{\abs{m}}\) and \(\ee^{-\ii m \varphi}\) and replace \(r\ee^{\pm\ii \varphi}\) with \(x\pm\ii y\) before computing the derivatives. This step also helps to eliminate the apparent singularity that might appear on the z-axis. Also, it might be useful to write the derrivative of the associated Laguerre polynomial as
+
+\begin{equation}
+  L_{p\abs{m}}'\left(\frac{2r^2}{w^2(z)}\right) =
+  \begin{cases}
+    - \frac{4}{w^2(z)} L_{p-1,\abs{m}+1}'\left(\frac{2r^2}{w^2(z)}\right),\; 1\leq p\\
+    0,\; otherwise\,.
+  \end{cases}
+\end{equation}
+
+Of course, in order to use these relations in simulations involving laser beams, one must attach also the temporal profile~(\ref{temporal-profile}).
 \section{Angular Momentum of Electromagnetic Waves}
 \end{document}
