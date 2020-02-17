@@ -611,7 +611,7 @@ This suggests that
 Looking at~\cref{rez:1,rez:2} it is easy to conclude that the electromagnetic waves are transverse and that at any moment, the magnetic and electric fields are perpendicular to one another.
 
 \par
-Note: Electromagnetic waves can only be transversal in ``free space'' or homogeneous media~(\cite{heavisideElectromagneticTheoryIncluding1971}). Longitudinal modes can also be achieved in special conditions, like inside confined spaces and in plasmas~(\cite{jacksonClassicalElectrodynamics1999,griffithsIntroductionElectrodynamics1999}). However, there has been work done on the production of longitudinal waves in vacuum~(\cite{wangCreationNeedleLongitudinally2008}) as a consequence of theoretical work showing the possibility of having a small longitudinal component in electromagnetic waves in vacuum~(\cite{cicchitelliLongitudinalFieldComponents1990}).
+Note: Electromagnetic waves can only be transversal in ``free space'' or homogeneous media~(\cite{heavisideElectromagneticTheoryIncluding1971}). Longitudinal modes can also be achieved in special conditions, like inside confined spaces and in plasmas~(\cite{jacksonClassicalElectrodynamics1999,griffithsIntroductionElectrodynamics1999}). However, there has been work done on the production of longitudinal waves in vacuum~(\cite{wangCreationNeedleLongitudinally2008}) as a consequence of theoretical work showing the possibility of having a small longitudinal component in electromagnetic waves in vacuum~(\cite{cicchitelliLongitudinalFieldComponents1990}) using an improved paraxial approximation.
 
 \subsection{Plane Waves}
 
@@ -977,14 +977,39 @@ Including it, all the relevant auxiliary functions become
   \end{align}
 \end{subequations}
 
+We can immediately observe that \(w(z)\) at \(z=z_0\) is actually equal to \(\sqrt{2}w_0\). From this we can deduce that the \(z_0\) indicates how far from the origin the beam is collimated. It is very simple to understand by looking at figure%~\cref{}%include a figure here
+
+We can also differentiate three cases of interest for the curvature radius \(R(z)\). At \(z\rightarrow 0\), \textit{i}.\textit{e}. near the waist, \(R\rightarrow\infty\), so the profile is that of a plane wave. At the Reyleigh range, the curvature (\(\frac{1}{R}\)) is maximum and, consequently, the radius itself is minimum (\(2z_0\)). Finally, at very large distances away from the waist, the radius is equal to \(z\), so the profile is spherical.
+
+The Gouy phase is an important parameter in theoretical considerations, especially when it comes to higher order Gaussian modes, but is hard to observe experimentally. Physically, it modifies the wavelength near the waist~(\cite{paschottaArticleGouyPhase}). This results also in a change of the phase velocity. As a consequence, the phase velocity near the waist can exceed the velocity of light in the medium, just as it might inside a waveguide.
+
+Now that we understood the shape and behaviour of the Gauss beam, we are almost ready to define the electric and magnetic fields. But before that we must talk about normalization. While a look at~(\ref{sol:final}) might not suggest the need for any normalization, physical arguments request it. We would like to not have unexplained losses of power as a funtion of \(z\) (remember that we are basically just setting the dependence of the fields on position right now). As such, a normalization of \(\zeta(r,z)\) over the transversal surface is necessary. That is, we want the intensity as a function of \(z\) to be just a constant. While in literature is very common to impose norm 1, I find it more useful to norm it to \(\pi w_0^2\), as suggested by~\cite{donderaElectronsTwistedFields2020}, such that the final result is adimensional and it is easier to introduce the amplitude of the field. We have
+
+\begin{equation*}
+  \pi w_0^2 = \iint \dd{r}\dd{\varphi} r\abs{\zeta}^2 = 2 \pi \abs{G(0)}^2 \int \dd{r} \abs{\frac{w_0}{w}}^2 r \ee^{-2\frac{r^2}{w^2}} =
+\end{equation*}
+
+\begin{equation*}
+  = \frac{1}{2}\pi \left(\frac{w_0}{w}\right)^2 \abs{G(0)}^2 w^2\int \dd{\left(2\frac{r^2}{w^2}\right)} \ee^{-2\frac{r^2}{w^2}} =
+\end{equation*}
+
+\begin{equation*}
+  = \frac{1}{2}\pi w_0^2 G^2(0)
+\end{equation*}
+which gives the normalization constant
+
+\begin{equation}
+  G(0) = \sqrt{2}\,.
+\end{equation}
+
 \subsubsection{The Electric Field}
 The \(x\) and \(y\) components of the electric field are now expressed using~\cref{sol:final} as
 
 \begin{subequations}
   \label{def:gauss-beam-fields-xy}
   \begin{align}
-    E_x (r,z) = \alpha_x E_0 \frac{w_0}{w} \exp(-\frac{r^2}{w^2}  -\ii k z -\ii \frac{k r^2}{2 R} + \ii \phi_0)\\
-    E_y (r,z) = \alpha_y E_0 \frac{w_0}{w} \exp(-\frac{r^2}{w^2}  -\ii k z -\ii \frac{k r^2}{2 R} + \ii \phi_0)\,,
+    E_x (r,z) = \alpha_x E_0 \sqrt{2}\frac{w_0}{w} \exp(-\frac{r^2}{w^2}  -\ii k z -\ii \frac{k r^2}{2 R} + \ii \phi_0)\\
+    E_y (r,z) = \alpha_y E_0 \sqrt{2}\frac{w_0}{w} \exp(-\frac{r^2}{w^2}  -\ii k z -\ii \frac{k r^2}{2 R} + \ii \phi_0)\,,
   \end{align}
 \end{subequations}
 where we choose \(\alpha_x=1\), \(\alpha_y=0\) for linear polarization, and \(\alpha_x=\frac{1}{\sqrt{2}}\), \(\alpha_y=\pm \frac{\ii}{\sqrt{2}}\) for right and left-handed circular polarization, respectively. In order to obtain the \(z\) component, we have to impose the condition \(\div{\vb{E}} = 0\) and to use the approximation \(\partial_z E_z \approx -\ii k E_z\) (which holds if the pulse is long enough or quasi-rectangular). The immediate result is
@@ -1031,33 +1056,59 @@ One observation must be made now. These expressions only describe the spatial pa
   g(z,t) = \exp(\ii \omega t - \left( \frac{t-\frac{z-z_F}{c}}{\tau_0}\right)^2)\,,
 \end{equation}
 where \(\tau_0\) is the duration of the pulse and \(z_F\) is the original position of the intensity peak.
-%everything here might be bullshit
- In what follows, I aim to provide a short proof of the fact that even with this envelope, the final fields are still solutions of the axialy symmetric paraxial Helmholtz equation.
 
-If we reintroduce the time derivative term into~\cref{eq:axial-symmetry-paraxial-equation} and the double derrivative with respect to \(z\) (but we still neglect its action on the spatial solution!)
+In what follows, I aim to provide a short proof of the fact that even with this envelope, the final fields are still solutions of Helmholtz equation under the paraxial approximation.
+
+Let \(f(r,z)\) be the solution for
 
 \begin{equation}
-  \partial_r^2 u +\frac{1}{r} \partial_r u +\partial_z^2 u - 2\ii k \partial_z u -\frac{1}{c} \partial_t^2 u = 0
+  \partial_r^2 f +\frac{1}{r} \partial_r f - 2\ii k \partial_z f = 0\,.
 \end{equation}
-and suppose that \(f(r,z)\) is a solution of the spatial equation, we must show then that \(f(r,z)g(z,t)\) is a solution of this new equation.
-The direct approach gives
+The solution for the complete Helmholtz equation
+
+\begin{equation}
+  \partial_r^2 u +\frac{1}{r} \partial_r u +\partial_z^2 u -\frac{1}{c} \partial_t^2 u = 0
+\end{equation}
+is proposed to be \(u(r,z) = f(r,z) g(z,t) \ee^{-\ii k z}\) such that we have
 
 \begin{equation*}
-  \partial_r^2 (fg) +\frac{1}{r} \partial_r (fg) +\partial_z^2 (fg) - 2\ii k \partial_z (fg) -\frac{1}{c^2} \partial_t^2 (fg) = 0
+  \partial_r^2 (fg\ee^{-\ii k z}) +\frac{1}{r} \partial_r (fg\ee^{-\ii k z}) +\partial_z^2 (fg\ee^{-\ii k z}) -\frac{1}{c^2} \partial_t^2 (fg\ee^{-\ii k z}) = 0
 \end{equation*}
 
 \begin{equation*}
-  \left[\partial_r^2 f +\frac{1}{r} \partial_r f - 2\ii k \partial_z f \right] g - \left[-\partial_z^2 g + 2\ii k \partial_z g +\frac{1}{c^2} \partial_t^2 g\right] f=0\,.
+  (\partial_r^2 f +\frac{1}{r} \partial_r f) g\ee^{-\ii k z} + (\partial_z^2 f) g\ee^{-\ii k z} + 2 (\partial_z f) \partial_z (g\ee^{-\ii k z}) + f \partial_z^2(g\ee^{-\ii k z}) - \frac{1}{c^2} f \partial_t^2 (g\ee^{-\ii k z}) = 0\,.
 \end{equation*}
+The paraxial approximation allows us to ignore the \(\partial_z^2 f\) term
+\begin{equation*}
+  (\partial_r^2 f +\frac{1}{r} \partial_r f) g\ee^{-\ii k z} + 2 (\partial_z f) \partial_z (g\ee^{-\ii k z}) + f \partial_z^2(g\ee^{-\ii k z}) - \frac{1}{c^2} f \partial_t^2 (g\ee^{-\ii k z}) = 0
+\end{equation*}
+
+\begin{equation*}
+  (\partial_r^2 f +\frac{1}{r} \partial_r f - 2 \ii k \partial_z f) g\ee^{-\ii k z} + 2 (\partial_z f) \ee^{-\ii k z} \partial_z g+ f \partial_z^2(g\ee^{-\ii k z}) - \frac{1}{c^2} f \partial_t^2 (g\ee^{-\ii k z}) = 0
+\end{equation*}
+
+\begin{equation*}
+  (\partial_r^2 f +\frac{1}{r} \partial_r f - 2 \ii k \partial_z f) g\ee^{-\ii k z} +f \left[ 2 \frac{\partial_z f}{f} \ee^{-\ii k z} \partial_z g+ \partial_z^2(g\ee^{-\ii k z}) - \frac{1}{c^2} \partial_t^2 (g\ee^{-\ii k z}) \right] = 0\,.
+\end{equation*}
+
 The first term is zero since \(f\) is a solution, so we must have the second term also equal to zero
 
 \begin{equation*}
-  2 \ii c^2 k \partial_z g +\partial_t^2 g= \partial_z^2 g\,,
+  2 \frac{\partial_z f}{f} \ee^{-\ii k z} \partial_z g+ \partial_z^2(g\ee^{-\ii k z}) - \frac{1}{c^2} \partial_t^2 (g\ee^{-\ii k z})= 0
+\end{equation*}
+
+\begin{equation*}
+  2 \frac{\partial_z f}{f} \ee^{-\ii k z} \partial_z g+ (\partial_z^2g)\ee^{-\ii k z} -2\ii k (\partial_z g) \ee^{-\ii k z} - k^2 g \ee^{-\ii k z} - \frac{1}{c^2} (\partial_t^2 g)\ee^{-\ii k z}= 0
+\end{equation*}
+and eliminating the exponential
+
+\begin{equation*}
+  2 \frac{\partial_z f}{f} \partial_z g+ \partial_z^2 g -2\ii k \partial_z g- k^2 g- \frac{1}{c^2} \partial_t^2 g= 0
 \end{equation*}
 or, using \(ck=\omega\)
 
 \begin{equation}
-  2 \ii \omega c \partial_z g +\partial_t^2 g=c^2 \partial_z^2 g\,.
+  2 \ii \omega c \partial_z g +\partial_t^2 g + \omega^2 g=c^2 \partial_z^2 g + 2 c^2 \frac{\partial_z f}{f} \partial_z g\,.
 \end{equation}
 Based on~\cref{temporal-profile} we have
 
@@ -1079,8 +1130,9 @@ Based on~\cref{temporal-profile} we have
 Summing everything up, we still remain with a
 
 \begin{equation}
-  - \omega^2 g = 0\,.
+  \frac{\partial_z f}{f} \partial_z g = 0\,,
 \end{equation}
+which is true under the paraxial approximation. %why?
 
 It is important to mention that this profile is not always usable. According to~\cite{quesnelTheorySimulationInteraction1998} finite pulse effects are important for \(c\tau_0  \lessapprox 2w_0\), and in this situation we must put an additional \(2 \partial_z
  g \partial_z \vb{E}\) in the paraxial wave equation.
