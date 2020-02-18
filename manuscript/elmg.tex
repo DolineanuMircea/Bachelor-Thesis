@@ -977,7 +977,13 @@ Including it, all the relevant auxiliary functions become
   \end{align}
 \end{subequations}
 
-We can immediately observe that \(w(z)\) at \(z=z_0\) is actually equal to \(\sqrt{2}w_0\). From this we can deduce that the \(z_0\) indicates how far from the origin the beam is collimated. It is very simple to understand by looking at figure%~\cref{}%include a figure here
+We can immediately observe that \(w(z)\) at \(z=z_0\) is actually equal to \(\sqrt{2}w_0\). From this we can deduce that the \(z_0\) indicates how far from the origin the beam is collimated. It is very simple to understand by looking at figure~\cref{fig:gauss-beam}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{Gauss-beam-profile}%
+  \caption{Gaussian beam radius \(w\) as a function of \(z\)}\label{fig:gauss-beam}%
+\end{figure}
 
 We can also differentiate three cases of interest for the curvature radius \(R(z)\). At \(z\rightarrow 0\), \textit{i}.\textit{e}. near the waist, \(R\rightarrow\infty\), so the profile is that of a plane wave. At the Reyleigh range, the curvature (\(\frac{1}{R}\)) is maximum and, consequently, the radius itself is minimum (\(2z_0\)). Finally, at very large distances away from the waist, the radius is equal to \(z\), so the profile is spherical.
 
@@ -1176,6 +1182,17 @@ Their expression can be obtained using the Rodrigues formula
 \begin{equation}
   L_{pm} (x) = \frac{x^{-m} e^x}{p!} \dv[p]{x} (e^{-x} x^{m+p})\,.
 \end{equation}
+
+We will now apply the same normalization criterion we used for the Gauss mode for \(f(r,z,\varphi)\)
+
+\begin{equation}
+  \pi w_0^2 = \iint \dd{r}\dd{\varphi} r \abs{f}^2\,.
+\end{equation}
+The integration is done as such
+
+\begin{equation*}
+  do\; it\; already
+\end{equation*}
 
 The final expressions for the electric field, after dealing with normalization, are
 
