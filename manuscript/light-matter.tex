@@ -38,9 +38,17 @@ with \(m_e\) and \(\vb{v_e}\) the mass and the velocity of the electron, respect
 \begin{equation}
   \dv{\vb{v_e}}{t} = - \frac{e}{m_e} \vb{E} = - \frac{e}{m_e}  E_0 \vb{e_x} \cos(kz-\omega t)\,.
 \end{equation}
+Simply integrating with initial conditions \(x_0\), \(y_0\), \(z_0\) \(=0\) and \(\vb{v_e(0)} = \vb{0}\) leads to
+
+\begin{subequations}
+  \begin{align}
+    \vb{v_e} (t) = \frac{e}{\omega m_e} E_0 \vb{e_x} \sin(kz-\omega t) \\
+    x (t) = \frac{e}{\omega^2 m_e} E_0 \left[ \cos(kz-\omega t) -1 \right]\,.
+  \end{align}
+\end{subequations}
 
 
 \section{The Ponderomotive Force}
 \section{Simulations for the Visualization of the Ponderomotive Force}
-
+\section{Laser Wakefield Acceleration}
 \end{document}
