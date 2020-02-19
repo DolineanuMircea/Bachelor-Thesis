@@ -1168,7 +1168,7 @@ where \(\zeta\) is found in~(\ref{sol:final}). Actually, we would rather make an
 with \(m\) can be a real number. In this case, it is straightforward to find that \(S(r)\) turns out to satisfy an equation similar to that of the associated Laguerre polynomials. One can reach through not so short computations the expression
 
 \begin{equation}
-  S(r) = \left(\frac{\sqrt{2r}}{w(z)}\right)^m L_{pm}\left(\frac{2r^2}{w^2(z)}\right)\,.
+  S(r) = \left(\frac{\sqrt{2r}}{w(z)}\right)^m L_{pm}\left(\frac{2r^2}{w^2(z)}\right) \exp(\ii (2p+m) \arctan(\frac{z}{z_0}))\,.
 \end{equation}
 
 The associated (or sometimes also called generalized) Laguerre polynomials are a solution of~(\cite{abramowitzHandbookMathematicalFunctions2013})
@@ -1191,10 +1191,28 @@ We will now apply the same normalization criterion we used for the Gauss mode fo
 The integration is done as such
 
 \begin{equation*}
-  do\; it\; already
+  \iint \dd{r}\dd{\varphi} r \abs{f}^2 = 2 \pi \int \dd{r} r \abs{\zeta}^2 \abs{S}^2 =2 \pi \abs{G(0)}^2 \left(\frac{w_0}{w}\right)^2 \int \dd{r} r \ee^{-\frac{2r^2}{w^2}} \left(\frac{2r^2}{w^2}\right)^m L_{pm}^2\left(\frac{2r^2}{w^2}\right) =
 \end{equation*}
 
-The final expressions for the electric field, after dealing with normalization, are
+\begin{equation*}
+  = \frac{1}{2} \pi \abs{G(0)}^2 \left(\frac{w_0}{w}\right)^2 w^2 \int \dd{\left(\frac{2r^2}{w^2}\right)}  \ee^{-\frac{2r^2}{w^2}} \left(\frac{2r^2}{w^2}\right)^m L_{pm}^2\left(\frac{2r^2}{w^2}\right) =
+\end{equation*}
+
+\begin{equation*}
+  = \frac{\pi w_0^2}{2} \abs{G(0)}^2 \int_0^\infty \dd{x} x^m \ee^{-x} L_{pm}^2 (x)\,.
+\end{equation*}
+The remaining integral is trivial if we take a look at the orthogonality relation of the associated Laguerre polynomials
+
+\begin{equation}
+  \int_0^\infty \dd{x} x^m \ee^{-x} L_{pm}(x) L_{p'm}(x) = \frac{(p+m)!}{p!} \delta_{pp'}\,.
+\end{equation}
+This gives the result
+
+\begin{equation}
+  G(0) = \sqrt{2} \sqrt{\frac{p!}{(p+m)!}}\,.
+\end{equation}
+
+The final expressions for the electric field, after dealing with normalization, are simply
 
 \begin{subequations}
   \begin{align}
