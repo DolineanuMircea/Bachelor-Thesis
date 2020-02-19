@@ -61,7 +61,7 @@ These equations are also complemented by the Lorentz force, which describes how 
 \]
 
 \subsection{The Scalar and Vector Potentials}
-
+\label{section:scalar-vector-potential}
 Since the electric~(\(\vb{E}\)) and magnetic~(\(\vb{B}\)) fields are vectors, they can be described together by a total of six quantities. The sources on the other hand can be described using only four quantities: the electric charge density~\(\rho\) and the three components of the electric current density~\(\vb{j}\). This points to the fact that there is a more convenient way to describe the fields. In finding this alternative, we shall employ the following basic results from algebra:
 \begin{subequations}
   \label{id:algebra}
@@ -181,6 +181,16 @@ Under this gauge, the potential equations~\cref{eq:coulomb-scalar-potential,eq:a
   \begin{align}
     \Box \vb{A} = -\mu_0 \vb{j} + \frac{1}{c^{2}} \grad{\pdv{\phi}{t}}\\
     \laplacian{\phi} = -\frac{\rho}{\varepsilon_0}  \,.
+  \end{align}
+\end{subequations}
+
+\subsubsection{Getting Back the Fields}
+In principle, one can choose the most convenient gauge for his system, solve the corresponding potential equations, then recover the electric and magnetic fields with
+
+\begin{subequations}
+  \begin{align}
+  \vb{E} = -\pdv{\vb{A}}{t} - \grad{\phi} \\
+  \vb{B} = \curl{\vb{A}}\,.
   \end{align}
 \end{subequations}
 
