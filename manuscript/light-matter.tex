@@ -31,6 +31,7 @@ where \(A_0 = \frac{E_0}{\omega} = \frac{B_0}{k}\).
 We start from the classical equation of motion given by Newton's second principle using the Lorentz force
 
 \begin{equation}
+  \label{eq:equation-of-motion-electron}
   \dv{\vb{p}}{t} = \dv{(m_e \vb{v_e})}{t} = - e \left( \vb{E} + \vb{v_e}\cp\vb{B} \right)\,,
 \end{equation}
 with \(m_e\) and \(\vb{v_e}\) the mass and the velocity of the electron, respectively, and \(e\) the elementary charge. Since we have \(B\propto\frac{E}{c}\) and also \(v_e \ll c\) (which is implied in order to have a classical treatment), we can safely remove the second term in the right-hand side of the equation above, remaining with
@@ -47,6 +48,49 @@ Simply integrating with initial conditions \(x_0\), \(y_0\), \(z_0\) \(=0\) and 
   \end{align}
 \end{subequations}
 
+It is important now to see when the classical treatment breaks down. Let us impose that
+
+\begin{equation}
+  v_e^{max} = c \,,
+\end{equation}
+such that we have
+
+\begin{equation}
+  a_0 \equiv \frac{e E_0}{\omega m_e c} = \frac{e A_0}{m_e c} = 1\,.
+\end{equation}
+The parameter \(a_0\) is called the normalized or dimensionless vector potential. From its definition it is easy to see that it can only take values between 0 and 1. We can use it to describe the amplitude of the electric field as such
+
+\begin{equation}
+  E_0 = a_0 \frac{\omega m_e c}{e}\,.
+\end{equation}
+It is very convenient in practice to use the wavelength and to extract the rest mass to charge ratio of the electron as follows
+
+\begin{equation}
+  E_0 = \frac{a_0}{\lambda} 2\pi \frac{m_e c^2}{e} = \frac{a_0}{\lambda} 2\pi\cdot 511 kV\,.
+\end{equation}
+The normalized vector field helds also an important significance. One can see that its definition actually boils down to
+
+\begin{equation}
+  a_0 = \frac{v_{max}^{classical}}{c}\,,
+\end{equation}
+so we can use it to find a boundary for the validity of the classical treatment. For simplicity, lets disect the \(a_0 = 1\) case, for which the motion should be completely relativistic, keeping in mind that the classical description stops being reliable well befor that. From the result concerning the Poynting vector of a plane wave~(\ref{def:poynting-plane-wave}), we can find the intensity of the pulse in this limiting case to be
+
+\begin{equation}
+  I = c \frac{\varepsilon_0}{2} E_0^2 \propto \frac{a_0^2}{\lambda^2} 10^{18} W \frac{\mu m^2}{cm^2}\;,
+\end{equation}
+which says that already at intensities of \(10^{18} \frac{W}{cm^2}\) the motion of the electron should be treated completely within the grounds of special relativity.
+
+\subsection{Relativistic Treatment}
+In the light of our discussion in the previous subsection, we see that in order to study how electrons interact with high-intensity laser beams (namely, terwatt and petawatt lasers), we should do all our calculations relativistically. The equation of motion remains the same, but the relativistic momentum is \(\vb{p} = \gamma m_e \vb{v_e}\), where \(\gamma\) is the usual Lorentz factor. By taking the scalar product of~\cref{eq:equation-of-motion-electron} with \(\vb{p}\) we get
+
+\begin{equation}
+  \frac{1}{2} \dv{\vb{p}^2}{t} = - e \vb{p}\vdot\vb{E}\,,
+\end{equation}
+where we used the fact that \(\vb{p}\vdot\left(\vb{v_e}\cp\vb{B}\right)\), since \(\vb{p}\) is proportional to \(\vb{v_e}\). Now, it is useful to write the Lorenz factor in terms of momentum like this
+
+\begin{equation}
+  do\; to
+\end{equation}
 
 \section{The Ponderomotive Force}
 \section{Simulations for the Visualization of the Ponderomotive Force}
