@@ -231,7 +231,49 @@ With this, all the puzzle pieces are in place, so we can collect the following r
     \tilde{p_z} = \frac{a^2}{2}\,.
   \end{align}
 \end{subequations}
-%do the proper time conversion of the derivatives and stuff
+It is more convenient, and general, to work with the derivative with respect to \(\tau = t - \frac{z(t)}{c}\), which is to choose the convenient reference frame of the wave to simplify the computations. This derivative is developed as such
+
+\begin{equation}
+  \dv{t} = \dv{\tau}{t} \dv{\tau} = \left( 1 - \frac{1}{c} \dv{z}{t} \right) \dv{\tau} = \left( 1 - \frac{a^2}{2}  \right) \dv{\tau} = \frac{1}{\gamma} \dv{\tau}\,.
+\end{equation}
+We can also write the phase of \(a\) in terms of this time
+
+\begin{equation}
+  kz-\omega  t= kz -\omega\tau - \frac{\omega}{c} z = - \omega \tau\,.
+\end{equation}
+A simple substitution gives the equations for the coordinates
+
+\begin{subequations}
+  \begin{align}
+    \dv{x}{\tau} = c a\\
+    \dv{y}{\tau} = 0\\
+    \dv{z}{\tau} = c \frac{a^2}{2}\,,
+  \end{align}
+\end{subequations}
+which have the solutions (of course using the initial conditions we chose at the begining)
+
+\begin{subequations}
+  \begin{align}
+    x(\tau) = \frac{ca_0}{\omega} \left[\cos(\omega \tau) - 1 \right] \\
+    y(\tau) = 0\\
+    z(\tau) = \frac{ca_0^2}{4} \left[\tau - \frac{1}{2\omega} \sin(2\omega \tau)\right]\,.
+  \end{align}
+\end{subequations}
+
+These results show us that the motion in the transversal plane is the same as in the classical motion. However, the motion on the propagation direction is more complex, being a superposition of an oscillation and a drift motion. The drift velocity \(v_{drift} = \expval{v_z} = \expval{\frac{z}{t}}\) can be computed fairly easy
+
+\begin{equation*}
+  z_{drift} = \frac{ca_0^2}{4} \tau = \frac{ca_0^2}{4} \left( t - \frac{z}{c} \right) = \frac{ca_0^2}{4} t - \frac{a_0^2}{4} z_{drift}
+\end{equation*}
+
+\begin{equation*}
+  z_{drift} = \frac{ca_0^2}{4} \frac{t}{1+\frac{a_0^2}{4}} = \frac{ca_0^2}{4+a_0^2} t
+\end{equation*}
+
+\begin{equation}
+  v_{drift} = \frac{ca_0^2}{4+a_0^2}\,.
+\end{equation}
+
 
 \section{The Ponderomotive Force}
 \section{Simulations for the Visualization of the Ponderomotive Force}
