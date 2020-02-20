@@ -274,6 +274,24 @@ These results show us that the motion in the transversal plane is the same as in
   v_{drift} = \frac{ca_0^2}{4+a_0^2}\,.
 \end{equation}
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.65\textwidth]{relativistic_electron_cont_pulse}%
+  \caption{The motion in the laboratory frame over two periods of the pulse for some practical parameters: \(a_0 = 20\) and \(\nu=\frac{\omega}{2\pi} = 400\) THz}\label{fig:electron-motion-cont}%
+\end{figure}
+
+In finite length pulses, a certain phenomenon occurs. In order to obtain a finite plane wave pulse, we simply add a Gaussian envelope
+
+\begin{equation}
+  a(\tau) = a_0 \exp(-\left(\frac{\tau}{\tau_0}\right)^2) \sin(\omega \tau)\,.
+\end{equation}
+Under the fields given by this potential, the electron starts moving, but it stops when the wave passes it. Thus, although the electron is moved forward, the net energy gain in its interaction with the field is zero. The theoretical calculations that prove this are quite lengthy, so, in order to visualize this effect, I offer a numerical solution of this motion solved using a standard Euler method in~\cref{fig:electron-motion-pulse}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\textwidth]{relativistic_electron_short_pulse}%
+  \caption{The motion in the laboratory frame over a long time compared to the pulse duration \(\tau_0\). The parameters used were: \(a_0 = 20\), \(\tau_0 = 30\) fs and \(\nu=\frac{\omega}{2\pi} = 400\) THz}\label{fig:electron-motion-pulse}%
+\end{figure}
 
 \section{The Ponderomotive Force}
 \section{Simulations for the Visualization of the Ponderomotive Force}
