@@ -99,11 +99,95 @@ From this discussion we can conclude that quasi-neutrality holds if the spatial 
 In practice, one uses another form for \(\lambda_D\) which neglects the \(Z\) and uses the temperature and particle density with more convenient units
 
 \begin{equation}
+  \label{def:debye-length}
   \lambda_D = \sqrt{\frac{\varepsilon_0 K_B T}{\bar{n}_e e^2}} = 6.9 \sqrt{\frac{T_e [\textrm{K}]}{n_e [\textrm{cm}^3 ]}}\,,
 \end{equation}
 the last expression giving \(\lambda_D\) in cm.
 
 \section{Plasma Frequency}
+
+The simplest plasma wave is a longitudinal oscilation of the electrons (caused by an external electric field). Considering how heavy all the other particle species are compared to them, we can treat this problem by considering the ions stationary. Thus, the electrons simply move in a static positive background. The local changes in electron density cause imbalance and, as we mentioned before, restoring Coulombian forces arise. In what follows we will work purely electrostatic by considering that the electric field is always paralel to the x-axis and the external electric field. We also consider that the electron temperature is close to zero.
+
+We make use of the equation of motion for a single electron, the continuity equation and the Poisson equation
+
+\begin{subequations}
+  \begin{align}
+    \label{eq:motion-plasma-freq}
+    m_e \dv{v_x}{t} = m_e \left(\partial_t v_x + v_x \partial_x v_x\right) = -e E\\
+    \label{eg:cont-plasma-freq}
+    \partial_t n_e + \partial_x (n_e v_e) = 0\\
+    \label{eq:poisson-plasma-freq}
+    \partial_x E = \frac{e}{\varepsilon_0} (n_p - n_e)\,,
+  \end{align}
+\end{subequations}
+where \(n_p\) is the positive charge density divided by the unit charge. In~\cref{eq:motion-plasma-freq} we can neglect the second term by considering that the velocity is small. We have \(v_x \partial_x v_x = \frac{1}{2} \partial_x v_x^2 \approx 0\), since \(v_x^2\ll v_x\) (remember that we work with \(T_e\approx0\)), so
+
+\begin{equation}
+  \partial_t v_x = - \frac{e}{m_e} E\,.
+\end{equation}
+Similarly, considering that the particle density is also slowly changing around an equilibrium position \(n_0 = n_p\) (\textit{i}.\textit{e}. \(n_e = n_0 +n(x,t)\)), we can simplify~\cref{eg:cont-plasma-freq}
+
+\begin{equation}
+  \partial_t n_e + n_0 \partial_x v_x = 0\,.
+\end{equation}
+These approximations also change~\cref{eq:poisson-plasma-freq}
+
+\begin{equation}
+  \partial_x E = - \frac{e}{\varepsilon_0} n\,.
+\end{equation}
+Using a plane wave ansaz for \(E\), \(v_x\) and \(n\)
+
+\begin{subequations}
+  \begin{align}
+    E = E_0 \ee^{\ii(kx -\omega t)}\\
+    v_x = v_0 \ee^{\ii(kx -\omega t)}\\
+    n = n_{10} \ee^{\ii(kx -\omega t)}\,,
+  \end{align}
+\end{subequations}
+The approximated equation become
+
+\begin{subequations}
+  \begin{align}
+    -\ii\omega v_0 = - \frac{e}{m_e} E_0\\
+    - \ii \omega n_{10} +\ii n_0 k v_0 = 0\\
+    \ii k E_0 = - \frac{e}{\varepsilon_0} n_{10}\,.
+  \end{align}
+\end{subequations}
+The frequency \(\omega\) can be extracted from these relations as follows
+
+\begin{equation}
+  -\ii\omega v_0 = - \frac{e}{m_e} E_0 =  \frac{e^2}{\ii \varepsilon_0 k m_e} n_{10} = \frac{e^2}{\ii \varepsilon_0 k m_e} \frac{k n_0}{\omega} v_0\,,
+\end{equation}
+or
+
+\begin{equation}
+  \label{def:plasma-frequency}
+  \omega_p = \sqrt{\frac{n_0 e^2}{\varepsilon_0 m_e}}\,.
+\end{equation}
+This is called the cold plasma frequency. This result can be used to derive the plasma waves dispersion relation for the thermal motion of electrons
+
+\begin{equation}
+  \omega^2 = \omega_p^2 + 3 k^2 \frac{K_B T_e}{m_e} = \omega_p^2 + \frac{3}{2} k^2 v_{th}^2\,,
+\end{equation}
+where \(v_{th}\) is the thermal velocity. As usual, the dispersion relation is useful for finding the phase and group veloities
+
+\begin{subequations}
+  \begin{align}
+    v_{ph} = \frac{\omega}{k} = \sqrt{\frac{\omega_p^2}{k^2} + \frac{3}{2} v_{th}^2} \\
+    v_{gr} = \pdv{\omega}{k} = \frac{3}{2} \frac{v_{th}^2}{v_{ph}}\,.
+  \end{align}
+\end{subequations}
+All these velocities satisfy the inequality
+
+\begin{equation}
+  v_{gr} < \sqrt{\frac{3}{2}} v_{th} < v_{ph}\,.
+\end{equation}
+
+It is also important to remark that the cold plasma frequency~(\ref{def:plasma-frequency}) and the Debye length~(\ref{def:debye-length}) can be related with each other
+
+\begin{equation}
+  \omega_p \cdot \lambda_D = \sqrt{\frac{K_B T_e}{m_e}} \propto v_{th}\,.
+\end{equation}
 
 
 \section{Electromagnetic Waves in Plasma}
