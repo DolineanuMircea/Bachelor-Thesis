@@ -189,8 +189,69 @@ It is also important to remark that the cold plasma frequency~(\ref{def:plasma-f
   \omega_p \cdot \lambda_D = \sqrt{\frac{K_B T_e}{m_e}} \propto v_{th}\,.
 \end{equation}
 
-
 \section{Electromagnetic Waves in Plasma}
+
+We will now try to discuss how a plane wave interacts with a plasma medium. We shall start assumung that we have a wave that enters the plasma having initially the properties
+
+\begin{subequations}
+\label{plasma-plane-wave}
+  \begin{align}
+    \vb{E},\, \vb{B}\propto \ee^{\ii (\vb{k}\vb{r}-\omega t)} \\
+    \vb{B} = \frac{1}{c} \vb{k}\cp\vb{E}\,.
+  \end{align}
+\end{subequations}
+For simplicity, we will assume that no longitudinal field components arise from the interaction with the plasma. While this may not be a perfectly realistic assumtion, the longitudinal components that appear would be very small and would not affect to much the result we obtain.
+
+We will make use of the already familiar Maxwell equations (two of them, to be precise)
+
+\begin{subequations}
+  \begin{align}
+    \curl{\vb{B}} = \mu_0\vb{j} +\frac{1}{c^2} \partial_t \vb{E} \Rightarrow \curl{(\partial_t \vb{B})} = \frac{1}{\varepsilon_0 c^2} \partial_t \vb{j} + \partial_t^2 \vb{E}\\
+    \curl{\vb{E}} = - \partial_t \vb{B} \Rightarrow \curl{(\curl{\vb{E}})} = \grad{(\div{\vb{E}})} - \laplacian{\vb{E}} = - \curl{(\partial_t \vb{B})}\,.
+  \end{align}
+\end{subequations}
+Bringing these results together gives
+
+\begin{equation}
+  \grad{(\div{\vb{E}})} - \laplacian{\vb{E}} + \frac{1}{\varepsilon_0 c^2} \partial_t \vb{j} + \partial_t^2 \vb{E} = 0\,.
+\end{equation}
+From~\cref{plasma-plane-wave} we can compute the derivatives to obtain
+
+\begin{equation}
+  \ii \grad{(\vb{k}\vdot\vb{E})} + k^2 \vb{E} - \ii \frac{\omega}{\varepsilon_0 c^2} \vb{j} - \frac{\omega^2}{c^2} \vb{E} = 0\,.
+\end{equation}
+Here the assumption of no longitudinal field component comes in handy and removes the first term, leaving us with
+ \begin{equation}
+   (\omega^2 - c^2 k^2)\vb{E} = -\ii \frac{\omega}{\varepsilon_0} \vb{j}\,.
+ \end{equation}
+We shall deviate a bit in order to find an expression for the current density. We can find the average electron velocity from the force equation
+
+\begin{equation}
+  m_e \partial_t \vb{v_e} = - e \vb{E} \Rightarrow \vb{v_e} = \frac{e}{\ii \omega m_e}
+\end{equation}
+and introduce it in the definition of the current density in terms of drift velocity
+
+\begin{equation}
+  \vb{j} = -e n_0 \vb{v_e}\,.
+\end{equation}
+
+By putting together these last three results we obtain the dispersion relation for plane electromagnetic waves in plasma
+
+\begin{equation}
+  \omega^2= \omega_p^2 +k^2c^2\,.
+\end{equation}
+From this, obtaining also the phase velocity is trivial
+
+\begin{equation}
+  v_{ph} = \frac{c}{\sqrt{1-\frac{\omega_p^2}{w^2}}} = \frac{c}{\eta}\,.
+\end{equation}
+Here we have also defined the plasma refractive index \(\eta = \frac{kc}{\omega}\). It gives very important criteria for propagation of waves in plasma. If \(\omega >\omega_p\), then \(\eta<1\) and the wave can propagate through. Otherwise, when \(\omega<\omega_p\) and \(\eta\) is imaginary, the wave can not propagate; it will drop exponentially after it enters the plasma medium. The group velocity is also obtained to be
+
+\begin{equation}
+  v_{gr} = c\eta < c\,.
+\end{equation}
+There is also a physical way to think about the possibility of propagation of a wave. If the electromagnetic oscillation occur at a faster rate than that to which the plasma can react, the charged particles in the plasma will not respond fast enough to shield the radiation and it will penetrate. In the oposite case, the incoming radiation is shielded and energy conservation dictates that the wave must be relfected. Whatever small part of the wave would enter the plasma will drop very fast.
+
 \section{The Vlasov Equation}
 \section{Two Stream Instability}
 \end{document}
