@@ -40,7 +40,9 @@ As it can be seen, we can basically treat the electrons inside the plasma as we 
 
 A simple numerical application shows us that in order to have \(K_B T_e = 1\) eV, the temperature would be around \(11600\) K. Thus, since the ionized electrons are above the energy level of outer bounded states (so above 1 eV), using Kelvin or degrees Celsius is not that handy. In practice, we will rather use eV (energy units) temperature, which is to be converted to the usual temperature by dividing to \(K_B\).
 
-We could actually treat the ions and the neutral atoms inside the plasma in the same manner. Considering this, we must make the remark that we can have different temperature scales in plasmas. While at thermodynamic equilibrium the system of electrons, ions and neutrals should have a uniform temperature, under the action of an electric field, lets say, the motion of the electrons is influenced more than that of the ions due to the difference in mass, while the neutrals are not affected at all, so we have \(T_n\neq T_i\neq T_e\). Of course, equilibration between species can be achieved through collisions or radiation emission and absorption. In complete models, one should also consider the temperatures of photons and individual ion subspecies that can appear. Considering this, in general, thermal equilibration can take a long time. It is also important to visualize that the temperature can be directionally dependent depending on the orientation of the fields we apply.
+We could actually treat the ions and the neutral atoms inside the plasma in the same manner. Considering this, we must make the remark that we can have different temperature scales in plasmas. While at thermodynamic equilibrium the system of electrons, ions and neutrals should have a uniform temperature, under the action of an electric field, lets say, the motion of the electrons is influenced more than that of the ions due to the difference in mass, while the neutrals are not affected at all, so we have \(T_n\neq T_i\neq T_e\). Of course, equilibration between species can be achieved through collisions or radiation emission and absorption. In complete models, one should also consider the temperatures of photons and individual ion subspecies that can appear. Considering this, in general, thermal equilibration can take a long time (How long exactly is hard to say. Even a rough estimate should account for many types of collisions that take place in a plasma. A comperhensive list of the processes occuring can be found in~\cite{braithwaiteIntroductionGasDischarges2000}). It is also important to visualize that the temperature can be directional depending on the orientation of the fields we apply.
+
+Regarding the photons in the system, we must point out that they never reach an equilibrium state. That is because photons are not maintained in the plasma like the other forces (say, electrons and ions pulled back in the plasma by Coulomb forces, neutral particles which have to deal with surface effects). This effect is easy to see in practice. Since the photons leave the plasma medium, the plasma itself is radiating light. This property is the basis for building plasma lamps and plasma displays.
 
 \section{Debye Shielding}
 In this section we will derive a common criterion for quasi-neutrality. Let us consider an infinite medium filled with plasma at thermal equilibrium, \(T=T_e = T_i\) and with one ion species with charge \(Ze\), such that we have \(n_e = Zn_i\). We are interested to see what happens if we introduce an infinite plane with constant positive surface charge density \(\sigma\) in this system (see~\cref{fig:debye}).
@@ -253,5 +255,15 @@ Here we have also defined the plasma refractive index \(\eta = \frac{kc}{\omega}
 There is also a physical way to think about the possibility of propagation of a wave. If the electromagnetic oscillation occur at a faster rate than that to which the plasma can react, the charged particles in the plasma will not respond fast enough to shield the radiation and it will penetrate. In the oposite case, the incoming radiation is shielded and energy conservation dictates that the wave must be relfected. Whatever small part of the wave would enter the plasma will drop very fast.
 
 \section{The Vlasov Equation}
+
+There is an alternative way to treat the statistics of plasma populations without using the Maxwell-Boltzmann distribution. More precisely, one can derive an equation for the distribution function in phase space. In order to do that, we must start from the Liouville theorem.
+
+\subsubsection{Theorem}
+  The \textit{phase flow} is the one-parameter group of transformations of phase space
+  \(g^t:(\vb{p}(0),\vb{q}(0))\rightarrow(\vb{p}(t),\vb{q}(t))\), where \(\vb{p}(t)\) and \(\vb{q}(t)\) are solutions of the Hamilton equations.
+\newline
+
+A complete and easy to follow proof of this theorem can be found in~\cite{arnoldMathematicalMethodsClassical1997}. In more layman terms, for a Hamiltonian system, the volume in phase space is conserved in time.
+
 \section{Two Stream Instability}
 \end{document}
