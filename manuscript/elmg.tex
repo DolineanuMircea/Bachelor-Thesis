@@ -1003,7 +1003,7 @@ The Gouy phase is an important parameter in theoretical considerations, especial
 Now that we understood the shape and behaviour of the Gauss beam, we are almost ready to define the electric and magnetic fields. But before that we must talk about normalization. While a look at~(\ref{sol:final}) might not suggest the need for any normalization, physical arguments request it. We would like to not have unexplained losses of power as a funtion of \(z\) (remember that we are basically just setting the dependence of the fields on position right now). As such, a normalization of \(\zeta(r,z)\) over the transversal surface is necessary. That is, we want the intensity as a function of \(z\) to be just a constant. While in literature is very common to impose norm 1, I find it more useful to norm it to \(\pi w_0^2\), as suggested by~\cite{donderaElectronsTwistedFields2020}, such that the final result is adimensional and it is easier to introduce the amplitude of the field. We have
 
 \begin{equation*}
-  \pi w_0^2 = \iint \dd{r}\dd{\varphi} r\abs{\zeta}^2 = 2 \pi \abs{G(0)}^2 \int \dd{r} \abs{\frac{w_0}{w}}^2 r \ee^{-2\frac{r^2}{w^2}} =
+  \frac{1}{2}\pi w_0^2 = \iint \dd{r}\dd{\varphi} r\abs{\zeta}^2 = 2 \pi \abs{G(0)}^2 \int \dd{r} \abs{\frac{w_0}{w}}^2 r \ee^{-2\frac{r^2}{w^2}} =
 \end{equation*}
 
 \begin{equation*}
@@ -1016,7 +1016,7 @@ Now that we understood the shape and behaviour of the Gauss beam, we are almost 
 which gives the normalization constant
 
 \begin{equation}
-  G(0) = \sqrt{2}\,.
+  G(0) = 1\,.
 \end{equation}
 
 \subsubsection{The Electric Field}
@@ -1025,11 +1025,11 @@ The \(x\) and \(y\) components of the electric field are now expressed using~\cr
 \begin{subequations}
   \label{def:gauss-beam-fields-xy}
   \begin{align}
-    E_x (r,z) = \alpha_x E_0 \sqrt{2}\frac{w_0}{w} \exp(-\frac{r^2}{w^2}  -\ii k z -\ii \frac{k r^2}{2 R} + \ii \phi_0)\\
-    E_y (r,z) = \alpha_y E_0 \sqrt{2}\frac{w_0}{w} \exp(-\frac{r^2}{w^2}  -\ii k z -\ii \frac{k r^2}{2 R} + \ii \phi_0)\,,
+    E_x (r,z) = \alpha_x E_0 \frac{w_0}{w} \exp(-\frac{r^2}{w^2}  -\ii k z -\ii \frac{k r^2}{2 R} + \ii \phi_0)\\
+    E_y (r,z) = \alpha_y E_0 \frac{w_0}{w} \exp(-\frac{r^2}{w^2}  -\ii k z -\ii \frac{k r^2}{2 R} + \ii \phi_0)\,,
   \end{align}
 \end{subequations}
-where we choose \(\alpha_x=1\), \(\alpha_y=0\) for linear polarization, and \(\alpha_x=\frac{1}{\sqrt{2}}\), \(\alpha_y=\pm \frac{\ii}{\sqrt{2}}\) for right and left-handed circular polarization, respectively. In order to obtain the \(z\) component, we have to impose the condition \(\div{\vb{E}} = 0\) and to use the approximation \(\partial_z E_z \approx -\ii k E_z\) (which holds if the pulse is long enough or quasi-rectangular). The immediate result is
+where we choose \(\alpha_x=1\), \(\alpha_y=0\) for linear polarization, and \(\alpha_x=\frac{1}{\sqrt{2}}\), \(\alpha_y=\pm \frac{\ii}{\sqrt{2}}\) for right and left-handed circular polarization, respectively. We see that \(E_0\) is simply the value of the field at \(z=0\) and \(t=0\). In order to obtain the \(z\) component, we have to impose the condition \(\div{\vb{E}} = 0\) and to use the approximation \(\partial_z E_z \approx -\ii k E_z\) (which holds if the pulse is long enough or quasi-rectangular). The immediate result is
 
 \begin{equation}
   E_z (r,z) = - \frac{\ii}{k} \left( \partial_x E_x (r,z) +\partial_y E_y (r,z)\right)\,,
@@ -1197,7 +1197,7 @@ Their expression can be obtained using the Rodrigues formula
 We will now apply the same normalization criterion we used for the Gauss mode for \(f(r,z,\varphi)\)
 
 \begin{equation}
-  \pi w_0^2 = \iint \dd{r}\dd{\varphi} r \abs{f}^2\,.
+  \frac{1}{2}\pi w_0^2 = \iint \dd{r}\dd{\varphi} r \abs{f}^2\,.
 \end{equation}
 The integration is done as such
 
@@ -1220,7 +1220,7 @@ The remaining integral is trivial if we take a look at the orthogonality relatio
 This gives the result
 
 \begin{equation}
-  G(0) = \sqrt{2} \sqrt{\frac{p!}{(p+m)!}}\,.
+  G(0) = \sqrt{\frac{p!}{(p+m)!}}\,.
 \end{equation}
 
 The final expressions for the electric field, after dealing with normalization, are simply
@@ -1237,20 +1237,20 @@ where \(E_x(r,z)\) and \(E_y(r,z)\) are to be taken from the Gaussian beam~(\ref
 \begin{equation}
   \begin{aligned}
     E_z^{pm} = - \frac{\ii}{k} \left(-2\frac{1+\ii\frac{z}{z_0}}{w^2(z)} +\frac{L_{p\abs{m}}'\left(\frac{2r^2}{w^2(z)}\right)}{L_{p\abs{m}}\left(\frac{2r^2}{w^2(z)}\right)}\right) \left( xE_x^{pm} + yE_y^{pm} \right) - \\
-    -\frac{\ii}{k}\sqrt{\frac{p!}{(\abs{m}+p)!}} \left(\frac{\sqrt{2}}{w(z)}\right)^{\abs{m}} L_{p\abs{m}} \left(\frac{2r^2}{w^2(z)}\right) \exp(\ii (2p+\abs{m}) \arctan(\frac{z}{z_0})) (A_x E_x + A_y E_y)\,,
+    -\frac{\ii}{k}\sqrt{\frac{p!}{(\abs{m}+p)!}} \left(\frac{\sqrt{2}}{w(z)}\right)^{\abs{m}} L_{p\abs{m}} \left(\frac{2r^2}{w^2(z)}\right) \exp(\ii (2p+\abs{m}) \arctan(\frac{z}{z_0})) (T_x E_x + T_y E_y)\,,
   \end{aligned}
 \end{equation}
 with
 
 \begin{subequations}
   \begin{align}
-    A_x =
+    T_x =
     \begin{cases}
       l (x - \ii y)^{l-1} , \; l>0 \\
       0,\;l=0\\
       -l(x+\ii y)^{-l-1},\; l<0
     \end{cases} \\
-    A_y =
+    T_y =
     \begin{cases}
       -\ii l (x - \ii y)^{l-1} , \; l>0 \\
       0,\;l=0\\
@@ -1272,7 +1272,7 @@ The explicit third component of \(\vb{B}\) is
 \begin{equation}
   \begin{aligned}
   B_z^{pm} = - \frac{\ii}{ck} \left(-2\frac{1+\ii\frac{z}{z_0}}{w^2(z)} +\frac{L_{p\abs{m}}'\left(\frac{2r^2}{w^2(z)}\right)}{L_{p\abs{m}}\left(\frac{2r^2}{w^2(z)}\right)}\right) \left( yE_x^{pm} - xE_y^{pm} \right) - \\
-  -\frac{\ii}{ck}\sqrt{\frac{p!}{(\abs{m}+p)!}} \left(\frac{\sqrt{2}}{w(z)}\right)^{\abs{m}} L_{p\abs{m}} \left(\frac{2r^2}{w^2(z)}\right) \exp(\ii (2p+\abs{m}) \arctan(\frac{z}{z_0})) (A_y E_x - A_x E_y)\,.
+  -\frac{\ii}{ck}\sqrt{\frac{p!}{(\abs{m}+p)!}} \left(\frac{\sqrt{2}}{w(z)}\right)^{\abs{m}} L_{p\abs{m}} \left(\frac{2r^2}{w^2(z)}\right) \exp(\ii (2p+\abs{m}) \arctan(\frac{z}{z_0})) (T_y E_x - T_x E_y)\,.
   \end{aligned}
 \end{equation}
 These expressions are easier to derive if we bring together the terms \(\left(\frac{\sqrt{2}r}{w(z)}\right)^{\abs{m}}\) and \(\ee^{-\ii m \varphi}\) and replace \(r\ee^{\pm\ii \varphi}\) with \(x\pm\ii y\) before computing the derivatives. This step also helps to eliminate the apparent singularity that might appear on the z-axis. Also, it might be useful to write the derrivative of the associated Laguerre polynomial as
@@ -1302,5 +1302,5 @@ By having the electromagnetic momentum defined in~(\ref{def:electromagnetic-mome
 \begin{equation}
   \vb{J} = \varepsilon_0 \int \dd{\vb{r}} \vb{r}\cp(\vb{E}\cp\vb{B})
 \end{equation}
-Details about the actual derivation and how to apply this definition in particular cases is found in~\cite{belinfanteCurrentDensityElectric1940} and~\cite{humbletMomentImpulsionOnde1943}.
+Details about the actual derivation and how to apply this definition in particular cases are found in~\cite{belinfanteCurrentDensityElectric1940} and~\cite{humbletMomentImpulsionOnde1943}.
 \end{document}
