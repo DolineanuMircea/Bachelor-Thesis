@@ -1236,7 +1236,7 @@ where \(E_x(r,z)\) and \(E_y(r,z)\) are to be taken from the Gaussian beam~(\ref
 
 \begin{equation}
   \begin{aligned}
-    E_z^{pm} = - \frac{\ii}{k} \left(-2\frac{1+\ii\frac{z}{z_0}}{w^2(z)} +\frac{L_{p\abs{m}}'\left(\frac{2r^2}{w^2(z)}\right)}{L_{p\abs{m}}\left(\frac{2r^2}{w^2(z)}\right)}\right) \left( xE_x^{pm} + yE_y^{pm} \right) - \\
+    E_z^{pm} = - \frac{\ii}{k} \left(-2\frac{1+\ii\frac{z}{z_0}}{w^2(z)} +\frac{\partial L_{p\abs{m}}\left(\frac{2r^2}{w^2(z)}\right)}{L_{p\abs{m}}\left(\frac{2r^2}{w^2(z)}\right)}\right) \left( xE_x^{pm} + yE_y^{pm} \right) - \\
     -\frac{\ii}{k}\sqrt{\frac{p!}{(\abs{m}+p)!}} \left(\frac{\sqrt{2}}{w(z)}\right)^{\abs{m}} L_{p\abs{m}} \left(\frac{2r^2}{w^2(z)}\right) \exp(\ii (2p+\abs{m}) \arctan(\frac{z}{z_0})) (T_x E_x + T_y E_y)\,,
   \end{aligned}
 \end{equation}
@@ -1271,16 +1271,18 @@ The explicit third component of \(\vb{B}\) is
 
 \begin{equation}
   \begin{aligned}
-  B_z^{pm} = - \frac{\ii}{ck} \left(-2\frac{1+\ii\frac{z}{z_0}}{w^2(z)} +\frac{L_{p\abs{m}}'\left(\frac{2r^2}{w^2(z)}\right)}{L_{p\abs{m}}\left(\frac{2r^2}{w^2(z)}\right)}\right) \left( yE_x^{pm} - xE_y^{pm} \right) - \\
+  B_z^{pm} = - \frac{\ii}{ck} \left(-2\frac{1+\ii\frac{z}{z_0}}{w^2(z)} +\frac{\partial L_{p\abs{m}}\left(\frac{2r^2}{w^2(z)}\right)}{L_{p\abs{m}}\left(\frac{2r^2}{w^2(z)}\right)}\right) \left( yE_x^{pm} - xE_y^{pm} \right) - \\
   -\frac{\ii}{ck}\sqrt{\frac{p!}{(\abs{m}+p)!}} \left(\frac{\sqrt{2}}{w(z)}\right)^{\abs{m}} L_{p\abs{m}} \left(\frac{2r^2}{w^2(z)}\right) \exp(\ii (2p+\abs{m}) \arctan(\frac{z}{z_0})) (T_y E_x - T_x E_y)\,.
   \end{aligned}
 \end{equation}
-These expressions are easier to derive if we bring together the terms \(\left(\frac{\sqrt{2}r}{w(z)}\right)^{\abs{m}}\) and \(\ee^{-\ii m \varphi}\) and replace \(r\ee^{\pm\ii \varphi}\) with \(x\pm\ii y\) before computing the derivatives. This step also helps to eliminate the apparent singularity that might appear on the z-axis. Also, it might be useful to write the derrivative of the associated Laguerre polynomial as
+These expressions are easier to derive if we bring together the terms \(\left(\frac{\sqrt{2}r}{w(z)}\right)^{\abs{m}}\) and \(\ee^{-\ii m \varphi}\) and replace \(r\ee^{\pm\ii \varphi}\) with \(x\pm\ii y\) before computing the derivatives. This step also helps to eliminate the apparent singularity that might appear on the z-axis.
+
+Be aware that \(\partial L_{p\abs{m}}\) is not the derivative of the Laguerre generalized polynomial with respect to anything, but rather a notation for the common factor of the partial derivatives with respect to \(x\) and \(y\). Its expression is
 
 \begin{equation}
-  L_{p\abs{m}}'\left(\frac{2r^2}{w^2(z)}\right) =
+  \partial L_{p\abs{m}}\left(\frac{2r^2}{w^2(z)}\right) =
   \begin{cases}
-    - \frac{4}{w^2(z)} L_{p-1,\abs{m}+1}'\left(\frac{2r^2}{w^2(z)}\right),\; 1\leq p\\
+    - \frac{4}{w^2(z)} L_{p-1,\abs{m}+1}\left(\frac{2r^2}{w^2(z)}\right),\; 1\leq p\\
     0,\; otherwise\,.
   \end{cases}
 \end{equation}

@@ -256,14 +256,29 @@ There is also a physical way to think about the possibility of propagation of a 
 
 \section{The Vlasov Equation}
 
-There is an alternative way to treat the statistics of plasma populations without using the Maxwell-Boltzmann distribution. More precisely, one can derive an equation for the distribution function in phase space. In order to do that, we must start from the Liouville theorem.
+There is an alternative way to treat the statistics of plasma populations without using the Maxwell-Boltzmann distribution. More precisely, one can derive an equation for the distribution function in phase space. In order to do that, we must start from the Liouville theorem~(\cite{arnoldMathematicalMethodsClassical1997}, p. 68).
 
-\subsubsection{Theorem}
+\subsubsection{Theorem(Liouville)}
   The \textit{phase flow} is the one-parameter group of transformations of phase space
   \(g^t:(\vb{p}(0),\vb{q}(0))\rightarrow(\vb{p}(t),\vb{q}(t))\), where \(\vb{p}(t)\) and \(\vb{q}(t)\) are solutions of the Hamilton equations. The phase flow preserves the volume of any region. That is, for any region \(D\), \(V(g^tD)=V(D)\).
 \newline
 
-A complete and easy to follow proof of this theorem can be found in~\cite{arnoldMathematicalMethodsClassical1997}. In more layman terms, for a Hamiltonian system, the volume in phase space is conserved in time.
+In more layman terms, for a Hamiltonian system, the volume in phase space is conserved in time. In this theorem we also defined the time propagation transformation group \(\{g^t\}\). Before delving into the proof of Liouville's theorem let us see that \({g^t}\) is indeed a group (just as a warming up exercise).
+
+Let \(g^{t_a}\,,g^{t_b}\in \{g^t\}\) three arbitrary transformations (the time \(t\) is just a real parameter) and \(\vb{v}\,,\vb{p}\) solutions of Hamilton's equations. For the closure property we have
+
+\begin{equation*}
+  (g^{t_a}\cdot g^{t_b}):(\vb{p}(0),\vb{q}(0)) \equiv g^{t_a}:(g^{t_b}:(\vb{p}(0),\vb{q}(0))) \equiv g^{t_a}:(\vb{p}(t_b),\vb{q}(t_b)) \equiv
+\end{equation*}
+
+\begin{equation*}
+  \equiv (\vb{p}(t_b+t_a),\vb{q}(t_b+t_a)) \equiv g^{t_b+t_a}:(\vb{p}(0),\vb{q}(0))\,.
+\end{equation*}
+We can see from this that composing two transformations gives another transformation whose parameter is the sum of the parameters of the initial transformations. Now it is easy to argue that associativity holds because the parameters are real numbers and their addition is associative. The identity element is \(g^0\) and the inverve of the element \(g^t\) is \(g^{-t}\). Even more, this group is abelian. This is consistent to the physical reality of time evolution, since, starting from exactly the same initial conditions, progressing in time first up to \(t_a\) and then up to \(t_a+t_b\) is equivalent to progressing in time first up to \(t_b\) and then up to \(t_a+t_b\).
+
+Now let us turn back to proving the theorem. I will deonote by \(V(t)\) the volume of \(D(t)\), where \(D(t) = g^t D\).
+
+
 
 \section{Two Stream Instability}
 \end{document}
