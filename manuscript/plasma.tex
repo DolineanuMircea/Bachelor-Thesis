@@ -276,9 +276,99 @@ Let \(g^{t_a}\,,g^{t_b}\in \{g^t\}\) three arbitrary transformations (the time \
 \end{equation*}
 We can see from this that composing two transformations gives another transformation whose parameter is the sum of the parameters of the initial transformations. Now it is easy to argue that associativity holds because the parameters are real numbers and their addition is associative. The identity element is \(g^0\) and the inverve of the element \(g^t\) is \(g^{-t}\). Even more, this group is abelian. This is consistent to the physical reality of time evolution, since, starting from exactly the same initial conditions, progressing in time first up to \(t_a\) and then up to \(t_a+t_b\) is equivalent to progressing in time first up to \(t_b\) and then up to \(t_a+t_b\).
 
-Now let us turn back to proving the theorem. I will deonote by \(V(t)\) the volume of \(D(t)\), where \(D(t) = g^t D\).
+Now let us turn back to proving the theorem. I will deonote by \(V(t)\) the volume of \(D(t)\), where \(D(t) = g^t D\) and \(D\) is the initial volume. Supposing we have the set on \(n\) ordinary differential equations
 
+\begin{equation}
+  \vb{u} = \vb{F} (\vb{u}),\; \vb{u} = (u_1,\,u_2,\,\dots,\,u_n)\,,
+\end{equation}
+we can define the corresponding group of transformations \(\{g^t\}\) for an infinitesimal time propagation \(\delta t \rightarrow 0\) as
 
+\begin{equation}
+  \label{def:infinitesimal-time-propagator}
+  g^{\delta t} : \vb{u} = \vb{u} + \vb{F}(\vb{x}) \delta t + \mathcal{O}(\delta t^2)\,.
+\end{equation}
+
+In the space of the soluions \(\vb{u}\), the initial and final volumes can be written as
+
+\begin{subequations}
+  \begin{align}
+    V(0) = \int_{D} \dd{\vb{u}}\\
+    V(\delta t) = \int_{D(\delta t)} \dd{\vb{u}(\delta t)} \,,
+  \end{align}
+\end{subequations}
+with \(\dd{\vb{u}} = \dd{u_1}\dd{u_2}\dots\dd{u_n}\). The key argument of the proof is that we can write the integral at time \(\delta t\) using as integration variables the coordinates at time 0 through a change of variables, that is, employing the Jacobian \(\pdv{g^{\delta t}:\vb{u}}{\vb{u}}\)
+
+\begin{equation}
+\label{eq:volume-at-t}
+  V(\delta t) = \int_{D} \dd{\vb{u}} \abs{\pdv{g^{\delta t}:\vb{u}}{\vb{u}}} \,.
+\end{equation}
+This Jacobian can found from~\cref{def:infinitesimal-time-propagator} to be
+
+\begin{equation}
+  \pdv{g^{\delta t}:\vb{u}}{\vb{u}} = I + \pdv{\vb{F}}{\vb{u}} \delta t + \mathcal{O}(\delta t^2)\,,
+\end{equation}
+where we denoted with \(I\) the corresponding identity matrix.
+
+Here it is obvious that we can employ the Cayley-Hamilton theorem, or rather a direct consequence of it
+
+\subsubsection{Theorem}
+For any matrix \(A\)
+\begin{equation}
+  \abs{I+\delta t A} = 1 + \delta t\, tr A +\mathcal{O}(\delta t^2)\,,
+\end{equation}
+when \(\delta t \rightarrow 0\).
+\newline
+
+This immediately gives
+
+\begin{equation}
+  \abs{\pdv{g^{\delta t}:\vb{u}}{\vb{u}}} = 1 + \delta t\, tr \pdv{\vb{F}}{\vb{u}}+\mathcal{O}(\delta t^2)\,.
+\end{equation}
+Since \(tr \pdv{\vb{F}}{\vb{u}} = \sum_{i=1}^n \partial_{x_i} F_i = \div{\vb{F}}\),~\cref{eq:volume-at-t} can be rewritten as
+
+\begin{equation}
+  V(\delta t) = \int_{D} \dd{\vb{u}} \left( 1+\delta t\, \div{\vb{F}} +\mathcal{O}(\delta t^2) \right)\,,
+\end{equation}
+so the variation in volume in the solution space is (by taking the derivative)
+
+\begin{equation}
+  \partial_t V = \int_{D} \dd{\vb{u}} \div{\vb{F}}\,.
+\end{equation}
+In the case of the Hamilton equations
+
+\begin{subequations}
+  \begin{align}
+    \dv{\vb{p}}{t} = - \pdv{H}{\vb{q}}\\
+    \dv{\vb{q}}{t} = \pdv{H}{\vb{p}}\,,
+  \end{align}
+\end{subequations}
+we have
+
+\begin{equation}
+  \div{\vb{F}} = \pdv{\vb{p}} \left(- \pdv{H}{\vb{q}} \right) + \pdv{\vb{q}} \left(\pdv{H}{\vb{p}} \right) = 0\,,
+\end{equation}
+which proves the Liouville theorem.
+
+Now, finding the Vlasov equation is only a matter of using basic and principial satistical mechanics reasoning. If we have a system of particles obeying Hamiltonian dynamics, the probability to fin this system in a certain volume element \(\dd{\vb{p}}\dd{\vb{q}}\) in phase space is denoted as \(w(\dd{\vb{p}}\dd{\vb{q}})\). This can be written in terms of a distribution function \(\rho\) as \(w (\dd{\vb{p}} \dd{\vb{q}}) = \rho (\vb{p},\vb{q},t) \dd{\vb{p}} \dd{\vb{q}}\).
+Since at equilibrium, \(w\) is constant, we can conclude that
+
+\begin{equation}
+  \rho (\vb{p},\vb{q},t) \dd{\vb{p}} \dd{\vb{q}} = \rho (\vb{p_0},\vb{q_0},t_0) \dd{\vb{p_0}} \dd{\vb{q_0}}\,,
+\end{equation}
+or, using Liouville's theorem,
+
+\begin{equation}
+  \dv{\rho}{t} = 0 = \pdv{\rho}{t} + \pdv{\vb{p}}{t} \pdv{\rho}{\vb{p}} + \pdv{\vb{q}}{t} \pdv{\rho}{\vb{q}} \,.
+\end{equation}
+While this equation is sometimes called the Liouville equation, Boltzmann was the first to use it for the purpose of statistical physics. In the original Boltzmann equation, a collision term is considered. For plasma, this collision term is neglected, since the intercation mechanism is the long range Coulomb force. The colisionless Boltzmann equation is named the Vlasov equation, since Anatoly Vlasov was the first to implement this formalism in studies of plasma physics.
+
+Since \(\vb{p}\) and \(\vb{q}\) are functions of time only, their partial derivatives can be written as total derivatives. Using Newton's second principle and defining the forces acting on the particles as \(\vb{f}\), we can stylize the Vlasov equation so it may look more familiar~(\cite{feixUniversalModelVlasov2005})
+
+\begin{equation}
+  \pdv{\rho}{t} + \vb{f}\vdot\pdv{\rho}{\vb{p}} + \vb{v}\vdot\pdv{\rho}{\vb{r}} = 0\,.
+\end{equation}
+
+An imortant remark must be made. The distribution function \(\rho\) is actually one that describe all the particles in the system together. In practice, in order ease the solving of this equation, one uses the approximation that this equation is valid for the single-particle distribution. The interaction between particles is reintroduced by including in the scalar potential the contribution of each particle~(\cite{silimVlasovcodeSimulationsCollisionless2003}). While this is a better way of describing the plasma system than using the Canonical ensamble (\textit{i}.\textit{e}. the Maxwell-Boltzmann statistics), this approximation neglects some inherent correlations that exist in real systems.
 
 \section{Two Stream Instability}
 \end{document}
