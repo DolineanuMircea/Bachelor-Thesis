@@ -1,7 +1,6 @@
 - relativistic derivation of the ponderomotive force
 - calculations for two stream instability
 - ponderomotive force simulations
-- add the two stream instability results
 - intro to numerical methods stability
 - do boris push stability
 - talk about PIC, EPOCH, how to use it

@@ -371,4 +371,93 @@ Since \(\vb{p}\) and \(\vb{q}\) are functions of time only, their partial deriva
 An imortant remark must be made. The distribution function \(\rho\) is actually one that describe all the particles in the system together. In practice, in order ease the solving of this equation, one uses the approximation that this equation is valid for the single-particle distribution. The interaction between particles is reintroduced by including in the scalar potential the contribution of each particle~(\cite{silimVlasovcodeSimulationsCollisionless2003}). While this is a better way of describing the plasma system than using the Canonical ensamble (\textit{i}.\textit{e}. the Maxwell-Boltzmann statistics), this approximation neglects some inherent correlations that exist in real systems.
 
 \section{Two Stream Instability}
+
+%discuss about it qualitatively at least, if you can't find the time to do calculations
+
+The~\cref{fig:2-stream-instability-1,fig:2-stream-instability-2} illustrate this effect in phase space. The images were obtained through a Particle in Cell simulation. Red points represent the particles going to the right, while blue points represent the particles going to the left.
+
+%discuss the effect with examples from the graphs
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[t]{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0000}
+    \caption{}%
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0008}
+    \caption{}%
+  \end{subfigure}
+  \vskip\baselineskip
+  \begin{subfigure}[b]{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0016}
+    \caption{}%
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0024}
+    \caption{}%
+  \end{subfigure}
+  \vskip\baselineskip
+  \begin{subfigure}[b]{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0032}
+    \caption{}%
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0040}
+    \caption{}%
+  \end{subfigure}
+  \caption{Particle in Cell simulation of the two stream instability effect - formation of the waves}%
+  \label{fig:2-stream-instability-1}%
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[b]{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0048}
+    \caption{}%
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0056}
+    \caption{}%
+  \end{subfigure}
+  \vskip\baselineskip
+  \begin{subfigure}[b]{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0064}
+    \caption{}%
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0072}
+    \caption{}%
+  \end{subfigure}
+  \vskip\baselineskip
+  \begin{subfigure}[b]{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0082}
+    \caption{}%
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0091}
+    \caption{}%
+  \end{subfigure}
+  \caption{Particle in Cell simulation of the two stream instability effect - destruction of the waves}%
+  \label{fig:2-stream-instability-2}%
+\end{figure}
+
 \end{document}
