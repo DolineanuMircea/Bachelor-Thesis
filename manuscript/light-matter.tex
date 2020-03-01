@@ -175,6 +175,7 @@ Now we would like to find \(p_x\). There is actually a more efficient way to do 
 We make use of the vector identity
 
 \begin{equation}
+  \label{id:vp-of-curl}
   \vb{v}\cp(\curl{\vb{u}}) = \grad{(\vb{v}\vdot\vb{u})} - (\vb{v}\vdot \grad) \vb{u}\,,
 \end{equation}
 and the total derivative of \(A\) with respect to time
@@ -293,9 +294,82 @@ Under the fields given by this potential, the electron starts moving, but it sto
   \caption{The motion in the laboratory frame over a long time compared to the pulse duration \(\tau_0\). The parameters used were: \(a_0 = 20\), \(\tau_0 = 30\) fs and \(\nu=\frac{\omega}{2\pi} = 400\) THz}\label{fig:electron-motion-pulse}%
 \end{figure}
 
+While a rigurous and complete discussion on dinamics of electrons in wave fields can take an entire book, I will offer here the Lawson-Woodward theorem, which analyzes the posibility for an electron to be accelerated by an electromagnetic wave.
+
+\subsubsection{Theorem(Lawson-Woodward)}
+A reletivistic electron does not gain energy from an electromagnetic wave if
+\begin{itemize}
+  \item if the interaction takes place in vacuum, in the abence of any walls or any other particles;
+  \item if the electron is in the highly relativistic regime during the entire acceleration process;
+  \item if there are no static electromagnetic fields;
+  \item if the interaction region is infinitely large;
+  \item if the ponderomotive force can be neglected.
+\end{itemize}
+If at least one of these conditions are violated, acceleration can happen.
+\newline
+
+In laser-plasma interaction in particular, all the conditions of this theorem are not valid, which is why the possibility of developing a plasma based, laser powered accelerator is appealing. More on the prospects of this technology will be presented in the next sections.
+
 \section{The Ponderomotive Force}
 
 In this section we will delve into the most relevant physical phenomenon for our studies, namely the ponderomotive force. Intuitively, if we have a focused laser beam, its field will strongly vary in the transverse direction. For an electron that is initially found on the axis of the pulse, the deflection is stronger than the restoring force. Because of this, the electron will be completely removed from the focal region after a couple of oscillations and will retain a non-zero kinetic energy. This effect is called ponderomotive scattering. Some results from simulations of electron movement in various laser beam profiles are presented later in~\cref{sec:ponderomotive-graphs}. In these simulations we solved numerically the equations of motion for the electron, but in this section we will do some approximated computations to get a better understanding of the physics that generate this effect.
+
+\subsection{Classical Derivation}
+
+We already solved the motion of the electron in a plane wave, but for our current purpose, we will need a more general expression for the field. Namely, we would like to have a periodic dependence on time and a spatial dependence of the amplitude
+
+\begin{equation}
+  \vb{E} = \vb{E_0}(\vb{r}) \cos(\omega t)\,.
+\end{equation}
+Note that the plane wave field is just a particular case of this ansaz, but now the equation of motion~(\ref{eq:equation-of-motion-electron}) is valid only locally, at the electron position \(\vb{r_0}\). Let us approxiamates the field around \(\vb{r_0}\) by Taylor expansion
+
+\begin{equation}
+  \vb{E_0}(\vb{r}) = \left[\vb{E_0}(\vb{r})\right]_{\vb{r}=\vb{r_0}} + \left[(\delta \vb{r}\vdot\grad)\vb{E_0}(\vb{r})\right] _{\vb{r}=\vb{r_0}} + \mathcal{O}(\delta\vb{r}^2)\,.
+\end{equation}
+From the Maxwell equation \(\partial_t \vb{B} = - \curl{\vb{E}}\), by integration over time, we can also find the magnetic field
+
+\begin{equation}
+  \vb{B}(\vb{r}) =\frac{1}{c}\left[\vb{e_z} \cp \vb{E_0}(\vb{r})\right]_{\vb{r}=\vb{r_0}} \cos(\omega t) - \frac{1}{\omega} \left[\curl{\vb{E_0}(\vb{r})}\right]_{\vb{r}=\vb{r_0}} \sin(\omega t)\,.
+\end{equation}
+We can now write the equation of motion in first order and in second oreder, respectively
+
+\begin{subequations}
+  \begin{align}
+    \label{eq:first-order}
+    m_e \dv{\vb{v}^{(0)}}{t} = - e \left[\vb{E_0}(\vb{r_0}) \cos(\omega t) + \frac{\vb{v}^{(0)}}{c}\cp \left(\vb{e_z} \cp \vb{E_0}(\vb{r_0}) \right) \cos(\omega t)\right] \approx - e \vb{E_0}(\vb{r_0}) \cos(\omega t)\\
+    \label{eq:second-order}
+    m_e\dv{\vb{v}^{(1)}}{t} = - e \left[ (\delta\vb{r}\vdot\grad) \vb{E_0}(\vb{r})\right]_{\vb{r}=\vb{r_0}} \cos(\omega t) + e \frac{1}{\omega} \vb{v}^{(0)}\cp \left[\curl{\vb{E_0}(\vb{r})}\right]_{\vb{r}=\vb{r_0}} \sin(\omega t) \,,
+  \end{align}
+\end{subequations}
+where \(\dv{(\delta \vb{r})}{t} = \vb{v}^{(0)}\) and we have used the fact that \(v^{(0)}\ll c\).Equation~(\ref{eq:first-order}) is solved by direct integration
+
+\begin{subequations}
+  \begin{align}
+    \vb{v}^{(0)} = - \frac{e}{m_e \omega} \vb{E_0}(\vb{r_0}) \sin(\omega t)\\
+    \delta \vb{r} = \frac{e}{m_e \omega^2} \vb{E_0}(\vb{r_0}) \cos(\omega t)\,.
+  \end{align}
+\end{subequations}
+These are pretty much the results from the plane wave, that is the oscillatory motion induced by the wave on the electron. The second order equation describes an additional effectthat arises. Replacing the above solutions in~\cref{eq:second-order} leads to
+
+\begin{equation}
+    m_e\dv{\vb{v}^{(1)}}{t} = - \frac{e^2}{m_e \omega^2} \left[ (\vb{E_0}\vdot\grad)\vb{E_0}\cos[2](\omega t) + \vb{E_0}\cp\left(\curl{\vb{E_0}}\right)\sin[2](\omega t) \right]_{\vb{r}=\vb{r_0}}\,.
+\end{equation}
+So far this discussion followed the microscopic motion. We are intrested in average effects, so we should find the time average of the expression obtained. Keeping in mind that both the averages of sine squared and cosine squared over one period are one half, we can deduce that
+
+\begin{equation}
+  \expval{m_e\dv{\vb{v}^{(1)}}{t}}_T =  - \frac{e^2}{2 m_e \omega^2} \left[ (\vb{E_0}\vdot\grad)\vb{E_0} + \vb{E_0}\cp\left(\curl{\vb{E_0}}\right)\right]_{\vb{r}=\vb{r_0}}\,,
+\end{equation}
+where \(T=\frac{2\pi}{\omega}\).
+We aplly now the vector identity~(\ref{id:vp-of-curl}) and the fact that \(\grad{\vb{v}^2} = 2\vb{v}(\div{\vb{v}})\) to reach the final result
+
+\begin{equation}
+  \expval{m_e\dv{\vb{v}^{(1)}}{t}}_T = - \frac{e^2}{4 m_e \omega^2} \grad{\vb{E_0}^2} = \vb{F_{pond}}\,,
+\end{equation}
+which gives the expression of the ponderomotive force \(\vb{F_{pond}}\).
+
+\subsection{Relativistic Ponderomotive Force}
+
+We already saw that for high intensity lasers the classical treatment is insuficient. In the case of the ponderomotive force a relativistic derivation leads to the same dependence on the field. More precisely, the ponderomotive force is directly proportional to the gradient of the squared electric field. Nonetheless, I will try to present in this section a rigurous relativistic treatment based on the discussion in the 5th chapter of~\cite{mulserHighPowerLasermatter2010}.
 
 \section{Simulations for the Visualization of the Ponderomotive Force}
 \label{sec:ponderomotive-graphs}
