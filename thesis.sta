@@ -1,0 +1,23 @@
+\standalonepreambles
+\subpreamble{intro.tex}
+\usepackage {ba_thesis}
+\endsubpreamble
+\subpreamble{elmg.tex}
+\usepackage {ba_thesis}
+\endsubpreamble
+\subpreamble{light-matter.tex}
+\usepackage {ba_thesis}
+\endsubpreamble
+\subpreamble{plasma.tex}
+\usepackage {ba_thesis}
+\endsubpreamble
+\subpreamble{n-methods.tex}
+\usepackage {ba_thesis}
+\endsubpreamble
+\subpreamble{results.tex}
+\usepackage {ba_thesis}
+\endsubpreamble
+\subpreamble{conclusions.tex}
+\usepackage {ba_thesis}
+\endsubpreamble
+\endstandalonepreambles
