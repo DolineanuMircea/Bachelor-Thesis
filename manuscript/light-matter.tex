@@ -371,6 +371,162 @@ which gives the expression of the ponderomotive force \(\vb{F_{pond}}\).
 
 We already saw that for high intensity lasers the classical treatment is insuficient. In the case of the ponderomotive force a relativistic derivation leads to the same dependence on the field. More precisely, the ponderomotive force is directly proportional to the gradient of the squared electric field. Nonetheless, I will try to present in this section a rigurous relativistic treatment based on the discussion in the 5th chapter of~\cite{mulserHighPowerLasermatter2010}.
 
+We will start with the Lagrangian for an electron in an arbitrary 4-vector potential \((\phi,\vb{A})\)
+
+\begin{equation}
+  \label{eq:lagrangian-0}
+  L(\vb{x},\vb{v},t) = -\frac{m_e c^2}{\gamma} - e\vb{v}\vdot\vb{A} + e \phi\,.
+\end{equation}
+Since our system has an oscillation part given by the periodic time dependence of the 4-vector potential of the driving electromagnetic wave, we can change to action-angle variables \(S=S(\vb{x},t)\) and \(\eta = \eta (\vb{x},t)\), which are Lorentz invariant, so the motion will be governed by Hamilton's principle
+
+\begin{equation}
+  \label{eq:new-action}
+  \delta S = \delta \int_{\eta_i}^{\eta_f} \dd{\eta} L(\vb{x}(\eta),\vb{v}(\eta),t(\eta)) \dv{t}{\eta}\,.
+\end{equation}
+This change of variables introduces a new Lagrangian (a ``Lagrangian angular density'' if you want)
+
+\begin{equation}
+  \label{eq:new-lagrangian}
+  \mathcal{L} (\eta) = \frac{L(\eta)}{\dv{\eta}{t}}\,.
+\end{equation}
+With all these things set up and choosing \(\eta\) to be normalized to \(2\pi\), we introduce the cycle averaged Lagrangian
+
+\begin{equation}
+  \label{eq:cycle-avg-lagrangian}
+  \mathcal{L}_0 (\eta) = \frac{1}{2\pi} \int_\eta^{\eta+2\pi} \dd{\eta'} \mathcal{L} (\eta')\,.
+\end{equation}
+We denote by \(N = \frac{n_f-n_1}{2\pi}\) to be the number of cycles over which \(\mathcal{L}_0\) undergoes a significant change. We are interested now to see how \(N\) imposes a boundary on the action of \(\mathcal{L}_0\). From~\cref{eq:new-action,eq:new-lagrangian} we see that
+
+\begin{equation*}
+  \delta \int_{\eta_i}^{\eta_f} \dd{\eta} \mathcal{L} = 0\,,
+\end{equation*}
+which is useful in order to do the following mathematical arguments
+
+\begin{equation*}
+  \abs{\delta \int_{\eta_i}^{\eta_f} \dd{\eta} \mathcal{L}_0} = \abs{\delta \int_{\eta_i}^{\eta_f} \dd{\eta} (\mathcal{L}_0 - \mathcal{L})} = \abs{\int_{\eta_i}^{\eta_f} \dd{\eta} \delta (\mathcal{L}_0 - \mathcal{L})} =
+\end{equation*}
+
+\begin{equation*}
+  = \abs{\int_{\eta_i}^{\eta_f} \dd{\eta} \left[\mathcal{L}_0 (\eta+\delta\eta) - \mathcal{L}(\eta+\delta\eta) \right] - \int_{\eta_i}^{\eta_f} \dd{\eta} \left[\mathcal{L}_0 (\eta) - \mathcal{L}(\eta) \right]} \leq
+\end{equation*}
+
+\begin{equation*}
+  \leq \sum_{n=1}^{N} \abs{\int_{\eta_n}^{\eta_n + 2\pi} \dd{\eta} \left[\mathcal{L}_0 (\eta+\delta\eta) - \mathcal{L}(\eta+\delta\eta) \right] - \int_{\eta_n}^{\eta_n + 2\pi} \dd{\eta} \left[\mathcal{L}_0 (\eta) - \mathcal{L}(\eta) \right]}\,,
+\end{equation*}
+where we discretized the angle variable as \(\eta_n = \eta_i +2\pi n\), \(n \in \mathbb{N}^*\) and used the triangle inequality for the modulus. We will now replace \(\mathcal{L}\) from~\cref{eq:cycle-avg-lagrangian} and continue our endeavours
+
+\begin{equation*}
+  \abs{\delta \int_{\eta_i}^{\eta_f} \dd{\eta} \mathcal{L}_0} \leq \sum_{n=1}^{N} \abs{\int_{\eta_n}^{\eta_n + 2\pi} \dd{\eta} \mathcal{L}_0 (\eta+\delta\eta) - 2 \pi \mathcal{L}_0 (\eta_n +\delta\eta_n) - \int_{\eta_n}^{\eta_n + 2\pi} \dd{\eta} \mathcal{L}_0 (\eta) - 2\pi \mathcal{L}_0 (\eta_n)} =
+\end{equation*}
+
+\begin{equation*}
+  = \sum_{n=1}^{N} \abs{\int_{\eta_n}^{\eta_n + 2\pi} \dd{\eta} \left[ \mathcal{L}_0 (\eta+\delta\eta) - \mathcal{L}_0 (\eta)\right] - 2\pi \left[ \mathcal{L}_0 (\eta_n+\delta\eta_n) - \mathcal{L}_0 (\eta_n)\right]} \approx
+\end{equation*}
+
+\begin{equation*}
+  \approx \sum_{n=1}^{N} \abs{\int_{\eta_n}^{\eta_n + 2\pi} \dd{\eta} \pdv{\mathcal{L}_0 (\eta)}{\eta} \delta \eta -2\pi \pdv{\mathcal{L}_0 (\eta_n)}{\eta_n} \delta \eta_n}\,,
+\end{equation*}
+where we kept only the first terms in \(\delta \eta\) and \(\delta \eta_n\). Now, it is time to use the mean value theorem to evaluate the integral
+
+\begin{equation*}
+  \int_{\eta_n}^{\eta_n + 2\pi} \dd{\eta} \pdv{\mathcal{L}_0 (\eta)}{\eta} \delta \eta = 2 \pi \pdv{\mathcal{L}_0 (\eta_n^c)}{\eta_n^c} \delta \eta_n^c\,,
+\end{equation*}
+with \(\eta_n^c \in (\eta_n, \eta_n +2\pi)\), to obtain
+
+\begin{equation*}
+  \abs{\delta \int_{\eta_i}^{\eta_f} \dd{\eta} \mathcal{L}_0} \leq 2\pi \sum_{n=1}^{N} \abs{\pdv{\mathcal{L}_0 (\eta_n^c)}{\eta_n^c} \delta \eta_n^c - \pdv{\mathcal{L}_0 (\eta_n)}{\eta_n} \delta \eta_n} = 2\pi \sum_{n=1}^{N} \abs{\left[\pdv{\mathcal{L}_0 (\eta)}{\eta} \delta \eta\right]_{\eta=\eta_n^c} - \left[\pdv{\mathcal{L}_0 (\eta)}{\eta} \delta \eta\right]_{\eta=\eta_n}}\,.
+\end{equation*}
+We can also use a first order expansion to simplify the quantity in the modulus
+
+\begin{equation*}
+  \abs{\left[\pdv{\mathcal{L}_0 (\eta)}{\eta} \delta \eta\right]_{\eta=\eta_n^c} - \left[\pdv{\mathcal{L}_0 (\eta)}{\eta} \delta \eta\right]_{\eta=\eta_n}} =
+\end{equation*}
+
+\begin{equation*}
+  = \abs{\left[\pdv{\mathcal{L}_0 (\eta)}{\eta} \delta \eta\right]_{\eta=\eta_n^c} - \left[\pdv{\mathcal{L}_0 (\eta)}{\eta} \delta \eta\right]_{\eta=\eta_n^c} - \left[\pdv[2]{\mathcal{L}_0 (\eta)}{\eta} \delta \eta\right]_{\eta = \eta_n^c} (\eta_n - \eta_n^c)} =
+\end{equation*}
+
+\begin{equation*}
+  = \abs{\left[\pdv[2]{\mathcal{L}_0 (\eta)}{\eta} \delta \eta\right]_{\eta = \eta_n^c}} \abs{\eta_n - \eta_n^c)} \leq
+\end{equation*}
+
+\begin{equation*}
+  \leq 2\pi \abs{\left[\pdv[2]{\mathcal{L}_0 (\eta)}{\eta} \delta \eta\right]_{\eta = \eta_n^c}}\,,
+\end{equation*}
+so that in the end we remain with
+
+\begin{equation}
+  \label{eq:bound-of-cyc-lag}
+  \abs{\delta \int_{\eta_i}^{\eta_f} \dd{\eta} \mathcal{L}_0} \leq (2\pi)^2 \sum_{n=1}^{N} \abs{\left[\pdv[2]{\mathcal{L}_0 (\eta)}{\eta} \right]_{\eta = \eta_n^c}} \abs{\delta \eta_n^c} \leq (2\pi)^2 N max\left\{\abs{\left[\pdv[2]{\mathcal{L}_0 (\eta)}{\eta} \right]_{\eta = \eta_n^c}}\right\} max\left\{\abs{\delta \eta_n^c}\right\}\,.
+\end{equation}
+We would want now to impose the condition that \(\mathcal{L}_0^{max}\) changes at most by \(\mathcal{L}_0\) over \(N\) cycles, that is
+
+\begin{equation}
+  N = \frac{1}{2\pi} \frac{\abs{\mathcal{L}_0^{max}}}{max\left\{\abs{\left[\pdv{\mathcal{L}_0 (\eta)}{\eta} \right]_{\eta = \eta_n^c}}\right\}}\,.
+\end{equation}
+By imposing a similar constraint on the first derivative
+
+\begin{equation}
+  2 \pi \frac{max\left\{\abs{\left[\pdv[2]{\mathcal{L}_0 (\eta)}{\eta} \right]_{\eta = \eta_n^c}}\right\}}{max\left\{\abs{\left[\pdv{\mathcal{L}_0 (\eta)}{\eta} \right]_{\eta = \eta_n^c}}\right\}} \leq \frac{1}{N}\,,
+\end{equation}
+we obtain that the action of \(\mathcal{L}_0\) is bounted by a function \(\mathcal{O}(N^{-1})\)
+
+\begin{equation}
+  \label{ineq:final-result}
+  \abs{\delta \int_{\eta_i}^{\eta_f} \dd{\eta} \mathcal{L}_0} \leq \frac{\abs{\mathcal{L}_0^{max}}}{N} max\left\{\abs{\delta \eta}\right\}\,.
+\end{equation}
+Let us observe that for the regular averaged lagrangian defined by \(L_0 = \mathcal{L}_0 \dv{\eta}{t}\) we have
+
+\begin{equation}
+  \int_{\eta_i}^{\eta_f} \dd{\eta} \mathcal{L}_0 = \int_{t_i}^{t_f} \dd{t} L_0\,.
+\end{equation}
+If this would be zero, we would get an Euler-Lagrange set of equations for \(L_0\)
+
+\begin{equation}
+  \label{eq:euler-lagrange}
+  \dv{t} \left(\pdv{L_0}{\vb{v_0}}\right) - \pdv{L_0}{\vb{x_0}} = 0\,,
+\end{equation}
+where the coordinates \(\vb{x_0}\) and \(\vb{v_0}\) correspond to the oscillation center. However, working with the inequality~(\ref{ineq:final-result}) we would obtain an extra term in the right-hand side of~\cref{eq:euler-lagrange} whose absolute value does not exceed
+
+\begin{equation*}
+  \frac{\abs{\mathcal{L}_0^{max}}}{N^2} max\left\{\abs{\delta \eta}\right\}\,.
+\end{equation*}
+If the Lagrangian \(\mathcal{L}_0\) doesn't depend on time, energy is conserved on average in time and the right-hand side of~\cref{eq:euler-lagrange} is adiabatically zero. For \(N\rightarrow\infty\) it is exactly zero. This extra term is the generalized force associated to the ponderomotive force.
+
+The relativistic Hamiltonian obtained from~\cref{eq:lagrangian-0} by the definition \(H(\vb{x},\vb{p},t)=\vb{p}\vb{v}-L(H(\vb{x},\vb{v},t)\) is
+
+\begin{equation}
+  H = \sqrt{m^2 c^4 + c^2(\vb{p}+e\vb{A})^2} - e\phi\,,
+\end{equation}
+with the canonical momentum defined as
+
+\begin{equation}
+  \vb{p} = \pdv{L}{\vb{v}} = \gamma m \vb{v} - e\vb{A}\,.
+\end{equation}
+By defining the effective mass as
+
+\begin{equation}
+  m_{eff} = \frac{\gamma_0 \mathcal{L}_0 \dv{\eta}{t}}{c^2} = \frac{\gamma_0 L_0}{c^2}\,,
+\end{equation}
+we obtain that the Lagrangian and Hamiltonian in an arbitrary reference system in which the oscillation center moves with velocity \(\vb{v_0}\) are those of a free particle with an effective mass that depends on space-time
+
+\begin{subequations}
+  \begin{align}
+    L_0 (\vb{x_0},\vb{v_0}, t) = - \frac{m_{eff} c^2}{\gamma_0}\\
+    H_0 (\vb{x_0},\vb{p_0}, t) = \gamma_0 m_{eff} c^2\,,
+  \end{align}
+\end{subequations}
+with \(\gamma_0 = \sqrt{1-\frac{\vb{v_0}^2}{c^2}}\) and \(\vb{p_0} = \gamma_0 m_{eff} \vb{v_0}\). In the oscillation center system, the ponderomotive force is defined as
+
+\begin{equation}
+  \vb{f_p} \equiv \pdv{L_0}{\vb{x_0}} = -c^2 \grad{m_{eff}}\,.
+\end{equation}
+For a strong monochromatic electromagnetic wave the effective mass is
+
+\begin{equation}
+  m_{eff} = m_e \sqrt{1 + \frac{4}{m_e c^2} \vb{A}^2}\,.
+\end{equation}
+
 \section{Simulations for the Visualization of the Ponderomotive Force}
 \label{sec:ponderomotive-graphs}
 
