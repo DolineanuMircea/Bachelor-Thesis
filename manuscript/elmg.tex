@@ -1289,12 +1289,15 @@ Be aware that \(\partial L_{p\abs{m}}\) is not the derivative of the Laguerre ge
 
 Of course, in order to use these relations in simulations involving laser beams, one must attach also the temporal profile~(\ref{temporal-profile}).
 
-\subsection{Other Types of Gauss Beams}
+\subsection{Other Types of Beams}
 
+\subsubsection{Gauss Beams}
 One can also work directly in Carthesian coordinates in order to solve the paraxial wave equation. This will lead to obtaining the rectangular Gauss beam mode. The extension of this solution, in the same manner used to extend the cylindrical mode to the Laguerre-Gauss mode, is the Hermite-Gauss beam and, as the name suggests, uses the Hermite polynomials. However, these modes are not of interest in our endeavours. If the reader is interested to look upon them, the book by~\cite{goldsmithQuasiopticalSystemsGaussian1998} has a very concise and straightforward presentation of them in its first chapter.
 
-\subsection{Bessel Beams}
-%I wish:)
+\subsubsection{Bessel Beams}
+
+These are a direct solution to the paraxial equation without axial symmetry. These beams have two noteworthy and peculiar properties: they are immune (at least to some degree) to diffraction and they can ``heal'' after being obstructed by an obstacle. A good summary on how they are described and how their properties manifest are found in the fifth chapter of~\cite{ssimonGuidedTourLight2016}.
+
 \section{Angular Momentum of Electromagnetic Waves}
 
 In this section I will simply mention how the orbital angular momentul can be defined. A thorough derivation of its expression for each of the presented laser profiles is a simple, but lengthy and redundant work. If one is interested in computing it in numerical simulations (which is the case for the present thesis), it can be computed from the values of the fields.
