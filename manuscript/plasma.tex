@@ -376,7 +376,9 @@ In this chapter we present the results from a sample Particle in Cell simulation
 
 The~\cref{fig:2-stream-instability-1,fig:2-stream-instability-2} illustrate this effect in phase space. Two streams of electrons with the same drift velocity and particle densities are set to move in opposite directions. The images were obtained through a 1D Particle in Cell simulation in EPOCH with periodic boundary conditions. More on the EPOCH software and how to use it can be found in~\cref{chap:numerical-methods}. Red points represent the particles going to the right, while blue points represent the particles going to the left.
 
-Before delving into the mathematical description of this phenomenon, I will present a qualitative explanation for it, as I understood it from the considerations I found in the seventh chapter of~\cite{stixWavesPlasmas1992}.
+Before delving into the mathematical description of this phenomenon, I will present a qualitative explanation for it, as I understood it from the considerations I found in the seventh chapter of~\cite{stixWavesPlasmas1992}. Suppose we have two counter-flowing streams of charged particles (they can be both electrons, one electron and one ion, it doesn't make a difference). If a point of disturbance appears, a plasma wave will start emanating from it ab will propagate in the medium. The electric field of this wave accelerates the beam particles and some of those will be carried back to the initial disturbance center by the zero-order streaming motion. During the time it take to reach the disturbance point, the coherent acceleration they are undergoing is generating a fluctuation in their density. When the phase of this fluctuation has the right value, the initial disturbance is amplified. The production of these fluctuations in density is named bunching and it ditinguishes itself as a velocity dependent process. This means that plasma components with different velocities will be bunching with different amplitudes and phases.
+
+
 
 \begin{figure}[h]
   \centering
