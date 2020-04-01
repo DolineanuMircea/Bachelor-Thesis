@@ -377,85 +377,73 @@ In this chapter we present the results from a sample Particle in Cell simulation
 The~\cref{fig:2-stream-instability-1,fig:2-stream-instability-2} illustrate this effect in phase space. Two streams of electrons with the same drift velocity and particle densities are set to move in opposite directions. The images were obtained through a 1D Particle in Cell simulation in EPOCH with periodic boundary conditions. More on the EPOCH software and how to use it can be found in~\cref{chap:numerical-methods}. Red points represent the particles going to the right, while blue points represent the particles going to the left.
 
 Before delving into the mathematical description of this phenomenon, I will present a qualitative explanation for it, as I understood it from the considerations I found in the seventh chapter of~\cite{stixWavesPlasmas1992}. Suppose we have two counter-flowing streams of charged particles (they can be both electrons, one electron and one ion, it doesn't make a difference). If a point of disturbance appears, a plasma wave will start emanating from it ab will propagate in the medium. The electric field of this wave accelerates the beam particles and some of those will be carried back to the initial disturbance center by the zero-order streaming motion. During the time it take to reach the disturbance point, the coherent acceleration they are undergoing is generating a fluctuation in their density. When the phase of this fluctuation has the right value, the initial disturbance is amplified. The production of these fluctuations in density is named bunching and it ditinguishes itself as a velocity dependent process. This means that plasma components with different velocities will be bunching with different amplitudes and phases.
-\begin{figure}[h]
+\begin{figure}[!h]
   \centering
   \begin{subfigure}[t]{0.47\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0000}
-    \caption{}%
+    \includegraphics[width=0.95\textwidth]{/epoch-simulation-results/2-stream/movie0000}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{0.47\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0008}
-    \caption{}%
+    \includegraphics[width=0.95\textwidth]{/epoch-simulation-results/2-stream/movie0008}
   \end{subfigure}
   \vskip\baselineskip
   \begin{subfigure}[b]{0.47\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0016}
-    \caption{}%
+    \includegraphics[width=0.95\textwidth]{/epoch-simulation-results/2-stream/movie0016}
   \end{subfigure}
   \hfill
   \begin{subfigure}[b]{0.47\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0024}
-    \caption{}%
+    \includegraphics[width=0.95\textwidth]{/epoch-simulation-results/2-stream/movie0024}
   \end{subfigure}
   \vskip\baselineskip
   \begin{subfigure}[b]{0.47\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0032}
-    \caption{}%
+    \includegraphics[width=0.95\textwidth]{/epoch-simulation-results/2-stream/movie0032}
   \end{subfigure}
   \hfill
   \begin{subfigure}[b]{0.47\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0040}
-    \caption{}%
+    \includegraphics[width=0.95\textwidth]{/epoch-simulation-results/2-stream/movie0040}
   \end{subfigure}
-  \caption{Particle in Cell simulation of the two stream instability effect - formation of the waves}%
+  \caption{Particle in Cell simulation of the two stream instability effect - formation of the waves (phase space)}%
   \label{fig:2-stream-instability-1}%
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[!h]
   \centering
   \begin{subfigure}[b]{0.47\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0048}
-    \caption{}%
+    \includegraphics[width=0.95\textwidth]{/epoch-simulation-results/2-stream/movie0048}
   \end{subfigure}
   \hfill
   \begin{subfigure}[b]{0.47\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0056}
-    \caption{}%
+    \includegraphics[width=0.95\textwidth]{/epoch-simulation-results/2-stream/movie0056}
   \end{subfigure}
   \vskip\baselineskip
   \begin{subfigure}[b]{0.47\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0064}
-    \caption{}%
+    \includegraphics[width=0.95\textwidth]{/epoch-simulation-results/2-stream/movie0064}
   \end{subfigure}
   \hfill
   \begin{subfigure}[b]{0.47\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0072}
-    \caption{}%
+    \includegraphics[width=0.95\textwidth]{/epoch-simulation-results/2-stream/movie0072}
   \end{subfigure}
   \vskip\baselineskip
   \begin{subfigure}[b]{0.47\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0082}
-    \caption{}%
+    \includegraphics[width=0.95\textwidth]{/epoch-simulation-results/2-stream/movie0082}
   \end{subfigure}
   \hfill
   \begin{subfigure}[b]{0.47\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{/epoch-simulation-results/2-stream/movie0091}
-    \caption{}%
+    \includegraphics[width=0.95\textwidth]{/epoch-simulation-results/2-stream/movie0091}
   \end{subfigure}
-  \caption{Particle in Cell simulation of the two stream instability effect - continuation}%
+  \caption{Particle in Cell simulation of the two stream instability effect - continuation (phase space)}%
   \label{fig:2-stream-instability-2}%
 \end{figure}
 For what follows, we will treat the beams as collisionless continuous cold fluids of charged particles. We will only deal with two beams, although an analogous treatment can be done for three or more. The electric field is assumed to have a null zero order approximation, since no external field is present in the system. The zero order particle densities and velocities will de denoted with capital letters (\(N\) and \(V\), respectively), while the first order parts will be denoted with lowercase letters (\(n\), \(v\)). The first order functions are assumed to have a dependence of the form
@@ -527,7 +515,7 @@ where
   \end{align}
 \end{subequations}
 
-\begin{figure}[h]
+\begin{figure}[!h]
   \centering
   \includegraphics[width=1.05\textwidth]{relevant-function-2stream}%
   \caption{A plot of the quantity \(\left(\frac{1}{2} + x^2 \pm \frac{\sqrt{1+8 x^2}}{2}\right)\). With red is the expression with the plus sign, while with blue is the expression with the minus sign.}\label{fig:function-2stream}%
