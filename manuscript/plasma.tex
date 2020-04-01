@@ -539,8 +539,16 @@ A quick look at \cref{fig:function-2stream} shows us that both solutions are sta
 
 While there have been many proposals for electron accelerators that use electromagnetic radiation, the most promising and reliable one is that by~\cite{tajimaLaserElectronAccelerator1979}. The mechanism is the following~(\cite{manglesIntroductionPlasmaWakefield}): One shoots an intense laser pulse towards an underdense plasma. Since the ions are much heavier than the electrons, they will react much slower to the pulse. Thus, the drive pulse will push away electrons (mainly by the ponderomotive force), leaving behind the positively charged particles. At the same time, the positive charge accumulation will pull back the electrons. While returning, the electrons will overshoot, creating a plasma wave. Some electrons will be trapped in the wakefield of the pulse and will be pulled by it. A strong enough drive beam can expell all the electrons from the region in which the pulse is found. This situation corresponds to a so called blow-out regime. A bubble of just positive charges is formed and follows the laser. The high intensity laser will produce ionization in this bubble and thus electrons will be ``injected" in it. This way the amount of accelerated electrons can be increased.
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{laser-wakefield-sample}%
+  \caption{An illustrative picture of the laser wakefield acceleration effect obtained from a 3D particle in cell simulation showing the pseudocolor plot of the electron energy density inside the plasma. The laser pulse (modeled as a Gaussian pulse in this case) was traveling from left to right.}\label{fig:Laser-wf-sample}%
+\end{figure}
+
+In \cref{fig:Laser-wf-sample} we can see to the right the profile of the laser beam since that region shows the electrons that are currently interacting with the pulse. We can also see quite clearly the formation of the plasma wave. The simulation was done with la low intensity laser, so we can see that the bubble regions are not completely empty in this case.
+
 Classical particle accelerators can only transfer a certain amount of energy per meter. Because of this, in order to obtain high kinetic energies, their size must be very large. In a plasma based accelerator, the transfer of energy is much faster over small distances. Because of this they are of great interest especially for medical applications. Obviously, laser wake field acceleration is not perfect. It is limited by three effects: dephasing, pump deplition and diffraction. A concise and useful description of these limitations can be found in~\cite{oneilLaserWakefieldAcceleratior2017}.
 
-While, the mechanism is well understood, there is much work to be done in order to optimize it, mostly related to injection and the stability of the beam.
+While, the mechanism is well understood, there is much work to be done in order to optimize it, mostly related to injection, the stability of the beam, and the understanding and exploitation of phemomena that arise at higher energies inside the plasma.
 
 \end{document}
