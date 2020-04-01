@@ -492,13 +492,48 @@ We can introduce this in~\cref{eq:2st-1} to obtain also the density
 This dependence showcases that the buncing phenomenon depends on the zero order velocity. Now, we substitute this in~\cref{eq:2st-3} to obtain
 
 \begin{equation}
-  \vb{k}\vdot\vb{E} = 4\pi\vb{k}\vdot\vb{E} \left(\frac{q_{1}^2 N_{1}\vb{k}\vdot\vb{E}}{m_{1} (\omega - \vb{k}\vdot\vb{V_{1}})^2} + \frac{q_{2}^2 N_{2}\vb{k}\vdot\vb{E}}{m_{2} (\omega - \vb{k}\vdot\vb{V_{2}})^2}\right)\,,
+  \vb{k}\vdot\vb{E} = 4\pi\vb{k}\vdot\vb{E} \left(\frac{q_{1}^2 N_{1}}{m_{1} (\omega - \vb{k}\vdot\vb{V_{1}})^2} + \frac{q_{2}^2 N_{2}}{m_{2} (\omega - \vb{k}\vdot\vb{V_{2}})^2}\right)\,,
 \end{equation}
 or, rather
 
 \begin{equation}
   \frac{q_{1}^2 N_{1}}{m_{1} (\omega - \vb{k}\vdot\vb{V_{1}})^2} + \frac{q_{2}^2 N_{2}}{m_{2} (\omega - \vb{k}\vdot\vb{V_{2}})^2} = \frac{1}{4\pi}\,.
 \end{equation}
+
+This equation is hareder to solve than one might guess from a first look. In order to get a feeling for how it behaves, I restric the discussion to analyzing the particular case in which we have streams of eaqual strengths, \textit{i}.\textit{e}. that have the product of the total charge and the charge-to-mass ratio equal
+
+\begin{equation}
+  \label{eq:equal-strength-property}
+  N_1 \frac{q_1^2}{m_1} = N_2 \frac{q_2^2}{m_2}=\alpha\,.
+\end{equation}
+An easy way to see why the terms in this equality characterize the strength of the beam is the following: suppose we look at how a beam's particles interact with themselves and we choose one while all the others are concentrated to one point. The acceleration that the lonely particle will get from the bunch of particles is proportional to \((N_1-1) \frac{q_1^2}{m_1} \approx N_1 \frac{q_1^2}{m_1}\) for large \(N_1\). We can say that this quantity reflects the maximum amount of acceleration that can be gained through self-interaction. Sure, since we also assumed the total system to be charge neutral, what we really equate is just the charge-to-mass ratio, but we should bear in mind that this is not a general occurance, but rather a particular simplification in the case of just two beams. For more than two, the condition needs to be written similarly to~\cref{eq:equal-strength-property}.
+
+We now get a biquadratic equation
+
+\begin{equation}
+  \frac{1}{(\omega - \vb{k}\vdot\vb{V_{1}})^2} + \frac{1}{(\omega - \vb{k}\vdot\vb{V_{2}})^2} = \frac{1}{4\pi\alpha}\,.
+\end{equation}
+The solution follows easily after some arithmetics
+
+\begin{equation}
+  (\omega - \vb{k}\vdot\vb{\expval{\vb{V}}})^2 = \omega_{p0}^2 \left(\frac{1}{2} + x^2 \pm \frac{\sqrt{1+8 x^2}}{2}\right)\,,
+\end{equation}
+where
+\begin{subequations}
+  \begin{align}
+    \omega_{p0} = 4\pi\alpha\\
+    \expval{\vb{V}} = \frac{\vb{V_1}+\vb{V_2}}{2}\\
+    x = \frac{\vb{k}\vdot(\vb{V_1}-\vb{V_2})}{2\omega_{p0}}\,.
+  \end{align}
+\end{subequations}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.05\textwidth]{relevant-function-2stream}%
+  \caption{A plot of the quantity \(\left(\frac{1}{2} + x^2 \pm \frac{\sqrt{1+8 x^2}}{2}\right)\). With red is the expression with the plus sign, while with blue is the expression with the minus sign.}\label{fig:function-2stream}%
+\end{figure}
+
+A quick look at \cref{fig:function-2stream} shows us that both solutions are stable for \(\abs{x}>1\), that is for the case in which the zero order velocity of one stream is much larger than that of the other beam (on a scale of \(\omega_{p0}\), which is quite large for large \(N\)). The domain of iterest in which the intability appears is \(\abs{x}>1\). Here, the plus-sign solution gives the dispersion relation for longitudinal plasma waves. The minus-sign solution gives an unstable mode. In the simulation we see both these effect together. The instability evolves much slower than the longitudinal mode formation, so that is why in \cref{fig:2-stream-instability-1,fig:2-stream-instability-2} we first see the formation of some plasma waves. But at some point the instability overtakes the oscillation and we see the formation of the characteristic cat-eye structures. An important thing to have in mind is that the growth rate of instability (which is derived from the imaginary part of the frequency in the minus-sign solution) is proportional to the wavelength.
 
 \section{Laser Wakefield Acceleration}
 
