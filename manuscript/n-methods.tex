@@ -83,20 +83,135 @@ The presentation so far should not give the reader the impression that PIC is th
 
 \section{Numerical Methods}
 
+In this section I aim to summarize the basic theory in the area of numerical methods that would be required to understand the schemes that comprise PIC codes and the problmes they pose. The presentation will be a short review of the concepts developed in the second chapter of the book by~\cite{leimkuhlerSimulatingHamiltonianDynamics2004}.
+
 \subsection{Introduction to Numerical Methods for Solving Differential Equations}
 
+We aim to understand how to find numerical solutions for a system of \(k\) ordinary differential equations with initial condition
+
+\begin{equation}
+  \label{eq:ODE}
+  \dv{\vb{u}}{t} = \vb{f}(\vb{u}),\; \vb{u}(t_0) = \vb{u_0} \in \mathbb{R}^k\,,
+\end{equation}
+where \(t_0\) is the initial time, \(\vb{u_0}\) is the initial value of our solution and \(\vb{f}\) is a function that relates the elements in the solution vector. We can always set the time such that we have \(t_0=0\) for simplicity.
+
+We usually refer to the solution \(\vb{u}\) as a trajectory. If the solution can be determined by integration in time starting from an appropriate initiall condition, the differential equation defines a one-parameter group of propagation maps \(\phi_t:\mathbb{R}^k \rightarrow \mathbb{R}^k\). The group properties are given by the property that solving the probem from \(t_0\) to \(t_1\) and then from \(t_1\) to \(t_2\) is the same as solving from \(t_0\) directly to \(t_2\). Thus, the composition of those maps inherits the properties of the addition of real numbers. Note that this is just the \textit{phase flow} of the equation in the way we defined it in~\cref{sec:Vlasov}.
+
+Solving~\cref{eq:ODE} numerically means to discretize the time domain and find a scheme that would be able to propagate within sizable error the trajectory. Thus one obtains a set of values for the solution function at fixed points in time and those values can be eventually interpolated to estimate the values in between them. The simplest way to discretize the domain is to have a fixed small time \(\Delta t\) step such that \(t_1=t_0 + \Delta t\), \(t_2=t_1 + \Delta t\), and so on. More complex discretizations can be done if we know specific properties of the solution or if we are interested to increase the accuracy over some interval at the cost of decreasing it for another interval, but in what follows we will only deal with the simple equidistant discretization.
+
+\subsection{One-Step Methods}
+
+In general, one can choose to include at each iteration as many of the previously computed points on the trajectory. For example, if we want to use \(k\) previous points we have to find an appropriate scheme that computes \(\vb{u_{n+1}}\)  in terms of \(\vb{u_{n-k+1}}\), \(\vb{u_{n-k+2}}\),\dots, \(\vb{u_{n}}\) and the corresponding values of the derivative function \(\vb{f}(\vb{u_{n-k+1}})\), \(\vb{f}(\vb{u_{n-k+2}})\),\dots, \(\vb{f}(\vb{u_{n}})\). Here we denoted the point \(\vb{u}(t_i)\) simply by \(\vb{u_i}\). A linear multistep method of order k is, as the name suggests, a linear such reccurence relation. We are interested specifically in linear maps since they can be represented as matrices and under a matrix formalism they are trivial to implement in code.
+
+This subsection is dedicated to one-step methods, that is for the case \(k=1\). We have as such to find an infinitesimal flow map that gives \(\vb{u_{i+1}} = \phi_{\Delta t} \vb{u_{i}}\) for each \(i\). Finding any point on the trajectory is then simply a matter of appling the infinitesimal map multiple times to the initial condition
+
+\begin{equation*}
+  \vb{u_{n}} = \phi_{\Delta t}^n \vb{u_{0}}\,.
+\end{equation*}
+Here I denoted with \(\phi_{\Delta t}^n\) the composition of \(\phi_{\Delta t}\) with itself \(n\) times.
+
+We have the following analitical equation between two consecutive points
+
+\begin{equation}
+  \vb{u_{i+1}} - \vb{u_i} = \int_0^{\Delta t} \dd{\tau} \vb{f} (\vb{u}(t_i +\tau))\,.
+\end{equation}
+In order to find a one step-method we have to approximate the integral with a sum, which is done by using an appropriate quadrature rule
+
+\begin{equation}
+  \vb{u_{i+1}} \approx \vb{u_i} + \sum_{j=1}^s c_j \vb{f} (\vb{u}(t_i + \tau_j)) \Delta t\,,
+\end{equation}
+where \(c_j\) are the weights and \(\tau_j\) are the quadrature points.
+
+Here are some basic examples:
+
+\subsubsection{Explicit Euler Scheme}
+
+Obtained by setting \(s=1\), \(b_1=1\), and \(\tau_1 = 0\).
+
+\begin{equation}
+  \vb{u_{i+1}} \approx \vb{u_i} + \vb{f}(\vb{u_i}) \Delta t + \mathcal{O}(\Delta t^2)\,.
+\end{equation}
+
+\subsubsection{Implicit Euler Scheme}
+
+Obtained by setting \(s=1\), \(b_1=1\), and \(\tau_1 = \Delta t\).
+
+\begin{equation}
+  \vb{u_{i+1}} \approx \vb{u_i} + \vb{f}(\vb{u_{i+1}}) \Delta t + \mathcal{O}(\Delta t^2)\,.
+\end{equation}
+
+\subsubsection{Trapezoid Rule}
+
+Obtained by setting \(s=2\), \(b_1=b_2=\frac{1}{2}\), and \(\tau_1 = 0\), \(\tau_2 = \Delta t\).
+
+\begin{equation}
+  \vb{u_{i+1}} \approx \vb{u_i} + \frac{1}{2} \left[\vb{f}(\vb{u_{i}}) + \vb{f}(\vb{u_{i+1}}) \right] \Delta t + \mathcal{O}(\Delta t^3)\,.
+\end{equation}
+
+\subsubsection{Implicit Midpoint Rule}
+
+Obtained by setting \(s=1\), \(b_1=1\), and \(\tau_1 = \frac{\Delta t}{2}\), using \(\vb{u}\left(t_i+\frac{\Delta t}{2}\right) \approx \frac{1}{2} (\vb{u_i} + \vb{u_{i+1}})\). Numerous more complex methods can be obtained by improving the latter approximation.
+
+\begin{equation}
+  \vb{u_{i+1}} \approx \vb{u_i} + \vb{f}(\vb{u_i} + \vb{u_{i+1}}) \Delta t + \mathcal{O}(\Delta t^3)\,.
+\end{equation}
+\(\blacksquare\)
+
+It is important to note that while there methods are for first order ODE sistems, they can be often employed in higher order ODE systems. For example let us analyze the systems that can arise from Newton's second law
+
+\begin{equation}
+  \dv[2]{\vb{r}}{t} = \vb{F}(\vb{r})\,.
+\end{equation}
+By defining \(\vb{v} = \dv{\vb{r}}{t}\) we can transform it in a system of first order equations
+
+\begin{subequations}
+  \begin{align}
+    \dv{\vb{v}}{t} = \vb{F}(\vb{r})\\
+    \vb{v} = \dv{\vb{r}}{t}\,.
+  \end{align}
+\end{subequations}
+This can be rewritten to look more like~\cref{eq:ODE} through an inspired notation
+
+\begin{subequations}
+  \begin{align}
+    \vb{u} =
+    \begin{bmatrix}
+      \vb{r}\\
+      \vb{v}
+    \end{bmatrix} \\
+    \vb{f}(\vb{u}) =
+    \begin{bmatrix}
+      \vb{v}\\
+      \vb{F}(\vb{r})
+    \end{bmatrix}\,.
+  \end{align}
+\end{subequations}
+
+\subsection{Error Estimation}
+
+Error can arise when using the methods described so far from two mechanism: the difference between the approximation used and the Taylor expansion of the function, and the accumulation of error caused by the discretization of the trajectory. The order of a method is defined by the power in the first neglected Taylor coefficient minus one. In the examples above, the Euler methods are of order 1, while the Trapezoid and Midpoint Rules have order 2.
+
+\subsection{Runge-Kuta Methods}
+
+a
+
+\subsection{Leapfrog Algorithm}
+a
+\subsection{Stability}
+a
+\section{Methods used in Particle-in-cell simulations}
 \subsection{The Boris Push}
 \subsubsection{Numerical Propeties}
-
+a
 \subsection{The FDTD Maxwell Solver}
 \subsubsection{Numerical Properties}
-
+a
 \subsection{FFT Based Maxwell Solvers}
-
+a
 \section{Particle-in-cell in practice}
-
+a
 \section{EPOCH}
 \subsection{Software Input}
 \subsection{Visualizing Results}
-
+a
 \end{document}
