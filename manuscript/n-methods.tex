@@ -29,7 +29,8 @@ In general, PIC codes have four main componets:
   \item A particle pusher that advances the positions and velocities of each particle under the action of the Lorentz force (which we will write in its relativistic form)
   \begin{subequations}
     \begin{align}
-      \dv{\vb{p_\alpha}}{t} = q_\alpha \left[\vb{E}+\frac{\vb{p_\alpha}}{m_\alpha \gamma_\alpha} \cp \vb{B} \right]\\
+      \label{eq:NL}
+      \dv{\vb{p_\alpha}}{t} = q_\alpha \left(\vb{E}+\frac{\vb{p_\alpha}}{m_\alpha \gamma_\alpha} \cp \vb{B} \right)\\
       \gamma_\alpha = \sqrt{1+\left(\frac{\vb{p_\alpha}}{m_\alpha c}\right)^2}\,,
     \end{align}
   \end{subequations}
@@ -50,11 +51,36 @@ Let us revisit the Vlasov equation, which we derived in~\cref{sec:Vlasov}
 \end{equation}
 where \(\rho\) was the distribution function that describes the entire system of particles, \(\vb{p}=(\vb{p_1}, \vb{p_2},\dots )\) and \(\vb{v}=(\vb{v_1}, \vb{v_2},\dots )\), \(\vb{r}=(\vb{r_1}, \vb{r_2},\dots )\) the momenta, the velocities, and the positions of the particles, and \(\vb{f}=(\vb{f_1}, \vb{f_2},\dots )\) the forces acting on each particle.
 
-For consistency with the equations we outlined for the PIC method, I rewrite this equation in its relativistic form and considering all forces to be of the Lorentz type
+The main argument in the following discussion is a relativistic upgrade of the one in~\cite{liuHighPowerLaserPlasmaInteraction2020}. For consistency with the equations we outlined for the PIC method, I rewrite this equation in its relativistic form and considering all forces to be of the Lorentz type
 
 \begin{equation}
-  s
+  \pdv{\rho}{t} + \sum_\alpha \left[ q_\alpha \left(\vb{E_\alpha}+\frac{\vb{p_\alpha}}{m_\alpha \gamma_\alpha} \cp \vb{B_\alpha} \right) \pdv{\rho}{\vb{p_\alpha}} +  \frac{\vb{p_\alpha}}{m_\alpha \gamma_\alpha} \pdv{\rho}{\vb{r_\alpha}}\right] =0\,,
 \end{equation}
+where \(\alpha\) indexes all the particles in the system and the fields \(E_\alpha\) and \(B_\alpha\) are to be computed at the position of particle \(\alpha\).
+
+The key insight now is that imposing that the particles move under the Newton-Lorentz~\cref{eq:NL} implies having a stationary solution for the distribution function. That is, the equations
+
+\begin{subequations}
+  \label{eq:boris1}
+  \begin{align}
+    \dv{\vb{p_\alpha}}{t} = q_\alpha \left(\vb{E}+\frac{\vb{p_\alpha}}{m_\alpha \gamma_\alpha} \cp \vb{B} \right)\\
+    \dv{\vb{r_\alpha}}{t} = \frac{\vb{p_\alpha}}{m_\alpha \gamma_\alpha}\,,
+  \end{align}
+\end{subequations}
+reduce the Vlasov equation as follows
+
+\begin{equation}
+  \pdv{\rho}{t} + \sum_\alpha \left( \pdv{\rho}{\vb{p_\alpha}}\dv{\vb{p_\alpha}}{t} + \pdv{\rho}{\vb{r_\alpha}} \dv{\vb{r_\alpha}}{t} \right) = \dv{\rho}{t} = 0 \,.
+\end{equation}
+
+Of course this is not an equivalency. While~\cref{eq:boris1} implies that the distribution function of the entire system is stationary, the reverse is not true, unless we do a rough approximation and suppose that the total distribution can be separated in a sum of independent single particle distribution functions. By employing this latter approximation we would unavoidably neglect some intrinsic interactions that take place in our system. Nonetheless, this problem does not affect the validity of our Particle-in-cell method. The thing is that while~\cref{eq:boris1} doesn't describe all the complete stationary solution of the Vlasov equation, it still describes at least one particular stationary solution. Working with superparticles is like studying the evolution of an ensable of these solutions. Thus, by including a relevant (yet not large enough to give unreasonable simulation times) number of superparticles we obtain a statistically realistic solution. Some even call PIC a Monte-Carlo method because of this.
+
+The reverse approach is used in numerical studies of plasma physics using Vlasov codes (VC). These approaches simply try to solve the Vlasov equation as it is in order to obtain exact solutions (exact up to numerical errors). If one has the total distribution function then every statistical piece of information about the system is known. Some basics about how this can be achieved and computational optimization can be found in~\cite{silinVlasovcodeSimulationsCollisionless}. However, directly solving such a big solution with a number of variables proportional to the real number of particles in the system takes a lot of time if we try to simulate realistically sized systems.
+
+An approach based on the splitting of the distribution function is not completely flawed. One can try to get closer to reality by using a better approximation by expanding the total distribution in a series that contains single-particle terms, two-particle terms, and so on. While it is true that this improves the solutions greatly, the cost in computation time is equally great and much refinement would have to be done.
+
+The presentation so far should not give the reader the impression that PIC is the supperior approach. In fact, numerical heating is a common problem of PIC codes and the stability conditions for the simulations are quite restrictive, which together with the computational limitations reduce the amount of experiments you can run. An easy to follow rought sketch of the trade off between PIC and VC and a discussion on when is one better than the other is found in~\cite{bertrandVlasovModelsLaser2005}.
+
 \section{Numerical Methods}
 
 \subsection{Introduction to Numerical Methods for Solving Differential Equations}
