@@ -100,6 +100,7 @@ We usually refer to the solution \(\vb{u}\) as a trajectory. If the solution can
 Solving~\cref{eq:ODE} numerically means to discretize the time domain and find a scheme that would be able to propagate within sizable error the trajectory. Thus one obtains a set of values for the solution function at fixed points in time and those values can be eventually interpolated to estimate the values in between them. The simplest way to discretize the domain is to have a fixed small time \(\Delta t\) step such that \(t_1=t_0 + \Delta t\), \(t_2=t_1 + \Delta t\), and so on. More complex discretizations can be done if we know specific properties of the solution or if we are interested to increase the accuracy over some interval at the cost of decreasing it for another interval, but in what follows we will only deal with the simple equidistant discretization.
 
 \subsection{One-Step Methods}
+\label{ssec:one-step-m}
 
 In general, one can choose to include at each iteration as many of the previously computed points on the trajectory. For example, if we want to use \(k\) previous points we have to find an appropriate scheme that computes \(\vb{u_{n+1}}\)  in terms of \(\vb{u_{n-k+1}}\), \(\vb{u_{n-k+2}}\),\dots, \(\vb{u_{n}}\) and the corresponding values of the derivative function \(\vb{f}(\vb{u_{n-k+1}})\), \(\vb{f}(\vb{u_{n-k+2}})\),\dots, \(\vb{f}(\vb{u_{n}})\). Here we denoted the point \(\vb{u}(t_i)\) simply by \(\vb{u_i}\). A linear multistep method of order k is, as the name suggests, a linear such reccurence relation. We are interested specifically in linear maps since they can be represented as matrices and under a matrix formalism they are trivial to implement in code.
 
@@ -118,9 +119,9 @@ We have the following analitical equation between two consecutive points
 In order to find a one step-method we have to approximate the integral with a sum, which is done by using an appropriate quadrature rule
 
 \begin{equation}
-  \vb{u_{i+1}} \approx \vb{u_i} + \sum_{j=1}^s c_j \vb{f} (\vb{u}(t_i + \tau_j)) \Delta t\,,
+  \vb{u_{i+1}} \approx \vb{u_i} + \sum_{j=1}^s b_j \vb{f} (\vb{u}(t_i + \tau_j)) \Delta t\,,
 \end{equation}
-where \(c_j\) are the weights and \(\tau_j\) are the quadrature points.
+where \(b_j\) are the weights and \(\tau_j\) are the quadrature points.
 
 Here are some basic examples:
 
@@ -189,14 +190,118 @@ This can be rewritten to look more like~\cref{eq:ODE} through an inspired notati
 
 \subsection{Error Estimation}
 
-Error can arise when using the methods described so far from two mechanism: the difference between the approximation used and the Taylor expansion of the function, and the accumulation of error caused by the discretization of the trajectory. The order of a method is defined by the power in the first neglected Taylor coefficient minus one. In the examples above, the Euler methods are of order 1, while the Trapezoid and Midpoint Rules have order 2.
+One of the two main aspects that one needs to study when they propose to use a numerical scheme is accuracy. It basically refers to the error of the numerical solution compared to the real solution.
 
-\subsection{Runge-Kuta Methods}
+Error can arise when using the methods described so far from two mechanism: the difference between the approximation used and the Taylor expansion of the function (truncation error), and the accumulation of error caused by the discretization of the trajectory (round off error). The order of a method is defined by the power in the first Taylor coefficient neglected by the scheme minus one. In the examples above, the Euler methods are of order 1, while the Trapezoid and Midpoint Rules have order 2. The oreder of the method shows the dependence of the global error with respect to the step-size of the discretization of the domain. So for an order 1 method, the error is linear in step-size, for an order 2, the error is polynomial in step-size, and so on.
 
-a
+Having all this in mind, making a more accurate numerical scheme is to have the numerical solution just as close to the real solution for a larger time-step, or, conversely, having the numerical solution closer to the real solution for the same step-size.
+
+\subsection{Runge-Kutta Methods}
+
+The Runge-Kutta method is a generalization of the type of methods used before. As such, the schemes given as examples of one-step methods are actually particular cases of the more general Runge-Kutta method. The explicit Runge-Kutta for~\cref{eq:ODE} in particular is the following
+
+\begin{subequations}
+  \begin{align}
+    \vb{u_{n+1}} = \vb{u_n} + \Delta t \sum_{i=1}^s b_i \vb{f}(\vb{U_i}) \\
+    \label{eq:rk}
+    \vb{U_i} = \vb{u_n} + \Delta t \sum_{j=1}^s a_{ij} \vb{f}(\vb{U_j}),\; i = \overline{1,s}\\
+    a_{i,j}=0\; for\; j\geq i\,.
+  \end{align}
+\end{subequations}
+This time around, each scheme is defined by a choice of \(s\), \(b_i\) weights and the Runge-Kutta matrix \(a_{ij}\). Note that in all our considerations so far related to~\cref{eq:ODE} the function \(\vb{f}\) does not depend on time. This is because we are not interested in that posibility for the purpose of our PIC study. The Boris push propagates the particles over a small time interval while keeping the fields constant, then the Maxwell solver advances the fields in time taking into account the new particle positions. Nonetheless, for the sake of completion, I mention that including the time dependence would mean converting \(\vb{f}(\vb{U_j})\) in~\cref{eq:rk} with \(\vb{f}(t_n + c_i \Delta t, \vb{U_j})\) and \(c_1 =0\). Thus, in order to have a scheme, now we would also need the set of \(c_i\) parameters which are commonly referred to as nodes. The list of all appropriate components for one scheme is presented in literature in Butcher tables. Since each scheme has its own unique table, the numerical properties (accuracy and stability can be computed using the tables. A more in depth explanation on how these tables work can be found in the book by~\cite{butcherNumericalMethodsOrdinary2008}.
 
 \subsection{Leapfrog Algorithm}
-a
+
+In specific situations we can apply the approximation methods disscused so far to separate parts of the solution. This is the mindset for creating partitioned Runge-Kutta methods. As an example, suppose our initial system of ODE (\cref{eq:ODE}) can be separated as such
+
+\begin{subequations}
+  \begin{align}
+    \dv{\vb{u}}{t} = \vb{f_1}(\vb{u}, \vb{v})\\
+    \dv{\vb{v}}{t} = \vb{f_2}(\vb{u}, \vb{v})\,.
+  \end{align}
+\end{subequations}
+To have a partitioned Runge-Kutta scheme we have to use two different regular Runge-Kutta schemes, one for each subset of equations, so to say
+
+\begin{subequations}
+  \label{eq:RKN}
+  \begin{align}
+    \vb{u_{n+1}} = \vb{u_n} + \Delta t \sum_{i=1}^s b_i^u \vb{f_1}(\vb{U_i}, \vb{V_i}) \\
+    \vb{v_{n+1}} = \vb{v_n} + \Delta t \sum_{i=1}^s b_i^v \vb{f_2}(\vb{U_i}, \vb{V_i}) \\
+    \vb{U_i} = \vb{u_n} + \Delta t \sum_{j=1}^s a_{ij}^u \vb{f_1}(\vb{U_i}, \vb{V_i}),\; i = \overline{1,s}\\
+    \vb{V_i} = \vb{v_n} + \Delta t \sum_{j=1}^s a_{ij}^v \vb{f_2}(\vb{U_i}, \vb{V_i}),\; i = \overline{1,s}\,.
+  \end{align}
+\end{subequations}
+
+In the perspective of the discussion at the end of \cref{ssec:one-step-m}, we can see that this method is useful in solving equations of motion described by Newton's second law. In this context, the scheme in~(\ref{eq:RKN}) is refered to as a Runge-Kutta-Nyström method.
+
+In our endeavours, for equations of the form
+
+\begin{subequations}
+  \begin{align}
+    \dv{\vb{r}}{t} = \vb{v}\\
+    M\dv{\vb{v}}{t} = - \grad_{\vb{r}} V(\vb{r})\,,
+  \end{align}
+\end{subequations}
+we are interested in the Störmer-Verlet method
+
+\begin{subequations}
+  \begin{align}
+    \label{eq:SV-1}
+    \vb{r_{n+1}} = \vb{r_n} +\Delta t \vb{v_{n+\frac{1}{2}}}\\
+    \label{eq:SV-2}
+    M\vb{v_{n+\frac{1}{2}}} = M\vb{v_n} - \frac{\Delta t}{2} \grad_{\vb{r}} V(\vb{r_n})\\
+    \label{eq:SV-3}
+    M\vb{v_{n+1}} = M\vb{v_{n+\frac{1}{2}}} - \frac{\Delta t}{2} \grad_{\vb{r}} V(\vb{r_{n+1}})\,.
+  \end{align}
+\end{subequations}
+
+A different scheme can be derived by playing around with the realations of this method. From~\cref{eq:SV-1} we can extract the mid-step velocity as
+
+\begin{subequations}
+  \label{eq:mid-step-v}
+  \begin{align}
+    \vb{v_{n+\frac{1}{2}}} = \frac{\vb{r_{n+1}} - \vb{r_n}}{\Delta t}\\
+    \vb{v_{n-\frac{1}{2}}} = \frac{\vb{r_n} - \vb{r_{n-1}}}{\Delta t}\,,
+  \end{align}
+\end{subequations}
+for two consecutive steps. By lowering~\cref{eq:SV-3} with 1, we have
+
+\begin{equation}
+  M\vb{v_{n+1}} = M\vb{v_{n+\frac{1}{2}}} - \frac{\Delta t}{2} \grad_{\vb{r}} V(\vb{r_{n+1}})\,,
+\end{equation}
+which replaced in~\cref{eq:SV-2} gives a reccurence relation for the mid-step velocity
+
+\begin{equation}
+  M\frac{\vb{v_{n+\frac{1}{2}}} - \vb{v_{n-\frac{1}{2}}}}{\Delta t} = - \grad_{\vb{r}} V(\vb{r_n})\,.
+\end{equation}
+We now insert in this~\cref{eq:mid-step-v} to finally obtain the leapfrog scheme
+
+\begin{equation}
+  M\frac{\vb{r_{n+1}} - 2\vb{r_n} + \vb{r_{n-1}}}{\Delta t^2} = - \grad_{\vb{r}} V(\vb{r_n})\,.
+\end{equation}
+
+Since these two schemes are closely connected by~\cref{eq:mid-step-v}, they have the same order. Since I haven't really given an example so far for how one can find the order of a numerical scheme, I will present in the following the proof for the fact that the leapfrog method is of second ordrer.
+
+Let us expand the position function in two ways around a fixed moment in time \(t\)
+
+\begin{subequations}
+  \begin{align}
+    \vb{r}(t+\Delta t) = \vb{r}(t)+ \dv{\vb{r}(t)}{t} \frac{\Delta t}{1!}+ \dv[2]{\vb{r}(t)}{t} \frac{\Delta t^2}{2!} + \dv[3]{\vb{r}(t)}{t} \frac{\Delta t^3}{3!}+ \mathcal{O}(\Delta t^4)\\
+    \vb{r}(t-\Delta t) = \vb{r}(t)- \dv{\vb{r}(t)}{t} \frac{\Delta t}{1!}+ \dv[2]{\vb{r}(t)}{t} \frac{\Delta t^2}{2!} - \dv[3]{\vb{r}(t)}{t} \frac{\Delta t^3}{3!}+ \mathcal{O}(\Delta t^4)\,.
+  \end{align}
+\end{subequations}
+Adding these up we have
+
+\begin{equation}
+  \vb{r}(t+\Delta t) + \vb{r}(t-\Delta t)= \vb{r}(t)+ \dv[2]{\vb{r}(t)}{t} \Delta t^2 + \mathcal{O}(\Delta t^4)\,,
+\end{equation}
+or, moving the derivative to the left and dividing by \(\Delta t^2\)
+
+\begin{equation}
+  \dv[2]{\vb{r}(t)}{t} = \frac{\vb{r}(t+\Delta t) - 2 \vb{r}(t) + \vb{r}(t-\Delta t)}{\Delta t^2} + \mathcal{O}(\Delta t^2)\,.
+\end{equation}
+Note that we just recovered the second derivative approximation that generates the leapfrog scheme, so our proof is finished.
+
 \subsection{Stability}
 a
 \section{Methods used in Particle-in-cell simulations}
