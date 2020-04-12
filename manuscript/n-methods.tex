@@ -303,7 +303,32 @@ or, moving the derivative to the left and dividing by \(\Delta t^2\)
 Note that we just recovered the second derivative approximation that generates the leapfrog scheme, so our proof is finished.
 
 \subsection{Stability}
-a
+
+In order to understand the concept of stability, let us study the behaviour of some integration schemes in solving the most basic and the most important system of equations in physics -- the linear harmonic oscillator
+
+\begin{subequations}
+  \begin{align}
+    \dv{x}{t} = v\\
+    \dv{v}{t} = -\omega^2 x\,.
+  \end{align}
+\end{subequations}
+
+The figure below ilustrates the phase space representation of the solutions obtained via five different numerical methods (with the frequency set to 1 for simplicity). The plots of the analytic solution is given as well for reference. The Julia code used for these small simulations can be found in the Appendix for the reader interested in seeing and example on how to use these methods in parctice.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.85\textwidth]{stability_plots}%
+  \caption{Phase space plots of the solution for the harmonic oscillator equations using different numerical methods. The angular frequency is \(\omega =1\), the total time of the simulation is 15 and the time-step is 0.3.}\label{fig:stability}%
+\end{figure}
+
+We can see a clear distinction in the solutions obtained. The trapezoid method and Störmer-Verlet method are very close to the real circular solution. On the oposite spectrum, the mplicit and explicit Euler methods show a clearly undesired behaviour, much different from the others. The semi-implicit Euler methods does a decent job, but the shape is a bit oblate. Even so, this scheme has a useful property, namely it is volume preserving. This means that the volume in phase space of the solution obtained is constant over an arbitrarily large number of periods. In contrast, the phase space volume of the implicit and explicit Euler integrators isn't even well defined because the solution diverges too fast. The difference though does not lay in volume preservence, but in what we call \textit{asimptotic stability}. The best way to study this property is mathematically. While a picture like that in~\cref{fig:stability} gives a good visual hint to what asimptotic stability of a scheme is, it was especially exagerated by choosing a large time-step. If one reruns those simulations with a time step of 0.01 instead of 0.3, almost all plots will start looking like a circle. That doesn't mean that we fixed our methods, but rather that by increasing the accuracy we made the imperfections manifest over a much larger time scale. Indeed, if we increase the total duration of the simulation enough, we would see that thing are still bad for the first two Euler methods. This is shown in~\cref{fig:stability2}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.85\textwidth]{stability_plots2}%
+  \caption{Phase space plots of the solution for the harmonic oscillator equations using different numerical methods. The angular frequency is \(\omega =1\),  but this time around the total time of the simulation is 100 and the time-step is 0.01.}\label{fig:stability2}%
+\end{figure}
+
 \section{Methods used in Particle-in-cell simulations}
 \subsection{The Boris Push}
 \subsubsection{Numerical Propeties}
