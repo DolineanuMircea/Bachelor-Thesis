@@ -1,0 +1,22 @@
+\documentclass[12pt, class=report, crop=false]{standalone}
+\usepackage{ba_thesis}
+
+\begin{document}
+
+\chapter*{Appendix}%
+\addcontentsline{toc}{chapter}{Appendix}
+
+\section*{Small Simulation of Electron Dynamics in a Laser Pulse}
+
+\lstinputlisting{../simulations/electron-motion.jl}
+
+\section*{Implementation of a Few Imtegrators for the Harmonic Oscillator for the Visualization of Stability}
+
+\newpage
+\lstinputlisting{../simulations/stability.jl}
+% \begin{lstlisting}
+% # some julia code
+% println( "Here we go with Julia!")
+% \end{lstlisting}
+
+\end{document}

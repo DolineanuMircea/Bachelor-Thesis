@@ -154,7 +154,7 @@ Obtained by setting \(s=2\), \(b_1=b_2=\frac{1}{2}\), and \(\tau_1 = 0\), \(\tau
 Obtained by setting \(s=1\), \(b_1=1\), and \(\tau_1 = \frac{\Delta t}{2}\), using \(\vb{u}\left(t_i+\frac{\Delta t}{2}\right) \approx \frac{1}{2} (\vb{u_i} + \vb{u_{i+1}})\). Numerous more complex methods can be obtained by improving the latter approximation.
 
 \begin{equation}
-  \vb{u_{i+1}} \approx \vb{u_i} + \vb{f}(\vb{u_i} + \vb{u_{i+1}}) \Delta t + \mathcal{O}(\Delta t^3)\,.
+  \vb{u_{i+1}} \approx \vb{u_i} + \vb{f}\left(\frac{\vb{u_i} + \vb{u_{i+1}}}{2}\right) \Delta t + \mathcal{O}(\Delta t^3)\,.
 \end{equation}
 \(\blacksquare\)
 
