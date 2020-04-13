@@ -307,6 +307,7 @@ Note that we just recovered the second derivative approximation that generates t
 In order to understand the concept of stability, let us study the behaviour of some integration schemes in solving the most basic and the most important system of equations in physics -- the linear harmonic oscillator
 
 \begin{subequations}
+  \label{eq:HO}
   \begin{align}
     \dv{x}{t} = v\\
     \dv{v}{t} = -\omega^2 x\,.
@@ -328,6 +329,187 @@ We can see a clear distinction in the solutions obtained. The trapezoid method a
   \includegraphics[width=0.85\textwidth]{stability_plots2}%
   \caption{Phase space plots of the solution for the harmonic oscillator equations using different numerical methods. The angular frequency is \(\omega =1\),  but this time around the total time of the simulation is 100 and the time-step is 0.01.}\label{fig:stability2}%
 \end{figure}
+
+So how can we study this asimptotic stability? Let us rewrite the linear harmonic oscillator~\cref{eq:HO} in matrix form
+
+\begin{equation}
+  \dv{t}
+  \begin{bmatrix}
+    x\\ v
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    0 & 1\\
+    -\omega^2 & 0
+  \end{bmatrix}
+  \begin{bmatrix}
+    x\\ v
+  \end{bmatrix}\,.
+\end{equation}
+We can actually do better that this and find a flow chart, since we know the most general analytic solution for our problem
+
+\begin{subequations}
+  \begin{align}
+    x = A \sin(\omega t) + B \cos(\omega t)\\
+    v = \omega A \cos(\omega t) -  \omega B \sin(\omega t)\,.
+  \end{align}
+\end{subequations}
+At time \(t=0\) these equations become simply \(x_0 = B\) and \(v_0 = \omega A\). So, using the initial conditions we now have
+
+\begin{subequations}
+  \begin{align}
+    x = x_0 \cos(\omega t) + v_0 \frac{1}{\omega} \sin(\omega t)\\
+    v = - x_0 \omega \sin(\omega t) + v_0 \cos(\omega t)\,,
+  \end{align}
+\end{subequations}
+or, in matrix form
+
+\begin{subequations}
+  \begin{align}
+  \begin{bmatrix}
+    x\\ v
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    \cos(\omega t) & \frac{1}{\omega} \sin(\omega t)\\
+    -\omega \sin(\omega t)  & \cos(\omega t)
+  \end{bmatrix}
+  \begin{bmatrix}
+    x_0\\ v_0
+  \end{bmatrix} \\
+  \phi_t = \begin{bmatrix}
+    \cos(\omega t) & \frac{1}{\omega} \sin(\omega t)\\
+    -\omega \sin(\omega t)  & \cos(\omega t)
+  \end{bmatrix}\,,
+  \end{align}
+\end{subequations}
+where we denoted by \(\phi_t\) the analytical flow map. There is a new way to see numerical methods now. Coming up with a new scheme is equivalent to finding a different approximation for the infinitesimal version of this map. But befor we delve into this topic, let us fing the eigenvalues of \(\phi_t\). The computation is quite straightforward
+
+\begin{equation*}
+  \lambda \begin{bmatrix}
+    x_0\\ v_0
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    \cos(\omega t) & \frac{1}{\omega} \sin(\omega t)\\
+    -\omega \sin(\omega t)  & \cos(\omega t)
+  \end{bmatrix}
+  \begin{bmatrix}
+    x_0\\ v_0
+  \end{bmatrix}
+\end{equation*}
+
+\begin{equation*}
+  v_0(\lambda - \cos(\omega t)) = - x_0 \omega \sin(\omega t)
+\end{equation*}
+\begin{equation*}
+  v_0\frac{1}{\omega} \sin(\omega t) = x_0 (\lambda - \cos(\omega t)) \,.
+\end{equation*}
+Dividing these last two equations gives
+
+\begin{equation*}
+  (\lambda - \cos(\omega t))^2 = - \sin[2](\omega t)
+\end{equation*}
+\begin{equation*}
+  \Rightarrow \lambda^2 - 2\lambda \cos(\omega t) +1 = 0\,,
+\end{equation*}
+which gives the solution
+
+\begin{equation}
+  \lambda_{1,2} = \ee^{\pm \ii \omega t}\,.
+\end{equation}
+Now let us look at the methods. The explicit Euler method has the following infinitesimal flow map and its eigenvalues
+
+\begin{subequations}
+  \begin{align}
+  \phi_{\Delta t}^{Euler} =
+  \begin{bmatrix}
+    1 & \Delta t \\
+    -\omega^2 \Delta t & 1
+  \end{bmatrix}\\
+  \lambda_{1,2}^{Euler} = 1 \pm \ii \omega \Delta t\,,
+  \end{align}
+\end{subequations}
+which is obviously just a fisrt order approximation of \(\phi_t\) and its eigenvalues. Now we can give the definition of stability and see why this scheme is not stable for our problem.
+
+\subsubsection{Definition(Stability)}
+A numerical method is stable if the solution it gives for a linear problem has an asimptotically bounded growth.
+\newline
+
+This basically assures that the error does not blow up. While this is an intuitive definition, there is a beter way to go about things mathematically. Without going into details about forward and backward stability, we can mention the concept of mixed stability. The idea is the following: looking at~\cref{eq:ODE} let us take \(\vb{f}\) be the analytic propagation function and \(\vb{\tilde{f}}\) the one given by the scheme, while \(\vb{z}\) and \(\vb{\tilde{z}}\) are the analytic and numeric solution, respectively, at the same point in time. The method has mixed stability if the quantity \(\frac{\norm{\vb{\tilde{f}}(\vb{z}) - \vb{f}(\vb{\tilde{z}})}}{\vb{f}(\vb{\tilde{z}})}\) is within machine error for an \(\vb{\tilde{z}}\) with relative error within machine error.
+
+For the interested reader, a list of relevant mathematical definitions related to stability can be found in the presentation by~\cite{liuConditioningNumericalStability}. However, we will restric ourselves to an important and powerful result. The growth of the error after applying the infinitesimal flow map \(n\) is proportional to the \(n^{th}\) power of the corresponding eigenvalues. In this context we can formulate the following theorem.
+
+\subsubsection{Theorem}
+A suficient condition for a method to have asimptotic stability is to have the eigenvalues of it's matrix laying in the closed unit disc (unit circle included) in the complex plane, and, if any eigenvalue lies on the unit circle it must be simple (not repeated).
+\newline
+
+A quick look at \(\lambda_{1,2}^{Euler}\) reveals that their modulus is larger than 1. Because of this, the growth of the error in the explicit Euler method is exponential. In fact, in this case, there is no time-step we can choose to make it stable. A point has to be made though: imstability does not deny convergence. As discussed in the beginning of the section, depending on how small of a time-step we choose for a specific simulation duration we can make the instability effects negligible. But this can come at a cost of computational power. Stable algoithms are useful in the way that we can reduce the strain on our computer without obtaining diverging errors.
+
+As we saw in the begining of this section, there are other methods that are stable for the linear harmonic oscillator problem. However, an unconditionally stable scheme is hard to come about. Most of the time we can find a certain condition for our method to be stable. As an example, let us look at the Störmer-Verlet method.
+
+In the context of~\cref{eq:HO}, \cref{eq:SV-1,eq:SV-2,eq:SV-3} become
+
+\begin{subequations}
+  \begin{align}
+    x_{n+1} = x_n + v_{n+\frac{1}{2}} \Delta t\\
+    v_{n+\frac{1}{2}} = v_{n} - x_n \frac{\omega^2 \Delta t}{2} \\
+    v_{n+1} = v_{n+\frac{1}{2}} - x_{n+1} \frac{\omega^2 \Delta t}{2}\,,
+  \end{align}
+\end{subequations}
+or
+
+\begin{subequations}
+  \begin{align}
+    x_{n+1} = x_n \left( 1 - \frac{\omega^2 \Delta t^2}{2} \right) + v_n \Delta t\\
+    v_{n+1} = - x_n \left(1 - \frac{\omega^2 \Delta t^2}{4}\right) \omega^2 \Delta t + v_n \left( 1 - \frac{\omega^2 \Delta t^2}{2} \right)\,,
+  \end{align}
+\end{subequations}
+which gives the infinitesimal flow map
+
+\begin{equation}
+  \phi_{\Delta t}^{SV} =
+  \begin{bmatrix}
+    1 - \frac{\omega^2 \Delta t^2}{2} & \Delta t\\
+    - \left(1 - \frac{\omega^2 \Delta t^2}{4}\right) \omega^2 \Delta t & 1 - \frac{\omega^2 \Delta t^2}{2}
+  \end{bmatrix}\,.
+\end{equation}
+In order to make solving for eigenvalues easier let us employ the notation \(\eta = \frac{\omega^2 \Delta t^2}{2}\). Then, we have
+
+\begin{subequations}
+  \begin{align}
+    \lambda x_0 = x_0 (1-\eta) + v_0 \Delta t\\
+    \lambda v_0 = - 2 \frac{x_0}{\Delta t} \eta \left(1-\frac{\eta}{2}\right) + v_0 (1-\eta)\,,
+  \end{align}
+\end{subequations}
+followed by
+
+\begin{subequations}
+  \begin{align}
+    x_0 (\lambda + \eta -1) = v_0 \Delta t\\
+    2 x_0 \eta \left(1-\frac{\eta}{2}\right) = - (\lambda + \eta -1)v_0 \Delta t\,.
+  \end{align}
+\end{subequations}
+Dividing these leads to the final equation for the eigenvalues
+
+\begin{equation}
+  \lambda^2 - 2(1-\eta) \lambda +1 = 0\,.
+\end{equation}
+The discriminant of this equation is \(4\eta(\eta-2)\) and, consequently, the eigenvalues are
+
+\begin{equation}
+  \lambda_{1,2} = 1 - \eta \pm \sqrt{\eta(\eta - 2)}\,.
+\end{equation}
+Note that their product is 1. We are now interested in the modulus of these. For \(\eta> 2\) the solutions are real and the modulus of one of them is easily found to be greater than unity. Indeed, if \(\eta = 2+\alpha\), \(\alpha>1\)
+
+\begin{equation}
+  \abs{\lambda_{1,2}} = \abs{1-\eta \pm \sqrt{\eta(\eta-2)}} = \abs{-1 - (\alpha \mp \sqrt{\alpha^2 + 2\alpha})} >1\,,
+\end{equation}
+since \(\alpha + \sqrt{\alpha^2 + 2\alpha} > 0\). If \(\eta< 2\) the eigenvalues are complex and are conjucates of each other, such that their modulus is 1. Thus, we conclude that the method is stable for \(\eta< 2\), which translates to
+
+\begin{equation}
+  \Delta t < \frac{2}{\omega} = \frac{T}{\pi}\,.
+\end{equation}
 
 \section{Methods used in Particle-in-cell simulations}
 \subsection{The Boris Push}
