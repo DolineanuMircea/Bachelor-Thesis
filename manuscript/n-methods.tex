@@ -586,8 +586,85 @@ Such an equation is useful in order to get the initial conditions for the mid-st
 
 We introduced~\cref{eq:actual-boris2} out of nowhere, but it is quite straightforward to see that by eliminating \(v^-\) and \(v^+\) we simply recover~\cref{eq:actual-boris12}. Besides this, there is a geometrical Interpretation to the break up described by~\cref{eq:actual-boris2}. \(v^-\) and \(v^+\) enclose the drift motion due to electric field, \cref{eq:actual-boris2} described a rotation under the effect of a constant magnetic field. For a more in depth description with imagise to help visualization I recommend the Master Thesis of~\cite{micluta-campeanuLaserWakefieldAcceleration2019}.
 
-\subsubsection{Numerical Propeties}
-a
+\subsubsection{Numerical Propeties (Symplecticity and Volume Conservation Theory)}
+
+In terms of accuracy, the Boris push remains at its core a twist on the Störmer-Verlet method, so it an be shown that it is a second order scheme. But there are things that are not inherited this way. We already saw that the Störmer-Verlet and leapfrog integrators are very similar. It a known fact that the leapfrog scheme is one of the simplest symplectic and as such it has outstanding conservation properties. But we can not expect the Boris push to be the same. The thing that throws everything off is the dependence on velocity that we have introduced in the expression of the force. Even so, the Boris push still has a strength in that it is volume preserving. It is also important to mention that it conserves energy exactly in the absence of the electric field. This may not seem that great in itself, since the electric field is never vanishing in practical simulations, but it was a hint towards the idea that it might be volume preserving. In what follows we will delve a bit into the concept of symplecticity and see how we can find out if a scheme has this property. Of course, our example for this theory will be the Boris push algorithm.
+
+In order to give a concrete mathematical definition for simplecticity we have to define a handy tool first, as presented on p. 164 in~\cite{arnoldMathematicalMethodsClassical1997}.
+
+\begin{definition}
+  Let \(M^{2n}\), \(n\in \mathbb{N}\), be a differentiable manifold with an even number of dimensions (this is general, so we can use any such manifold, but for our numerical methods related endeavours we really only need to talk about \(\mathbb{R}^{2n}\)). \textbf{An exterior form of degree two} (or a \textbf{2-form}) on this manifold is a map \(\omega_2 : M^n \cp M^n \rightarrow M\) that is bilinear and skew symmetric:
+
+  \begin{align*}
+  \omega_2 (\lambda_1 \vb*{\xi_1} + \lambda_2 \vb*{\xi_2}, \vb*{\xi_3}) &=
+  \lambda_1 \omega_2 (\vb*{\xi_1}, \vb*{\xi_3}) + \lambda_2 \omega_2 (\vb*{\xi_2}, \vb*{\xi_3}) \\
+  \omega_2 (\vb*{\xi_1},\vb*{\xi_2}) &= -\omega_2 (\vb*{\xi_2}, \vb*{\xi_1})\,,
+  \end{align*}
+  \(\forall \lambda_1,\;\lambda_2 \in M, \vb*{\xi_1},\;\vb*{\xi_2},\;\vb*{\xi_3} \in M^n\).
+  If we also have the extra property that \(\omega_2 (\vb*{\xi_1},\vb*{\xi_2}) = 0,\;\forall \vb*{\xi_2}\) implies \(\vb*{\xi_1}=0\) we say that the 2-form is non-degenerate.
+\end{definition}
+
+Note that the even dimensionality of our manifold is an important aspect of the definition. It is also important to remark that all the concepts we discuss here in this chapter play an important role in analytical mechanics, since the phase space is always even dimensional.
+
+In a two dimensional space, the determinant of the matrix obtained by the augmentation of two vectors gives the area of the paralelogram described by the two vectors~(\cite{golombProofWordsDeterminant1985}). The determinant in this context is also a basic example of a 2-form. This is not a mere coincidence. In general, a differential 2-form at a point (an exterior 2-form on the tangent space at that point) computes a local oriented differential area there. This observation is in a way valid for any k-form, but we are not interested in developing too much geometry in this text.
+
+I mentioned the tangent space. This concept is actually necessary to understand in order to move forward, so let us present a short definition adapted to our interests~(\cite{weissteinTangentSpace}):
+
+\begin{definition}
+  Let \(\vb*{x}\) be a point in our manifold \(M^{2n}\). If we attach a copy of \(\mathbb{R}^{2n}\) tangential to \(M^{2n}\) at \(\vb{x}\) we obtain a structure called \textbf{the tangent space} of \(M^{2n}\) at \(\vb*{x}\) and we denote it by \(T_{\vb*{x}}M\).
+\end{definition}
+
+As any concept in differential geometry, it is easy to understand it in spaces with a small number of dimensions. The simplest to visualize in my opinions is the 2D surface of a sphere. If we choose any point on the sphere and stick at that point an infinite plane we obtain the tangent space at that point. The idea of the tangent space is something that people are actually used with from calculus. Say we have a curve on our manifold that passes through \(\vb{x}\). The derivative of the curve at \(\vb{x}\) is a vector in the tangent space. Coming back to our 2D example, on a shpere surface the derivative of a curve on it at a point is tangent to the sphere, so basically an stright arrow tangent to the sphere at that point. But clearly that arrow is not \textit{on} the sphere. It is on the tangent plane part of the tangent space. This is really an extension to the idea in calculus that the derrivative gives the slope of the function at a point.
+
+\begin{definition}
+  A symplectic form on \(M^{2n}\) is a smooth closed non-degenerate 2-form \(\omega_2\) on \(M^{2n}\) such that the alternating bilinear map \(\omega_2^{\vb*{x}} : T_{\vb*{x}}M^{2n} \cp T_{\vb*{x}}M^{2n} \rightarrow \mathbb{R}\) defined by the expression of \(\omega_2\) at every point \(\vb*{x} \in M^{2n}\) is also non-degenerate.
+\end{definition}
+
+This may seem quite an abstract and hard to digest idea, so let us dismiss it with a particularization relevant for our problem at hand. If our manifold is \(\mathbb{R}^{2n}\) then any 2-form \(\omega_2 : \mathbb{R}^{2n} \cp \mathbb{R}^{2n} \rightarrow \mathbb{R}\) is symplectic simply if \(\omega_2 (\vb{x},\vb{x}) = 0\) for any \(\vb{x}\) in \(\mathbb{R}^{n}\)~(\cite{weissteinSymplecticForm}).
+
+\begin{definition}
+  A linear map \(A: M^{n} \to M^{n}\) is called
+  \emph{symplectic} if there exists a symplectic form \(\omega_2: M^n \cp M^n \rightarrow M\)
+  such that
+  \(
+  \omega_2 (A\vb*{\xi}, A\vb*{\eta}) = \omega_2 (\vb*{\xi},\vb*{\eta})\,,\
+  \forall \vb*{\xi}, \vb*{\eta} \in M^{n}\,.
+  \)
+\end{definition}
+
+For real manifolds we can reformulate this in the following way:
+
+\begin{definition*}
+  A linear map \(A: \mathbb{R}^{n} \to \mathbb{R}^{n}\) is called
+  \emph{symplectic} if there exists a 2-form \(\omega_2\) on \(\mathbb{R}^{2n}\) with \(\omega_2 (\vb*{x},\vb*{x}) = 0,\;\forall \vb*{x} \in \mathbb{R}^{n}\)
+  such that
+  \(
+  \omega_2 (A\vb*{\xi}, A\vb*{\eta}) = \omega_2 (\vb*{\xi},\vb*{\eta})\,,\
+  \forall \vb*{\xi}, \vb*{\eta} \in \mathbb{R}^{n}\,.
+  \)
+\end{definition*}
+
+An equivalent condition can be given in matrix form
+
+\begin{equation}
+  A^T J^{-1} A = J^{-1}\,,
+\end{equation}
+where \(J = \begin{bmatrix}
+  0 & I \\
+  -I & 0
+\end{bmatrix}\) and \(I\) is the \(n\)-dimensional unitary matrix.
+
+% offer proof
+
+This is the complete set of mathematical definitions and nomenclature that develop the concept of symplectic maps. But a question still remains: what is a symplectic map \textit{really}? Well, it is a generalization of area-preservance (the image of a subset of our manifold through an area-preserving map has the same volume as the subset itself). In practice it is useful to use the following result in order to decide if this property holds: \textbf{a linear map is area-preserving if its associated matrix has the determinant equal to 1}. The proof is omitted since it can be easily found on many places across the internet. Now, looking at phase space, if a linear map is symplectic then, informally, the sum of areas projected on the planes \((\vb{q_i},\vb{p_i}),\;i = \overline{1,n}\) is conserved~(\cite{weissteinSymplecticMap}). In fact, area-preservance is a necessary, but insufficient condition for symplecticity.
+
+We still have to make one ore step in order to study the properties of the Boris push. The problem is that the map that describes this scheme is not linear, so we can not directly use what we presented so far. We simply have to define simplecticity in a larger sense.
+
+\begin{definition}
+  A map \(f:\mathbb{R}^{2n}\rightarrow \mathbb{R}^{2n}\) is symplectic if its Jacobian matrix is symplectic.
+\end{definition}
+
+
 \subsection{The FDTD Maxwell Solver}
 \subsubsection{Numerical Properties}
 a
