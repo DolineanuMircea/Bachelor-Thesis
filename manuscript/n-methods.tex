@@ -196,7 +196,7 @@ A different scheme can be derived by playing around with the realations of this 
 for two consecutive steps. By lowering~\cref{eq:SV-3} with 1, we have
 
 \begin{equation}
-  M\vb{v_{n+1}} = M\vb{v_{n+\frac{1}{2}}} - \frac{\Delta t}{2} \grad_{\vb{r}} V(\vb{r_{n+1}})\,,
+  M\vb{v_{n}} = M\vb{v_{n-\frac{1}{2}}} - \frac{\Delta t}{2} \grad_{\vb{r}} V(\vb{r_{n}})\,,
 \end{equation}
 which replaced in~\cref{eq:SV-2} gives a reccurence relation for the mid-step velocity
 
@@ -514,7 +514,77 @@ The presentation so far should not give the reader the impression that PIC is th
 \section{Methods used in Particle-in-cell simulations}
 \subsection{The Boris Push}
 
-It is time now to tackle the first method in the context of Particle-in-cell simulations. It is discussed in~\cite{birdsallPlasmaPhysicsComputer1995}, there are different ways to implement particles pushers, either by partially separating the action of the electric and magmetic fields~(\cite{bunemanTimereversibleDifferenceProcedures1967}), or by separating them completely~(\cite{borisRelativisticPlasmaSimulation1970}). Along the years, even more alternatives have surfaced. A nice up-to-date review of the currently relevant relativistic schemes for particle dynamics in electromagnetic fields is~\cite{ripperdaComprehensiveComparisonRelativistic2018}. In this section we will present and analyze the Boris push, since it is widely implemented in the currently available PIC codes.
+It is time now to tackle the first method in the context of Particle-in-cell simulations. It is discussed in~\cite{birdsallPlasmaPhysicsComputer1995}, there are different ways to implement particles pushers, either by partially separating the action of the electric and magmetic fields~(\cite{bunemanTimereversibleDifferenceProcedures1967}), or by separating them completely~(\cite{borisRelativisticPlasmaSimulation1970}). Along the years, even more alternatives have surfaced. A nice up-to-date review of the currently relevant relativistic schemes for particle dynamics in electromagnetic fields is~\cite{ripperdaComprehensiveComparisonRelativistic2018}. In this section we will present and analyze the Boris push, since it is widely implemented in the currently available PIC codes. The popularity of this specific scheme stems from its practical performance. Since its initial proposal, the Boris push was observed to have good accuracy over long integration times in simulations. The explanation for why it works so well was given only recently in~\cite{qinWhyBorisAlgorithm2013}. They studied only the properties of the non-relativistic scheme. Because of this, we will also start with the classical case, wich is simpler, in order to gain some intuition.
+
+\subsubsection{Classical Boris Push}
+
+We aim to solve the followwing equations
+
+\begin{subequations}
+  \begin{align}
+    \dv{\vb{r}}{t} = \vb{v}\\
+    \dv{\vb{v}}{t} = \frac{q}{m} \left(\vb{E} + \vb{v}\cp \vb{B}\right)\,.
+  \end{align}
+\end{subequations}
+We will employ the Störmer-Verlet method
+
+\begin{subequations}
+  \begin{align}
+    \label{eq:borisp1}
+    \vb{r_{n+1}} = \vb{r_n} + \vb{v_{n+\frac{1}{2}}} \Delta t\\
+    \label{eq:borisp2}
+    \vb{v_{n+\frac{1}{2}}} = \vb{v_n} +\frac{q}{m} \frac{\Delta t}{2} \left[\vb{E} + \vb{v} \cp \vb{B} \right]_{\vb{r} = \vb{r_n}}\\
+    \vb{v_{n}} = \vb{v_{n+\frac{1}{2}}} +\frac{q}{m} \frac{\Delta t}{2} \left[\vb{E} + \vb{v} \cp \vb{B} \right]_{\vb{r} = \vb{r_{n+1}}}\,.
+  \end{align}
+\end{subequations}
+In order to find a good evaluation for the quantities enclosed in square brackets we need to play around a bit with these equations. By lowering the third one by one step and replacing in the second we get
+
+\begin{equation}
+  \frac{\vb{v_{n+\frac{1}{2}}} - \vb{v_{n-\frac{1}{2}}} }{\Delta t} = \frac{q}{m} \left[\vb{E} + \vb{v} \cp \vb{B} \right]_{\vb{r} = \vb{r_n}}\,.
+\end{equation}
+Let us now take~\cref{eq:borisp1} at two consecutive steps
+
+\begin{subequations}
+  \begin{align}
+    \vb{r_{n}} = \vb{r_{n-1}} + \vb{v_{n-\frac{1}{2}}} \Delta t\\
+    \vb{r_{n+1}} = \vb{r_n} + \vb{v_{n+\frac{1}{2}}} \Delta t\,
+  \end{align}
+\end{subequations}
+and add them to obtain
+
+\begin{equation}
+  \frac{\vb{r_{n+1}} - \vb{r_{n-1}}}{\Delta} = \frac{\vb{v_{n+\frac{1}{2}}} + \vb{v_{n-\frac{1}{2}}}}{2}\,,
+\end{equation}
+which is we will use as an approximation for the velocity at \(\vb{r} = \vb{r_n}\). We finally reach the following scheme
+
+\begin{subequations}
+\label{eq:actual-boris1}
+  \begin{align}
+    \label{eq:actual-boris11}
+    \frac{\vb{r_{n+1}} - \vb{r_n}}{\Delta t} = \vb{v_{n+\frac{1}{2}}}\\
+    \label{eq:actual-boris12}
+    \frac{\vb{v_{n+\frac{1}{2}}} - \vb{v_{n-\frac{1}{2}}} }{\Delta t} = \frac{q}{m} \left(\vb{E_n} + \frac{\vb{v_{n+\frac{1}{2}}} + \vb{v_{n-\frac{1}{2}}}}{2} \cp \vb{B_n} \right)\,.
+  \end{align}
+\end{subequations}
+This is not yet the Boris push. In order to be able to implement this scheme in an actual code, we need a way to separate \(\vb{v_{n+\frac{1}{2}}}\) and \(\vb{v_{n-\frac{1}{2}}}\) from the second equatin. Boris came up with a method to separate the action of the electric and magnetic fields by employing the following three equations
+
+\begin{subequations}
+\label{eq:actual-boris2}
+  \begin{align}
+    \vb{v^-} = \vb{v_{n-\frac{1}{2}}} + \frac{q}{m} \vb{E_n} \frac{\Delta t}{2}\\
+    \label{eq:actual-boris22}
+    \frac{\vb{v^+} - \vb{v^-} }{\Delta t} = \frac{q}{m} \frac{\vb{v^+} + \vb{v^-} }{2} \cp \vb{B_n}\\
+    \vb{v_{n+\frac{1}{2}}} = \vb{v^+} + \frac{q}{m} \vb{E_n} \frac{\Delta t}{2}\,.
+  \end{align}
+\end{subequations}
+The full classical Boris push is described by~\cref{eq:actual-boris11,eq:actual-boris2} put together. Note that we basically work only with mid-step velocities. But we can always recover the actual velocities from~\cref{eq:borisp2} like this
+
+\begin{equation}
+  \vb{v_n} = \vb{v_{n+\frac{1}{2}}} - \frac{q}{m} \frac{\Delta t}{2} \left(\vb{E_n} + \frac{\vb{v_{n+\frac{1}{2}}} + \vb{v_{n-\frac{1}{2}}}}{2} \cp \vb{B_n} \right)\,.
+\end{equation}
+Such an equation is useful in order to get the initial conditions for the mid-step velocities from the initial conditions given for the velocity.
+
+We introduced~\cref{eq:actual-boris2} out of nowhere, but it is quite straightforward to see that by eliminating \(v^-\) and \(v^+\) we simply recover~\cref{eq:actual-boris12}. Besides this, there is a geometrical Interpretation to the break up described by~\cref{eq:actual-boris2}. \(v^-\) and \(v^+\) enclose the drift motion due to electric field, \cref{eq:actual-boris2} described a rotation under the effect of a constant magnetic field. For a more in depth description with imagise to help visualization I recommend the Master Thesis of~\cite{micluta-campeanuLaserWakefieldAcceleration2019}.
 
 \subsubsection{Numerical Propeties}
 a
