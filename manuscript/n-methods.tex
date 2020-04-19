@@ -361,17 +361,17 @@ Now let us look at the methods. The explicit Euler method has the following infi
 \end{subequations}
 which is obviously just a fisrt order approximation of \(\phi_t\) and its eigenvalues. Now we can give the definition of stability and see why this scheme is not stable for our problem.
 
-\subsubsection{Definition(Stability)}
-A numerical method is stable if the solution it gives for a linear problem has an asimptotically bounded growth.
-\newline
+\begin{definition}
+  A numerical method is stable if the solution it gives for a linear problem has an asimptotically bounded growth.
+\end{definition}
 
 This basically assures that the error does not blow up. While this is an intuitive definition, there is a beter way to go about things mathematically. Without going into details about forward and backward stability, we can mention the concept of mixed stability. The idea is the following: looking at~\cref{eq:ODE} let us take \(\vb{f}\) be the analytic propagation function and \(\vb{\tilde{f}}\) the one given by the scheme, while \(\vb{z}\) and \(\vb{\tilde{z}}\) are the analytic and numeric solution, respectively, at the same point in time. The method has mixed stability if the quantity \(\frac{\norm{\vb{\tilde{f}}(\vb{z}) - \vb{f}(\vb{\tilde{z}})}}{\vb{f}(\vb{\tilde{z}})}\) is within machine error for an \(\vb{\tilde{z}}\) with relative error within machine error.
 
 For the interested reader, a list of relevant mathematical definitions related to stability can be found in the presentation by~\cite{liuConditioningNumericalStability}. However, we will restric ourselves to an important and powerful result. The growth of the error after applying the infinitesimal flow map \(n\) is proportional to the \(n^{th}\) power of the corresponding eigenvalues. In this context we can formulate the following theorem.
 
-\subsubsection{Theorem}
-A suficient condition for a method to have asimptotic stability is to have the eigenvalues of it's matrix laying in the closed unit disc (unit circle included) in the complex plane, and, if any eigenvalue lies on the unit circle it must be simple (not repeated).
-\newline
+\begin{theorem}
+  A suficient condition for a method to have asimptotic stability is to have the eigenvalues of it's matrix laying in the closed unit disc (unit circle included) in the complex plane, and, if any eigenvalue lies on the unit circle it must be simple (not repeated).
+\end{theorem}
 
 A quick look at \(\lambda_{1,2}^{Euler}\) reveals that their modulus is larger than 1. Because of this, the growth of the error in the explicit Euler method is exponential. In fact, in this case, there is no time-step we can choose to make it stable. A point has to be made though: imstability does not deny convergence. As discussed in the beginning of the section, depending on how small of a time-step we choose for a specific simulation duration we can make the instability effects negligible. But this can come at a cost of computational power. Stable algoithms are useful in the way that we can reduce the strain on our computer without obtaining diverging errors.
 
@@ -586,7 +586,11 @@ Such an equation is useful in order to get the initial conditions for the mid-st
 
 We introduced~\cref{eq:actual-boris2} out of nowhere, but it is quite straightforward to see that by eliminating \(v^-\) and \(v^+\) we simply recover~\cref{eq:actual-boris12}. Besides this, there is a geometrical Interpretation to the break up described by~\cref{eq:actual-boris2}. \(v^-\) and \(v^+\) enclose the drift motion due to electric field, \cref{eq:actual-boris2} described a rotation under the effect of a constant magnetic field. For a more in depth description with imagise to help visualization I recommend the Master Thesis of~\cite{micluta-campeanuLaserWakefieldAcceleration2019}.
 
-\subsubsection{Numerical Propeties (Symplecticity and Volume Conservation Theory)}
+\subsubsection{Relativistic Boris Push}
+
+\textit{to be added}
+
+\subsection{Symplecticity and Volume Conservation Theory}
 
 In terms of accuracy, the Boris push remains at its core a twist on the Störmer-Verlet method, so it an be shown that it is a second order scheme. But there are things that are not inherited this way. We already saw that the Störmer-Verlet and leapfrog integrators are very similar. It a known fact that the leapfrog scheme is one of the simplest symplectic and as such it has outstanding conservation properties. But we can not expect the Boris push to be the same. The thing that throws everything off is the dependence on velocity that we have introduced in the expression of the force. Even so, the Boris push still has a strength in that it is volume preserving. It is also important to mention that it conserves energy exactly in the absence of the electric field. This may not seem that great in itself, since the electric field is never vanishing in practical simulations, but it was a hint towards the idea that it might be volume preserving. In what follows we will delve a bit into the concept of symplecticity and see how we can find out if a scheme has this property. Of course, our example for this theory will be the Boris push algorithm.
 
@@ -647,23 +651,144 @@ For real manifolds we can reformulate this in the following way:
 An equivalent condition can be given in matrix form
 
 \begin{equation}
-  A^T J^{-1} A = J^{-1}\,,
+\label{cond:symplectic}
+  A^T J A = J\,,
 \end{equation}
 where \(J = \begin{bmatrix}
-  0 & I \\
-  -I & 0
-\end{bmatrix}\) and \(I\) is the \(n\)-dimensional unitary matrix.
+  0_n & I_n \\
+  -I_n & 0_n
+\end{bmatrix}\) and \(I_n\) is the \(n\)-dimensional unitary matrix (remark: \(J^{-1} = -J\)).
 
 % offer proof
 
-This is the complete set of mathematical definitions and nomenclature that develop the concept of symplectic maps. But a question still remains: what is a symplectic map \textit{really}? Well, it is a generalization of area-preservance (the image of a subset of our manifold through an area-preserving map has the same volume as the subset itself). In practice it is useful to use the following result in order to decide if this property holds: \textbf{a linear map is area-preserving if its associated matrix has the determinant equal to 1}. The proof is omitted since it can be easily found on many places across the internet. Now, looking at phase space, if a linear map is symplectic then, informally, the sum of areas projected on the planes \((\vb{q_i},\vb{p_i}),\;i = \overline{1,n}\) is conserved~(\cite{weissteinSymplecticMap}). In fact, area-preservance is a necessary, but insufficient condition for symplecticity.
+Taking the determinant of each side in the identity~\ref{cond:symplectic} results that the determinant of the matrix \(A\) is \(\pm\)1. We can do better. It is always 1. The proof usually involves using the Pfaffian, but it is possible to avoid this~(\cite{rimElementaryProofThat2018}). Let us make use of the fact that \(A^T A\) is symmetric (note that \((A^T A)^T = A^T (A^T)^T = A^T A\)). Since \(det(A) \neq 0\), \(A\) is invertible, so \(A^T A\) is also positive definite.
 
-We still have to make one ore step in order to study the properties of the Boris push. The problem is that the map that describes this scheme is not linear, so we can not directly use what we presented so far. We simply have to define simplecticity in a larger sense.
+As a side note we should mention that the simple fact that we found that \(A\) is invertible lets us compute the inverse. Indeed,
+
+\begin{equation}
+\label{inv-sympl-matix}
+  A^T J A = J \Rightarrow A^T J A A^{-1} = A^T J = J A^{-1} \Rightarrow A^{-1} = J^{-1} A^T J\,.
+\end{equation}
+
+We will do a little trick now. \(A^T A\) is both symmetric and positive definite. This means that its eigenvalues are real and positive. If \(\vb{v}\) is an eigenvector of \(A^T A\) and \(\lambda\) the corresponding eigenvalue. Then \((A^T A + I_{2n}) \vb{v} = (\lambda + 1)\vb{v}\). This means that the eigenvalues of \(A^T A + I_{2n}\) are greater than one. Since the determinant is the product of eigenvalues, we have
+
+\begin{equation*}
+  det(A^T A + I_{2n}) > 1\,.
+\end{equation*}
+
+We can extract an \(A^T\) now
+
+\begin{equation*}
+  A^T A +I_n = A^T (A+ (A^T)^{-1}) = A^T (A + J^{-1} A J)\,,
+\end{equation*}
+such that
+
+\begin{equation}
+  \label{ineq:det}
+  0 < 1 < det(A) det(A + J^{-1} A J)\,.
+\end{equation}
+Let us write our matrix as \( A=
+\begin{bmatrix}
+  a & b\\
+  c & d
+\end{bmatrix}
+\), with \(a,\; b,\; c,\; d \in \mathbb{R}^n\). Now
+
+\begin{equation*}
+  A + J^{-1} A J =
+  \begin{bmatrix}
+    a & b\\
+    c & d
+  \end{bmatrix} +
+  \begin{bmatrix}
+    0_n & -I_n \\
+    I_n & 0_n
+  \end{bmatrix}
+  \begin{bmatrix}
+    a & b\\
+    c & d
+  \end{bmatrix}
+  \begin{bmatrix}
+    0_n & I_n \\
+    -I_n & 0_n
+  \end{bmatrix} =
+\end{equation*}
+
+\begin{equation*}
+  =
+  \begin{bmatrix}
+    a & b\\
+    c & d
+  \end{bmatrix} +
+  \begin{bmatrix}
+    0_n & -I_n \\
+    I_n & 0_n
+  \end{bmatrix}
+  \begin{bmatrix}
+    -b & a\\
+    -d & c
+  \end{bmatrix} =
+\end{equation*}
+
+\begin{equation*}
+  =
+  \begin{bmatrix}
+    a & b\\
+    c & d
+  \end{bmatrix} +
+  \begin{bmatrix}
+    d & -c \\
+    -b & a
+  \end{bmatrix} =
+  \begin{bmatrix}
+    a+d & b-c\\
+    -(b-c) & a+d
+  \end{bmatrix}\,.
+\end{equation*}
+Denoting \(B\equiv a+ d\) and \(C\equiv b-c\) we can make use of the following decomposition
+
+\begin{equation*}
+  A + J^{-1} A J =
+  \begin{bmatrix}
+    \frac{1}{\sqrt{2}} I_n & \frac{1}{\sqrt{2}} I_n\\
+    \frac{\ii}{\sqrt{2}} I_n & -\frac{\ii}{\sqrt{2}} I_n
+  \end{bmatrix}
+  \begin{bmatrix}
+    B+ \ii C & 0_n\\
+    0_n & B-\ii C
+  \end{bmatrix}
+  \begin{bmatrix}
+    \frac{1}{\sqrt{2}} I_n & \frac{1}{\sqrt{2}} I_n\\
+    \frac{\ii}{\sqrt{2}} I_n & -\frac{\ii}{\sqrt{2}} I_n
+  \end{bmatrix}^T\,,
+\end{equation*}
+Which we can use in~\cref{ineq:det}
+
+\begin{equation*}
+  0 < det(A) det(B+\ii C) det(B-\ii C) = det(A) \abs{det(B+\ii C)}\,,
+\end{equation*}
+which concludes that \(det(A)>0\).
+
+Together with the fact \(det(A)\) can only take the values \(\pm\)1 this completes the proof that \textbf{the determinant of the associated matrix of a symplectic linear map is 1}.
+
+This is the complete set of mathematical definitions and nomenclature that develop the concept of symplectic maps. But a question still remains: what is a symplectic map \textit{really}? Well, it is a generalization of area-preservance (the image of a subset of our manifold through an area-preserving map has the same volume as the subset itself). In practice it is useful to use the following result in order to decide if this property holds: \textbf{a linear map is area-preserving if and only if its associated matrix has the determinant equal to 1}. The proof is omitted since it can be easily found in many places across the internet (also, note that area-preservance is a necessary, but not sufficient condition for symplecticity, considering our previous discussion). Now, looking at phase space, if a linear map is symplectic then, informally, the sum of areas projected on the planes \((\vb{q_i},\vb{p_i}),\;i = \overline{1,n}\) is conserved~(\cite{weissteinSymplecticMap}), so we can have a lot more quatities conserved. In analytical mechanics, area-preserving in phase space means that our system has conserved energy. Symplecticity, in a similar perspective, is a mark of energy and generalized angular momenta conservation (and maybe other quantities too), again, informally speaking. Indeed, it has also been shown that symplectic algorithms conserve angular momentum exactly~(\cite{zhangSymplecticIntegratorsConservation1995}).
+
+We still have to make one more step in order to study the properties of the Boris push. The problem is that the map that describes this scheme is not linear, so we can not directly use what we presented so far. We simply have to define simplecticity for a larger class of mappings (p.~183~\cite{hairerGeometricNumericalIntegration2006}).
 
 \begin{definition}
   A map \(f:\mathbb{R}^{2n}\rightarrow \mathbb{R}^{2n}\) is symplectic if its Jacobian matrix is symplectic.
 \end{definition}
 
+In a similar manner we can define a area-preservance for a wider selection of maps.
+
+\begin{definition}
+  A map \(f:\mathbb{R}^{2n}\rightarrow \mathbb{R}^{2n}\) is area-preserving if the determinant of its Jacobian matrix is equal to 1.
+\end{definition}
+
+No matter how we look at all these things, what actually do every time is to check the condition~\ref{cond:symplectic} for a matrix. We usually call the matrices that solve this identity symplectic. It turns out that for a fixed \(n\) the set of all the symplectic matrices form a group (the identity element is \(I_{2n}\), The inverse is given by \cref{inv-sympl-matix}, proving closure and associativity is trivial). In fact, it is a Lie group commonly denoted as \(Sp(2n,\mathbb{R})\). The tangent space at the identity element defines its Lie algebra.
+
+\subsection{Symplecticity for the Boris push}
+a
 
 \subsection{The FDTD Maxwell Solver}
 \subsubsection{Numerical Properties}
