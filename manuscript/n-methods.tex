@@ -566,29 +566,53 @@ which is we will use as an approximation for the velocity at \(\vb{r} = \vb{r_n}
     \frac{\vb{v_{n+\frac{1}{2}}} - \vb{v_{n-\frac{1}{2}}} }{\Delta t} = \frac{q}{m} \left(\vb{E_n} + \frac{\vb{v_{n+\frac{1}{2}}} + \vb{v_{n-\frac{1}{2}}}}{2} \cp \vb{B_n} \right)\,.
   \end{align}
 \end{subequations}
-This is not yet the Boris push. In order to be able to implement this scheme in an actual code, we need a way to separate \(\vb{v_{n+\frac{1}{2}}}\) and \(\vb{v_{n-\frac{1}{2}}}\) from the second equatin. Boris came up with a method to separate the action of the electric and magnetic fields by employing the following three equations
+This is the Boris push, but it is not yet the final algorithm. In order to be able to implement this scheme in an actual code, we need a way to separate \(\vb{v_{n+\frac{1}{2}}}\) and \(\vb{v_{n-\frac{1}{2}}}\) from the second equation. There are many equivalent ways to do so, but Boris originally came up with a method to separate the action of the electric and magnetic fields by employing the following three equations
 
 \begin{subequations}
 \label{eq:actual-boris2}
   \begin{align}
+    \label{eq:actual-boris21}
     \vb{v^-} = \vb{v_{n-\frac{1}{2}}} + \frac{q}{m} \vb{E_n} \frac{\Delta t}{2}\\
     \label{eq:actual-boris22}
     \frac{\vb{v^+} - \vb{v^-} }{\Delta t} = \frac{q}{m} \frac{\vb{v^+} + \vb{v^-} }{2} \cp \vb{B_n}\\
-    \vb{v_{n+\frac{1}{2}}} = \vb{v^+} + \frac{q}{m} \vb{E_n} \frac{\Delta t}{2}\,.
+    \label{eq:actual-boris23}
+    \vb{v_{n+\frac{1}{2}}} = \vb{v^+} + \frac{q}{m} \vb{E_n} \frac{\Delta t}{2}\,,
   \end{align}
 \end{subequations}
-The full classical Boris push is described by~\cref{eq:actual-boris11,eq:actual-boris2} put together. Note that we basically work only with mid-step velocities. But we can always recover the actual velocities from~\cref{eq:borisp2} like this
+where the second step rewritten in the following way:
+
+\begin{subequations}
+\label{eq:actual-boris3}
+  \begin{align}
+    \vb{v^+} = \vb{v^-} + (\vb{v^-} + \vb{v^-} \cp \vb{t}) \cp \vb{s}\\
+    \vb{t} = \frac{q}{2m} \vb{B_n} \Delta t\\
+    \vb{s} = \frac{2}{1+t^2} \vb{t}\,.
+  \end{align}
+\end{subequations}
+The full classical Boris push code recipe is described by~\cref{eq:actual-boris11,eq:actual-boris21,eq:actual-boris3,eq:actual-boris23} put together. Note that we basically work only with mid-step velocities. But we can always recover the actual velocities from~\cref{eq:borisp2} like this
 
 \begin{equation}
   \vb{v_n} = \vb{v_{n+\frac{1}{2}}} - \frac{q}{m} \frac{\Delta t}{2} \left(\vb{E_n} + \frac{\vb{v_{n+\frac{1}{2}}} + \vb{v_{n-\frac{1}{2}}}}{2} \cp \vb{B_n} \right)\,.
 \end{equation}
 Such an equation is useful in order to get the initial conditions for the mid-step velocities from the initial conditions given for the velocity.
 
-We introduced~\cref{eq:actual-boris2} out of nowhere, but it is quite straightforward to see that by eliminating \(v^-\) and \(v^+\) we simply recover~\cref{eq:actual-boris12}. Besides this, there is a geometrical Interpretation to the break up described by~\cref{eq:actual-boris2}. \(v^-\) and \(v^+\) enclose the drift motion due to electric field, \cref{eq:actual-boris2} described a rotation under the effect of a constant magnetic field. For a more in depth description with imagise to help visualization I recommend the Master Thesis of~\cite{micluta-campeanuLaserWakefieldAcceleration2019}.
+We introduced~\cref{eq:actual-boris2,eq:actual-boris3} out of nowhere, but it is quite straightforward to see that by eliminating \(v^-\) and \(v^+\) we simply recover~\cref{eq:actual-boris12}. This is just a convenient way to write for a machine to understand, but is simply a reorganization of the \cref{eq:actual-boris12}. It does not influence numerical properties. That is, all the nunerical properties of the algorithm lie in \cref{eq:actual-boris1}. There is a geometrical interpretation to the break up described by~\cref{eq:actual-boris2}. \(v^-\) and \(v^+\) give the drift motion due to electric field, \cref{eq:actual-boris2} described a rotation under the effect of a constant magnetic field. For a more in depth description with images to help visualization I recommend the Master Thesis of~\cite{micluta-campeanuLaserWakefieldAcceleration2019}.
 
 \subsubsection{Relativistic Boris Push}
 
-\textit{to be added}
+The relativistic version should discretize~\cref{eq:NL} in the same way we presented so far. If we make the notation \(\vb{u} = \gamma \vb{v}\), the equations of the algorithm are now simply
+
+\begin{subequations}
+  \begin{align}
+    \frac{\vb{r_{n+1}} - \vb{r_n}}{\Delta t} = \frac{\vb{u_{n+\frac{1}{2}}}}{\gamma_{n+\frac{1}{2}}},\; \gamma_{n+\frac{1}{2}} =
+    \sqrt{1+\left(\frac{u_{n+\frac{1}{2}}}{c}\right)^2}\\
+    \vb{u^-} = \vb{u_{n-\frac{1}{2}}} + \frac{q}{m} \vb{E_n} \frac{\Delta t}{2}\\
+    \vb{u^+} = \vb{u^-} + (\vb{u^-} + \vb{u^-} \cp \vb{t}) \cp \vb{s},\;
+    \vb{t} = \frac{q}{2m \gamma_n} \vb{B_n} \Delta t,\; \vb{s} = \frac{2}{1+t^2} \vb{t}\\
+    \gamma_n = \sqrt{1+\left(\frac{\vb{u}^-}{c}\right)^2} = \sqrt{1+\left(\frac{\vb{u}^+}{c}\right)^2}\\
+    \vb{u_{n+\frac{1}{2}}} = \vb{u^+} + \frac{q}{m} \vb{E_n} \frac{\Delta t}{2}\,.
+  \end{align}
+\end{subequations}
 
 \subsection{Symplecticity and Volume Conservation Theory}
 
@@ -787,16 +811,40 @@ In a similar manner we can define a area-preservance for a wider selection of ma
 
 No matter how we look at all these things, what actually do every time is to check the condition~\ref{cond:symplectic} for a matrix. We usually call the matrices that solve this identity symplectic. It turns out that for a fixed \(n\) the set of all the symplectic matrices form a group (the identity element is \(I_{2n}\), The inverse is given by \cref{inv-sympl-matix}, proving closure and associativity is trivial). In fact, it is a Lie group commonly denoted as \(Sp(2n,\mathbb{R})\). The tangent space at the identity element defines its Lie algebra.
 
-\subsection{Symplecticity for the Boris push}
-a
+\subsection{Conservation Properties of the Boris push}
+
+In order to check the conservation properties of the Boris push we need to find a way to express~\cref{eq:actual-boris1} as a matrix equation between the position and velocity at a step and those at the next step. For this we will use the hat map (while it is connected to group theory, we introduce it just as a tool).
+
+\begin{definition}
+  For a vector \(\vb*{v} = (v_1, v_2,v_3) \in \mathbb{R}^3\) the corresponding hat map is the matrix
+  \[
+  \hat{\vb*{v}} =
+  \begin{bmatrix}
+    0 & -v_3 & v_2 \\
+    v_3 & 0 & -v_1\\
+    -v_2 & v_1 & 0
+  \end{bmatrix}\,.
+  \]
+\end{definition}
+
+\begin{proposition}
+  The vector product of two vectors \(\vb*{u}\) and \(\vb*{v}\) can be expressed with the help of the hat map in the following way
+  \[
+    \vb*{u}\cp \vb*{v} = \hat{\vb*{u}} \vb*{v}\,.
+  \]
+\end{proposition}
+
+% to be continued
 
 \subsection{The FDTD Maxwell Solver}
-\subsubsection{Numerical Properties}
-a
+Since an actual study of the numerical properties of even one single Maxwell solving algorithm is incredibly long due to the large expressions used, we will resume only to presenting the simplest algorithm as it is.
+
 \subsection{FFT Based Maxwell Solvers}
-a
+if I feel like it
+
 \section{Particle-in-cell in practice}
 a
+
 \section{EPOCH}
 \subsection{Software Input}
 \subsection{Visualizing Results}
