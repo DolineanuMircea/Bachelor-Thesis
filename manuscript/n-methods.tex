@@ -685,7 +685,7 @@ where \(J = \begin{bmatrix}
 
 % offer proof
 
-Taking the determinant of each side in the identity~\ref{cond:symplectic} results that the determinant of the matrix \(A\) is \(\pm\)1. We can do better. It is always 1. The proof usually involves using the Pfaffian, but it is possible to avoid this~(\cite{rimElementaryProofThat2018}). Let us make use of the fact that \(A^T A\) is symmetric (note that \((A^T A)^T = A^T (A^T)^T = A^T A\)). Since \(det(A) \neq 0\), \(A\) is invertible, so \(A^T A\) is also positive definite.
+Taking the determinant of each side in the identity~\ref{cond:symplectic} results that the determinant of the matrix \(A\) is \(\pm\)1. We can do better. It is always 1. The proof usually involves using the Pfaffian, but it is possible to avoid this~(\cite{rimElementaryProofThat2018}). Let us make use of the fact that \(A^T A\) is symmetric (note that \((A^T A)^T = A^T (A^T)^T = A^T A\)). Since \(\det(A) \neq 0\), \(A\) is invertible, so \(A^T A\) is also positive definite.
 
 As a side note we should mention that the simple fact that we found that \(A\) is invertible lets us compute the inverse. Indeed,
 
@@ -697,7 +697,7 @@ As a side note we should mention that the simple fact that we found that \(A\) i
 We will do a little trick now. \(A^T A\) is both symmetric and positive definite. This means that its eigenvalues are real and positive. If \(\vb{v}\) is an eigenvector of \(A^T A\) and \(\lambda\) the corresponding eigenvalue. Then \((A^T A + I_{2n}) \vb{v} = (\lambda + 1)\vb{v}\). This means that the eigenvalues of \(A^T A + I_{2n}\) are greater than one. Since the determinant is the product of eigenvalues, we have
 
 \begin{equation*}
-  det(A^T A + I_{2n}) > 1\,.
+  \det(A^T A + I_{2n}) > 1\,.
 \end{equation*}
 
 We can extract an \(A^T\) now
@@ -709,7 +709,7 @@ such that
 
 \begin{equation}
   \label{ineq:det}
-  0 < 1 < det(A) det(A + J^{-1} A J)\,.
+  0 < 1 < \det(A) \det(A + J^{-1} A J)\,.
 \end{equation}
 Let us write our matrix as \( A=
 \begin{bmatrix}
@@ -789,13 +789,13 @@ Denoting \(B\equiv a+ d\) and \(C\equiv b-c\) we can make use of the following d
 Which we can use in~\cref{ineq:det}
 
 \begin{equation*}
-  0 < det(A) det(B+\ii C) det(B-\ii C) = det(A) \abs{det(B+\ii C)}\,,
+  0 < \det(A) \det(B+\ii C) \det(B-\ii C) = \det(A) \abs{\det(B+\ii C)}\,,
 \end{equation*}
-which concludes that \(det(A)>0\).
+which concludes that \(\det(A)>0\).
 
-Together with the fact \(det(A)\) can only take the values \(\pm\)1 this completes the proof that \textbf{the determinant of the associated matrix of a symplectic linear map is 1}.
+Together with the fact \(\det(A)\) can only take the values \(\pm\)1 this completes the proof that \textbf{the determinant of the associated matrix of a symplectic linear map is 1}.
 
-This is the complete set of mathematical definitions and nomenclature that develop the concept of symplectic maps. But a question still remains: what is a symplectic map \textit{really}? Well, it is a generalization of area-preservance (the image of a subset of our manifold through an area-preserving map has the same volume as the subset itself). In practice it is useful to use the following result in order to decide if this property holds: \textbf{a linear map is area-preserving if and only if its associated matrix has the determinant equal to 1}. The proof is omitted since it can be easily found in many places across the internet (also, note that area-preservance is a necessary, but not sufficient condition for symplecticity, considering our previous discussion). Now, looking at phase space, if a linear map is symplectic then, informally, the sum of areas projected on the planes \((\vb{q_i},\vb{p_i}),\;i = \overline{1,n}\) is conserved~(\cite{weissteinSymplecticMap}), so we can have a lot more quatities conserved. In analytical mechanics, area-preserving in phase space means that our system has conserved energy. Symplecticity, in a similar perspective, is a mark of energy and generalized angular momenta conservation (and maybe other quantities too), again, informally speaking. Indeed, it has also been shown that symplectic algorithms conserve angular momentum exactly~(\cite{zhangSymplecticIntegratorsConservation1995}).
+This is the complete set of mathematical definitions and nomenclature that develop the concept of symplectic maps. But a question still remains: what is a symplectic map \textit{really}? Well, it is a generalization of area-preservance (the image of a subset of our manifold through an area-preserving map has the same volume as the subset itself; in this thesis we use volume and area preservence interchangably). In practice it is useful to use the following result in order to decide if this property holds: \textbf{a linear map is area-preserving if and only if its associated matrix has the determinant equal to 1}. The proof is omitted since it can be easily found in many places across the internet (also, note that area-preservance is a necessary, but not sufficient condition for symplecticity, considering our previous discussion). Now, looking at phase space, if a linear map is symplectic then, informally, the sum of areas projected on the planes \((\vb{q_i},\vb{p_i}),\;i = \overline{1,n}\) is conserved~(\cite{weissteinSymplecticMap}), so we can have a lot more quatities conserved. Symplecticity, in this perspective, is a mark of generalized angular momenta conservation (and maybe other quantities too), again, informally speaking. Indeed, it has also been shown that symplectic algorithms conserve angular momentum exactly~(\cite{zhangSymplecticIntegratorsConservation1995}). We must mention that energy conservation is better than symplecticity. In general energy conservation sits above symplecticity, which sits above area-preservance. This may not seem that obvious, since all these three conservation properties are identical in two dimensions and the 2D phase space (1D system) is pretty much the only one our mind can really visualize (a 2D system would have a 4D phase space).
 
 We still have to make one more step in order to study the properties of the Boris push. The problem is that the map that describes this scheme is not linear, so we can not directly use what we presented so far. We simply have to define simplecticity for a larger class of mappings (p.~183~\cite{hairerGeometricNumericalIntegration2006}).
 
@@ -990,14 +990,16 @@ so the Boris push is not symplectic. But is it area-preserving? To see this we o
 Let us denote \(\frac{1}{2}\frac{q\Delta t}{m} \vb{\hat{B}_n}\) by \(\Omega\). By direct calculation we can show that
 
 \begin{equation}
-  det(I_3 + \Omega) = det(I_3 - \Omega) = 1+\left(\frac{1}{2}\frac{q\Delta t}{m} B_n^1\right)^2 + \left(\frac{1}{2}\frac{q\Delta t}{m} B_n^2\right)^2+ \left(\frac{1}{2}\frac{q\Delta t}{m} B_n^3\right)^2 \,,
+  \det(I_3 + \Omega) = \det(I_3 - \Omega) = 1+\left(\frac{1}{2}\frac{q\Delta t}{m} B_n^1\right)^2 + \left(\frac{1}{2}\frac{q\Delta t}{m} B_n^2\right)^2+ \left(\frac{1}{2}\frac{q\Delta t}{m} B_n^3\right)^2 \,,
 \end{equation}
 such that
 
 \begin{equation}
-  \abs{R} = det((I_3 + \Omega)^{-1} (I_3 - \Omega)) = det((I_3 + \Omega)^{-1}) det(I_3 - \Omega) = \frac{det(I_3 - \Omega)}{det(I_3 + \Omega)} = 1\,.
+  \abs{R} = \det((I_3 + \Omega)^{-1} (I_3 - \Omega)) = \det((I_3 + \Omega)^{-1}) \det(I_3 - \Omega) = \frac{\det(I_3 - \Omega)}{\det(I_3 + \Omega)} = 1\,.
 \end{equation}
 This concludes the proof that the Boris push is area-preserving.
+
+We will not bother to study also the relativistic algorithm since it is pretty much the same thing with a few changes. In the article by~\cite{zhangVolumepreservingAlgorithmSecular2015}, the authors claim to provide a \textit{new} particle pusher that is volume preserving (since, as they say, the relativistic Boris push is not), but it turns out that their original scheme is exactly that of Boris. Nonetheless, the article proves area-preservance for the relativistic Boris push.
 
 \subsection{The FDTD Maxwell Solver}
 Since an actual study of the numerical properties of even one single Maxwell solving algorithm is incredibly long due to the large expressions used, we will resume only to presenting the simplest algorithm as it is.
