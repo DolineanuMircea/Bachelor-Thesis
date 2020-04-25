@@ -1219,9 +1219,32 @@ which is called in literature the Courant condition. For the 3D scheme, we would
 \end{equation}
 
 \section{Particle-in-cell in Practice}
-a
+So far even though it might seem like a lot, we have only scratched the surface of the structure of PIC codes. There are amny other schemes we left out and countless improvements for speed and accuracy. Actual PIC codes are humongous well optimized codes of thousands of lines, so building your own code from zero is not a one person job. As a result, there are lots of complete PIC software already available, each one the result of years of work. There is also an aspect we havent touched yet, and that is computational power. We still have to put in our system a couple tens of thousands of superparticles to obtain a good statistical result. In order to do this, we really need our code to be parallelized and ready to run on servers and clusters. This section is dedicated to offering an overview of these aspects.
+
 \subsection{Conditions and Restrictions for a Successful Simulation}
-a
+Before even discussing the codes, I want to put all the conditions one must check for the input parameters (in principle the discretization step-sizes) that are mandatory for in order to be able to trust the results of a simulation.
+
+Since our simulation will include electromagnetic waves that might arise in the plasma medium, we must make certain that we have at least a couple of steps per half oscillation cycle in order to accurately represent it. But how can we control the waves that arise. In the plasma chapter we discussed that any electromagnetic wave with a frequency smaller than the plasma frequency (which is proportional to the square root of the electron particle density) can not propagate through the plasma. This means that we must choose our time-step such that the plasma frequency is well represented. Since all the waves in the system will have the frequency higher than the plasma frequency, we are sure to correctly represent each wave. The condition is usually written as
+
+\begin{equation}
+  \Delta t \leq \frac{2}{\omega_p}\,.
+\end{equation}
+However, practical considerations related to energy conservation require an even more strict condition. It usually depends also on the computation power you havve at your disposal, so there is always a trade off, but, in practice, many usually take at least \(\Delta t \leq \frac{0.1}{\omega_p}\).
+
+We have also discussed how the effect of charge accumulation in plasmas is completely screened over distances of a couple Debye lengths. We need to make sure that we choose the space grid such that distances of this order are accurately represented. Thus we usually want to have
+
+\begin{equation}
+  \Delta x, \Delta y, \Delta z < 3 \lambda_D\,.
+\end{equation}
+
+Finally, we must also include the courant condition we just deduced at the end of the previous section
+
+\begin{equation}
+  c \leq \frac{\sqrt{\Delta x^2 + \Delta y^2 + \Delta z^2}}{\Delta t}\,.
+\end{equation}
+
+With these constraints in mind, PIC codes can be used without much thought for what happens inside them. However, good knowledge about the method and the specific implementation you are using are useful in order to understand the causes of any problem or unphysical solution that might arise.
+
 \subsection{Currently Available PIC Codes and High Performance Computing}
 a
 
