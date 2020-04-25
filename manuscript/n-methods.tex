@@ -232,6 +232,7 @@ or, moving the derivative to the left and dividing by \(\Delta t^2\)
 Note that we just recovered the second derivative approximation that generates the leapfrog scheme, so our proof is finished.
 
 \subsection{Stability}
+\label{sec:stability}
 
 In order to understand the concept of stability, let us study the behaviour of some integration schemes in solving the most basic and the most important system of equations in physics -- the linear harmonic oscillator
 
@@ -1136,7 +1137,86 @@ Obtaining the charge density \(\rho\) is the job of the current deposition schem
 \end{subequations}
 
 \subsection{Stability of the FDTD Scheme}
-a
+In this subsection we want to analyze the stability of the FDTD scheme. However, working directly with the 3D equations is quite dificult due to their length. We will instead try to study the 1D scheme and then use it as a model to offer the 3D result.
+
+It is hard to imagine what it means to have 1D Maxwell equations, sine the definitions of divergence and curl don't make that much sense. By reducing to 1D, we really mean to simply take the directions of the electric and magnetic fields fixed, like it is done in~\cite{leheElectromagneticWavePropagation2016}. Let us take \(E\) along the \(x\)-axis and \(B\) along the \(y\)-axis. In this case, our system's spacial dimension is only the \(z\)-axis. The field equations of the FDTD scheme become
+
+\begin{subequations}
+  \begin{align}
+  \partial_t B_y|^n_{k+\frac{1}{2}} =
+  - \partial_z E_x|^n_{k+\frac{1}{2}} \\
+  \partial_t E_x|^{n+\frac{1}{2}}_{k} =
+  c^2 \partial_z B_y|^{n+\frac{1}{2}}_{k}\,.
+  \end{align}
+\end{subequations}
+The current term disappears since there is no \(j_x\). We can also rewrite more explicitly these relations (I dropped the subscripts of the fields since they are redundant as we fixed the directions)
+
+\begin{subequations}
+  \begin{align}
+    \frac{B^{n+\frac{1}{2}}_{k+\frac{1}{2}} - B^{n-\frac{1}{2}}_{k+\frac{1}{2}}}{\Delta t} =
+    -\frac{E^n_{k+1} - E^n_k}{\Delta z}\\
+    \frac{1}{c^2} \frac{E^{n+1}_k - E^n_k}{\Delta t} =
+    -\frac{B^{n+\frac{1}{2}}_{k+\frac{1}{2}} - B^{n+\frac{1}{2}}_{k-\frac{1}{2}}}{\Delta z}\,.
+  \end{align}
+\end{subequations}
+We can combine these to obtain a propagation relation that uses the same second derivative numerical approximation we have encoutered before when talking about the leapfrog algorithm
+
+\begin{equation*}
+  \frac{1}{c^2} \frac{E^{n+1}_k - E^n_k}{\Delta t^2} -
+  \frac{1}{c^2} \frac{E^{n}_k - E^{n-1}_k}{\Delta t^2} =
+  -\frac{B^{n+\frac{1}{2}}_{k+\frac{1}{2}} - B^{n+\frac{1}{2}}_{k-\frac{1}{2}}}{\Delta z \Delta t} +\frac{B^{n-\frac{1}{2}}_{k+\frac{1}{2}} - B^{n-\frac{1}{2}}_{k-\frac{1}{2}}}{\Delta z \Delta t} =
+\end{equation*}
+
+\begin{equation*}
+  = - \frac{B^{n+\frac{1}{2}}_{k+\frac{1}{2}} - B^{n-\frac{1}{2}}_{k+\frac{1}{2}}}{\Delta z \Delta t} + \frac{B^{n+\frac{1}{2}}_{k-\frac{1}{2}} - B^{n-\frac{1}{2}}_{k-\frac{1}{2}}}{\Delta z \Delta t} =
+  \frac{E^n_{k+1} - E^n_k}{\Delta z^2} - \frac{E^n_{k} - E^n_{k-1}}{\Delta z^2} \Rightarrow
+\end{equation*}
+
+\begin{equation}
+  \label{eq:1dwaveeq}
+  \Rightarrow \frac{1}{c^2} \frac{E^{n+1}_k - 2E^n_k + E^{n-1}_k}{\Delta t^2} =
+  \frac{E^n_{k+1} - 2 E^n_k + E^n_{k-1}}{\Delta z^2}\,.
+\end{equation}
+
+Back in~\cref{sec:stability} we applied different schemes to the harmonic oscillator in order to study their stability. We will use slightly more general idea now, which still capitalizes on ocillations, namely the von Neumann analysis. We start by assuming that we obtain numerical results up to machine precision. In this case, \cref{eq:1dwaveeq} is also satisfied by the round-off error \(\epsilon^n_k = N^n_k - E^n_k\), where \(N^n_k\) is the numerical solution obtained through the finite precision scheme. We let the error have a wave form (\textit{i}.\textit{e}. we use an oscillating small perturbation)
+
+\begin{equation}
+  \label{test-epsilon}
+  \epsilon^n_k = \epsilon_0 \ee^{\ii (k_w k\Delta z- \omega n\Delta t)}\,,
+\end{equation}
+and look at how it evolves in time. Replacing in \cref{eq:1dwaveeq}, we have
+
+\begin{equation*}
+  \frac{1}{c^2} \frac{\epsilon^{n+1}_k - 2\epsilon^n_k + \epsilon^{n-1}_k}{\Delta t^2} = \frac{\epsilon^n_{k+1} - 2\epsilon^n_k + \epsilon^n_{k-1}}{\Delta z^2} \Rightarrow
+\end{equation*}
+
+\begin{equation*}
+  \Rightarrow
+  \frac{\Delta z^2}{c^2 \Delta t^2} \left(\ee^{\ii\omega\Delta t} + \ee^{-\ii\omega\Delta t} - 2 \right) \epsilon_0 \ee^{\ii (k_w k\Delta z- \omega n\Delta t)} = \left(\ee^{\ii k_w \Delta z} + \ee^{-\ii k_w \Delta z} - 2 \right) \epsilon_0 \ee^{\ii (k_w k\Delta z- \omega n\Delta t)} \Rightarrow
+\end{equation*}
+
+\begin{equation*}
+  \Rightarrow \frac{\Delta z^2}{c^2 \Delta t^2} \left[\cos(\omega\Delta t) -1\right] = \left[\cos(k_w \Delta z) -1\right] \Rightarrow
+\end{equation*}
+
+\begin{equation*}
+  \Rightarrow \frac{\Delta z^2}{c^2 \Delta t^2} \sin[2](\frac{\omega\Delta t}{2}) = \sin[2](\frac{k_w\Delta z}{2}) \Rightarrow
+\end{equation*}
+
+\begin{equation}
+  \label{pre-courant}
+  \Rightarrow \sin(\frac{\omega\Delta t}{2}) = \pm \frac{c\Delta t}{\Delta z} \sin(\frac{k_w\Delta z}{2})\,.
+\end{equation}
+We can now see that in order for this numerical dispersion relation we obtained to hold we must have \(c\Delta t \leq \Delta z\). Otherwise, if \(c\Delta t>\Delta z\), \cref{pre-courant} can only give a complex solution for \(\omega\). This would in turn change the complex exponential in the ansatz~\ref{test-epsilon} to a real exponential, which would eventually blow up. The conclusion now is that the stability condition for the 1D FDTD scheme is
+
+\begin{equation}
+  c \leq \frac{\Delta z}{\Delta t}\,,
+\end{equation}
+which is called in literature the Courant condition. For the 3D scheme, we would have to work with the complete set of equations. We can again obtain a numerical wave equation, do von Neumann error analysis (this time including in our ansatz oscillatory terms in all spatial direction), and we would eventually obtain a very similar result
+
+\begin{equation}
+  c \leq \frac{\sqrt{\Delta x^2 + \Delta y^2 + \Delta z^2}}{\Delta t}\,.
+\end{equation}
 
 \section{Particle-in-cell in Practice}
 a
