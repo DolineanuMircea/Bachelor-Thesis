@@ -1291,6 +1291,14 @@ Of course, in order to use these relations in simulations involving laser beams,
 
 It is important to mention that the Laguerre-Gauss laser beams are not simply a solution resulting from mathematical sleight of hand, but they can be obtained in practice. Some examples of articles that deal with the production of Laguerre-Gauss modes (only a few selected from an expansive literature) are~\cite{bolzeTemporallyShapedLaguerre2018},~\cite{suedaLaguerreGaussianBeamGenerated2004} and~\cite{zeylikovichUltrashortLaguerreGaussianPulses2007}.
 
+Just for the sake of completion, I have also added a couple of figures illustrating different Laguerre-Gauss profiles (\ref{fig:lag-g-1}). The plots were obtained in Julia, with the help of the LaserTypes.jl package (available at \url{https://github.com/SebastianM-C/LaserTypes.jl}). The code is very similar to the examples used in the documentation of the package (which I helped designing). Note that for \(m=p=0\), the profile is the same as for a regular Gauss mode, so the illustrations provide an example for that as well.
+\clearpage
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\textwidth]{laguerre-gauss-E-field-at-z_F}%
+  \caption{The surface plots of the modulus of the electric field vector evaluated at \(z=z_0\) for different Laguerre-Gauss profiles}\label{fig:lag-g-1}%
+\end{figure}
+
 \subsection{Other Types of Beams}
 
 \subsubsection{Gauss Beams}

@@ -6,6 +6,82 @@
 \chapter{Results}%
 \label{chap:results}
 
-In this chapter we present the main results \dots
+This chapter covers the results from the numerical simulations that I've run using the EPOCH Particle-in-Cell code. The main focus of the study is to analyze the use of Laguerre-Gauss modes in laser wakefield accelerators and to compare their behaviour with that of simple Gaussian modes. The simulations were performed using the computing cluster from the Departament of Computational Physics and Information Technology of the National Institute of Phisics and Nuclear Engineering. The servers used had an Intel\textsuperscript{\tiny\textregistered} Xeon\textsuperscript{\tiny\textregistered} E 5-2640 v4 2.4 GHz (3.4 GHz Turbo Boost) processor. Each server has 10 cores per socket and 128 GB RAM memory. MPI was used for parallelization, and benchmarks showed that running with Hyper-Threading or running on two servers at once improves the computation time significantly. For all simulations I chose the latter option, the average simulation time being somewhere between half a day and a full day (the duration is so long because all the simulations were 3D).
+
+\section{Low intensity laser simulations}
+
+The fisrt set of simulations was done with low intensity \(1\; \mu\)m wavelength lasers, namely \(a_0 = 2\), or, equivalently, \(I = 5.65 \cp 10^{18}\) W/cm$^2$. Also, \(w_0 = 5\lambda\) was chosen. The domain size was 60$\lambda$ $\cp$ 30$\lambda$ $\cp$ 30$\lambda$, discretized with a grid of 1200 $\cp$ 300 $\cp$ 300. Notice that the grid is much finer on the x direction (in our simulations this is the propagation direction) than in the y and z directions. This is done in order to reduce the compilation time, since the main physical effects as well as the structures we want to observe are along the propagation direction of the laser. There are three such simulations, one with the Gauss beam, and two with the (m = 1, p = 0) and (m = 2, p = 0) Laguerre-Gauss beams. An example of input.deck file with comments about how the different profiles are implemented is given in the Appendix.
+
+With this first set of simulations we are interested to see if coherent beams of accelerated electrons are formed and to compare the acceleration efficiency across the different laser profiles used. For the second purpose, the energy density (the product between the average energy per particle and the particle number density, computed locally at each point on the grid) of the electrons was found to be a relevant quantity. This is because, in the region of the accelerated beam, both the average electron energy and the electron number density are high compared with the rest of the electrons in the medium. As such, this energy density has visible spikes at the location of the electron beam. We can also use the maximum of this quantity at each time step to follow the acceleration process and its efficiency (while the exact values are to be taken with a grain of salt, we can extract information from trends and orders of magnitude). It is known that in the process of acceleration in LWFA, there is first an increase in the electron beam energy and then a decrease. As such, this method is efficient over a certain region, and knowing the limits of that region is important when designing the actual accelerators. This pattern of variation is also observed in the maximum values of the electron energy density taken at each step. In the following figures, detail related to this and other aspects are illustrated. All figures have the corner facing the reader clipped in order to see inside the structures formed (the structures are highly symmetrical).
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{/thesis-pics/sim-1.0/visit0000}%
+  \caption{A pseudocolor plot cut with isosurfaces of the electron energy density that shows more levels for low values. This is done in order to observe the plasma wave electrons, such that the beam, as well as the bubble shape and the laser position can be seen clearly. We see that since the intensity is low, the bubble is not depleted completely, and we can clearly see the electrons interacting with the laser. At high intensity, the ponderomotive force is much larger and the electrons are pushed outside the laser region very fast, so the bubble is depleted of electrons.}
+  \label{fig:visit0000}%
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
+  \begin{subfigure}[t]{0.47\textwidth}
+    \centering
+    \includegraphics[width=1.0\textwidth]{/thesis-pics/sim-1.0/visit0001}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.47\textwidth}
+    \centering
+    \includegraphics[width=1.0\textwidth]{/thesis-pics/sim-1.0/visit0003}
+  \end{subfigure}
+  \vskip\baselineskip
+  \begin{subfigure}[b]{0.47\textwidth}
+    \centering
+    \includegraphics[width=1.0\textwidth]{/thesis-pics/sim-1.0/visit0005}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.47\textwidth}
+    \centering
+    \includegraphics[width=1.0\textwidth]{/thesis-pics/sim-1.0/visit0007}
+  \end{subfigure}
+  \caption{A series of pseudocolor plots of the electron energy density using isosurfaces showing the electron beam at different moments in time: 200 fs (top-right), 250 fs (top-left), 300 fs (bottom-right), 350 (bottom-left). }%
+  \label{fig:beam-gauss}%
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{/thesis-pics/sim-1.0/visit0012}%
+  \caption{A pseudocolor plot cut with isosurfaces (10) of the electron energy density for the m=1, p=0 Laguerre-Gauss mode (330 fs).}
+  \label{fig:visit0012}%
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.95\textwidth]{/thesis-pics/sim-1.0/visit0013}%
+  \caption{A pseudocolor plot cut with isosurfaces (10) of the electron energy density for the m=2, p=0 Laguerre-Gauss mode (360 fs).}
+  \label{fig:visit0012}%
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.95\textwidth]{/thesis-pics/sim-1.0/visit0011}%
+  \caption{A pseudocolor plot cut with isosurfaces (50) of the electron energy density for the m=1, p=0 Laguerre-Gauss mode (280 fs). We made a large number of isosurfaces to see the much more complicated patters of the low energy electrons compared to the very simple one in the case of the regular Gauss profile.}
+  \label{fig:visit0011}%
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
+  \begin{subfigure}[t]{0.6\textwidth}
+    \centering
+    \includegraphics[width=1.0\textwidth]{/epoch-simulation-results/laser-wakefield-laguerre/m1p0/visit0000}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.6\textwidth}
+    \centering
+    \includegraphics[width=1.0\textwidth]{/epoch-simulation-results/laser-wakefield-laguerre/m2p0/visit0000}
+  \end{subfigure}
+  \caption{A series of pseudocolor plots cut with isosurfaces of the magnitude of the electric field vector at each of the grid points in the case of the m=1, p=0 (top) and the m=2, p=0 Laguerre-Gauss profiles. This plot indicates the shape of the profile.}%
+  \label{fig:beam-gauss}%
+\end{figure}
+
+As shown in~\cref{fig:visit0000}, there is a singular clear coherent beam of accelerated electrons. Close-ups on the beam are shown in~\cref{fig:beam-gauss}.
 
 \end{document}
