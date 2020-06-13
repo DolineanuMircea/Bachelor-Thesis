@@ -12,7 +12,7 @@ This chapter covers the results from the numerical simulations that I've run usi
 
 The fisrt set of simulations was done with low intensity \(1\; \mu\)m wavelength lasers, namely \(a_0 = 2\), or, equivalently, \(I = 5.65 \cp 10^{18}\) W/cm$^2$. Also, \(w_0 = 5\lambda\) was chosen. The domain size was 60$\lambda$ $\cp$ 30$\lambda$ $\cp$ 30$\lambda$, discretized with a grid of 1200 $\cp$ 300 $\cp$ 300. Notice that the grid is much finer on the x direction (in our simulations this is the propagation direction) than in the y and z directions. This is done in order to reduce the compilation time, since the main physical effects as well as the structures we want to observe are along the propagation direction of the laser. There are three such simulations, one with the Gauss beam, and two with the (m = 1, p = 0) and (m = 2, p = 0) Laguerre-Gauss beams. An example of input.deck file with comments about how the different profiles are implemented is given in the Appendix.
 
-With this first set of simulations we are interested to see if coherent beams of accelerated electrons are formed and to compare the acceleration efficiency across the different laser profiles used. For the second purpose, the energy density (the product between the average energy per particle and the particle number density, computed locally at each point on the grid) of the electrons was found to be a relevant quantity. This is because, in the region of the accelerated beam, both the average electron energy and the electron number density are high compared with the rest of the electrons in the medium. As such, this energy density has visible spikes at the location of the electron beam. We can also use the maximum of this quantity at each time step to follow the acceleration process and its efficiency (while the exact values are to be taken with a grain of salt, we can extract information from trends and orders of magnitude). It is known that in the process of acceleration in LWFA, there is first an increase in the electron beam energy and then a decrease. As such, this method is efficient over a certain region, and knowing the limits of that region is important when designing the actual accelerators. This pattern of variation is also observed in the maximum values of the electron energy density taken at each step. In the following figures, detail related to this and other aspects are illustrated. All figures have the corner facing the reader clipped in order to see inside the structures formed (the structures are highly symmetrical).
+With this first set of simulations we are interested to see if coherent beams of accelerated electrons are formed and to compare the acceleration efficiency across the different laser profiles used. For the second purpose, the energy density (the product between the average energy per particle and the particle number density, computed locally at each point on the grid) of the electrons was found to be a relevant quantity. This is because, in the region of the accelerated beam, both the average electron energy and the electron number density are high compared with the rest of the electrons in the medium. As such, this energy density has visible spikes at the location of the electron beam. We can also use the maximum of this quantity at each time step to follow the acceleration process and its efficiency (while the exact values are to be taken with a grain of salt, we can extract information from trends and orders of magnitude). It is known that in the process of acceleration in LWFA, there is first an increase in the electron beam energy and then a decrease. As such, this method is efficient over a certain region, and knowing the limits of that region is important when designing the actual accelerators. This pattern of variation is also observed in the maximum values of the electron energy density taken at each step. In the following figures, details related to this and other aspects are illustrated. All figures have the corner facing the reader clipped in order to see inside the structures formed (the structures are highly symmetrical).
 
 \begin{figure}[!h]
   \centering
@@ -57,7 +57,7 @@ With this first set of simulations we are interested to see if coherent beams of
   \centering
   \includegraphics[width=0.95\textwidth]{/thesis-pics/sim-1.0/visit0013}%
   \caption{A pseudocolor plot cut with isosurfaces (10) of the electron energy density for the m=2, p=0 Laguerre-Gauss mode (360 fs).}
-  \label{fig:visit0012}%
+  \label{fig:visit0013}%
 \end{figure}
 
 \begin{figure}[!h]
@@ -65,6 +65,13 @@ With this first set of simulations we are interested to see if coherent beams of
   \includegraphics[width=0.95\textwidth]{/thesis-pics/sim-1.0/visit0011}%
   \caption{A pseudocolor plot cut with isosurfaces (50) of the electron energy density for the m=1, p=0 Laguerre-Gauss mode (280 fs). We made a large number of isosurfaces to see the much more complicated patters of the low energy electrons compared to the very simple one in the case of the regular Gauss profile.}
   \label{fig:visit0011}%
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.95\textwidth]{/thesis-pics/visit0000}%
+  \caption{A pseudocolor plot cut with isosurfaces of the magnitude of the electric field vector at each of the grid points in the case of the simple Gaussian profile. This plot indicates the shape of the profile.}
+  \label{fig:laserbeam-gauss}%
 \end{figure}
 
 \begin{figure}[!h]
@@ -78,10 +85,32 @@ With this first set of simulations we are interested to see if coherent beams of
     \centering
     \includegraphics[width=1.0\textwidth]{/epoch-simulation-results/laser-wakefield-laguerre/m2p0/visit0000}
   \end{subfigure}
-  \caption{A series of pseudocolor plots cut with isosurfaces of the magnitude of the electric field vector at each of the grid points in the case of the m=1, p=0 (top) and the m=2, p=0 Laguerre-Gauss profiles. This plot indicates the shape of the profile.}%
-  \label{fig:beam-gauss}%
+  \caption{A series of pseudocolor plots cut with isosurfaces of the magnitude of the electric field vector at each of the grid points in the case of the m=1, p=0 (top) and the m=2, p=0 Laguerre-Gauss profiles. This plot indicates the shape of the profiles.}%
+  \label{fig:laserbeam-laguerre}%
 \end{figure}
 
-As shown in~\cref{fig:visit0000}, there is a singular clear coherent beam of accelerated electrons. Close-ups on the beam are shown in~\cref{fig:beam-gauss}.
+As shown in~\cref{fig:visit0000}, there is a singular clear coherent beam of accelerated electrons. Close-ups on the beam are shown in~\cref{fig:beam-gauss}. In contrast,~\cref{fig:visit0011} reveals that the plasma wave generated by the passing of the laser through the plasma is much more complicated for the Laguerre modes. There is no longer a clear bubble-beam-bubble pattern visible, and as such we can see no longer a clear electron beam forming on the propagation axis. However,~\cref{fig:visit0012,fig:visit0013} shed light on this matter. It seems that there are electron beams forming, but there are two of them for m=1 and four of them for m=4. We connect this occurance with the topology of the profiles. It is clear what we mean by this if we first take a look at~\cref{fig:laserbeam-gauss,fig:laserbeam-laguerre}. We can see that the plots of the magnitude of the electric field (which reflect the geometrical shape of each profile, since the field of the particles is screened by plasma mechanisms) show one connected structure in the case of the Gauss beam, but in the case of the Laguerre profiles there are disjointed structures. The number of disjointed structures is equal to the number of electron beams forming and is also equal to 2m. This, together with the visual hints in~\cref{fig:visit0012,fig:visit0013} (the electron beams are formed behind each structure) suggest that the independent effect of each structure is not strongly influenced the other structures, so each of them acts like a Gauss beam on its own.
+
+\begin{table}[!h]
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{6}{|c|}{Maximum Value of Electron Energy Density} \\ \hline
+\multicolumn{2}{|c|}{\begin{tabular}[c]{@{}c@{}}Gauss\\ m=0\end{tabular}} & \multicolumn{2}{|c|}{\begin{tabular}[c]{@{}c@{}}Laguerre\\ m=1\end{tabular}} & \multicolumn{2}{|c|}{\begin{tabular}[c]{@{}c@{}}Laguerre\\ m=2\end{tabular}} \\ \hline
+\begin{tabular}[c]{@{}c@{}}Enrgy Value\\ ($10^10$ J/m\textsuperscript{3})\end{tabular} & \begin{tabular}[c]{@{}c@{}}Simulation Time\\ (fs)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Enrgy Value\\ ($10^10$ J/m\textsuperscript{3})\end{tabular} & \begin{tabular}[c]{@{}c@{}}Simulation Time\\ (fs)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Enrgy Value\\ ($10^10$ J/m\textsuperscript{3})\end{tabular} & \begin{tabular}[c]{@{}c@{}}Simulation Time\\ (fs)\end{tabular} \\ \hline
+652.8 & 200 & 34.3 & 180 &11 & 160 \\ \hline
+584.1 & 250 & 28.1 & 230 & 9.9 & 210 \\ \hline
+420.1 & 300 & 18.4 & 280 & 6.2 & 260 \\ \hline
+366.5 & 350 & 8.4  & 330 & 8.8 & 310 \\ \hline
+500.6 & 400 & 4.7  & 380 & 2.66 & 360 \\ \hline
+\end{tabular}
+\caption{A table with the maximum value of electron energy density at different time steps. The first value for each profile was taken to be the overall maximum in the simulation, which corresponds to the moment of time in which the acceleration has peaked. After that, values are taken in intervals of 50 fs. The data reflects the post acceleration energy loss part of the LWFA process.}
+\label{table:1}
+\end{table}
+
+One possible physical explanation for this effect would be related to the intensity of the lasers. Since the intensity is quite low, so is the ponderomotive force. Because of this, there are still electrons remaining in the laser region, which oscillate in the laser's fields until it gets out. These electrons could leave through the space in between the lumps of the Laguerre beams, as visible in~\cref{fig:visit0011}. This effect is expected to dissapear at higher intensities, since the laser region is expected to be depleted of electrons extremely fast. Nonetheless, the effect in itself could posses practical application. This study suggests that for intensities of the order of $10^18$ W/cm$^2$, by utilizing Laguerre-Gauss modes, it is possible to obtain multipe beams of accelerated electrons arranged in well defined patterns. In~\cref{table:1}, we show values of the electron energy density in order to compare the acceleration efficiency across different profiles. By analizing the data, we saw that the maximum value of this quantity follows the pattern of acceleration followed by slow down characteristic to LWFA. The values in the table start with the overall maximum (the peak of acceleration) and follow the energy loss in time after that. We can see that by increasing m with one unit at a time we see a loss of energy density in the beams of about one order of magnitude. This supports the theory that each of the structures in the Laguerre beams acts as an almost independent weaker Gaussian beam.
+
+\section{Higher intensity laser simulations}
+
+
 
 \end{document}
