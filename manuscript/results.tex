@@ -257,7 +257,7 @@ electron current (see~\cref{fig:electron-current}), which in turn
 generates and sustains a quasistatic azimuthal magnetic field. By
 deflecting the highly energetic electrons, this field induces the
 production of synchrotron photons. The result is a gamma-beam with a
-relatively small divergence.
+relatively small divergence. For more details related to this see the article by~\cite{wangPowerScalingCollimated2020}, which is the one that lead us to doing this study. This type of technique has the advantage of being easier to implement experimentally than the change in laser profile used in the previous two sections.
 
 \begin{figure}[!h]
   \centering
@@ -293,7 +293,7 @@ at the energy of the produced photons, we have set them in the
 simulation to not propagate in time (that is, after they are
 produced, they are registered and not used further in the simulation),
 thus reducing greatly the simulation time. The average simulation time
-was 26 hours.
+was 26 hours. An example input.deck is again available in the Appendix, this time together with a short indication on how to enable the QED effects in EPOCH.
 
 \begin{figure}[!h]
   \centering
@@ -302,7 +302,7 @@ was 26 hours.
   \label{fig:electron-current}%
 \end{figure}
 
-In~\cref{fig:photons} we show the energy distribution in volume of the photon energy for the photons generated up to 100 fs into the simulation. By analyzing the data, we find that photons are generated, as expected, predominantly inside the channel region. From the transversal section we can observe better the internal structure of the photon bulk.
+In~\cref{fig:photons} we show the energy distribution in volume of the photon energy for the photons generated up to 100 fs into the simulation. By analyzing the data, we find that photons are generated, as expected, predominantly inside the channel region. From the transversal section we can observe better the internal structure of the photon bulk. We can clearly see that it hints towards the spherical projections given in~\cref{wangPowerScalingCollimated2020} on page 3.
 
 \begin{figure}[!h]
   \centering
