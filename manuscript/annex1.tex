@@ -228,4 +228,138 @@ end:output
 
 \end{verbatim}
 
+\section*{Structured target}
+There is a short remark to be made. This input.deck uses QED effects. By default, all the QED effects in EPOCH are turned off from inside the code. So in order to use them, you will need to make changes to the makefile before compiling the EPOCH code. The documentation and other documents that mention this don't give you a clear explanation on how to do it without bothering to look at what is inside the makefile (at least at the moment of writing this - epoch-v4.17.10). For any reader who wants to just use the software with absolutely zero interaction with what is written in the makefile, just use the following linux commands
+\begin{verbatim}
+  user@home:~# cd /$EPOCH_VERSION/epoch1d
+  user@home:~# sed -i 's/#DEFINES += $(D)PHOTONS/DEFINES += $(D)PHOTONS/g' Makefile
+  user@home:~# make clean
+\end{verbatim}
+before compiling the code.
+
+\begin{verbatim}
+begin:constant
+  #laser parameters
+  lambda0 = 1.0 * micron
+  a0 = 190
+  w0 = 1.3 * micron #change it to change power
+
+  #plasma parameters
+  n_cr = critical(2 * pi *c / lambda0)
+  n_bulk = 100 * n_cr
+  n_ch = 20 * n_cr
+
+  d_bulk = 3 * micron
+  R_ch = 0.7 * w0
+  L_ch = 33 * micron
+
+  #general
+  r = sqrt(y^2 + z^2)
+  x0 = 0.0
+end:constant
+
+begin:control
+  #grid
+  nx = 990
+  ny = 240
+  nz = 240
+
+  #simulation time
+  t_end = 110 * femto
+
+  #domain size
+
+  x_min = 0.0
+  x_max = L_ch
+  y_min = - 4.0 * micron
+  y_max = -y_min
+  z_min = y_min
+  z_max = -y_min
+
+  stdout_frequency = 20
+end:control
+
+begin:boundaries
+  bc_x_min = simple_laser
+  bc_x_max = simple_outflow
+  bc_y_min = periodic
+  bc_y_max = periodic
+  bc_z_min = periodic
+  bc_z_max = periodic
+end:boundaries
+
+begin:laser
+  boundary = x_min
+  lambda = lambda0
+  amp = a0 / lambda0 * 2 * pi * me*c^2/qe
+
+  profile = gauss(r, 0.0, w0)
+
+  t_profile = gauss(time, 0.0, 35*femto)
+end:laser
+
+begin:qed
+  use_qed = T
+  qed_start_time = 0
+  produce_photons = T
+  qed_table_location = /epoch-4.17.10/epoch3d/src/physics_packages/TABLES
+end:qed
+
+begin:species
+  #synchroton photons
+  name = photon
+  nparticles = 0
+  dump = T
+  identify:photon
+end:species
+
+begin:species
+  #electrons
+  name = electron
+  # charge = -1.0
+  # mass = 1.0
+  temp = 0.0
+  dump = T
+  npart_per_cell = 15
+
+  number_density = if(r lt (R_ch + d_bulk), n_bulk, 0.0)
+  number_density = if(r lt R_ch, n_ch, number_density(electron))
+  number_density = if((x lt x0) and (x gt L_ch), 0.0, number_density(electron))
+
+  #for QED effects to work
+  identify:electron
+end:species
+
+begin:species
+  #carbon ions
+  name = carbon
+  charge = 6.0
+  mass = 12 * 1836.2
+  temp = 0.0
+  dump = T
+  npart_per_cell = 5
+
+  number_density = number_density(electron) / 6
+end:species
+
+begin:output
+  #timesteps between output dumps
+  dt_snapshot = 10.0 * femto
+
+  # Properties on grid
+  grid = always
+
+  # Properties at particle positions
+  particle_grid = always
+  #px = always + species
+  #py = always + species
+  #pz = always + species
+  #momenta and particle_energy are not defined for photons
+
+  number_density = always + species
+  average_particle_energy = always + species
+end:output
+
+\end{verbatim}
+
 \end{document}
