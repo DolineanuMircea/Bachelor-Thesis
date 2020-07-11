@@ -5,7 +5,7 @@
 
 \chapter{The Interaction Between Electromagnetic Radiation and Matter}%
 \label{chap:light-matter-interaction}
-Now that the aspects related to the formalism and theory behind the modeling of laser produced electromagnetic waves has been presented, we must naturally turn our attention towards the interaction of those wave pulses with matter. This chapter only deals with the dinamics of particles under the action of electromagnetic fields and the ponderomotive force, since these topics offer great insight and intuition for the physical behaviour of high intensity laser-plasma interaction. The specific phenomena arising from the properties of plasma as a medium are to be presented later.
+Now that the aspects related to the formalism and theory behind the modeling of laser produced electromagnetic waves has been presented, we must naturally turn our attention towards the interaction of those wave pulses with matter. This chapter only deals with the dynamics of particles under the action of electromagnetic fields and the ponderomotive force, since these topics offer great insight and intuition for the physical behaviour of high intensity laser-plasma interaction. The specific phenomena arising from the properties of plasma as a medium are to be presented later.
 \section{Electron Dynamics in Electromagnetic Fields}
 This section deals with analyzing the motion of a single electron in the fields of a wave. For simplicity, I will only talk about the case of linearly polarized plane waves, since this entire discussion has the purpose of building up intuition and getting a feel for the scale of the relevant quantities. Most of what is to be presented is following the lecture notes of~\cite{karschApplicationsHighIntensity2018}.
 
@@ -59,7 +59,7 @@ such that we have
 \begin{equation}
   a_0 \equiv \frac{e E_0}{\omega m_e c} = \frac{e A_0}{m_e c} = 1\,.
 \end{equation}
-The parameter \(a_0\) is called the normalized or dimensionless vector potential. From its definition it is easy to see that it can only take values between 0 and 1. We can use it to describe the amplitude of the electric field as such
+The parameter \(a_0\) is called the normalized or dimensionless vector potential. From its definition it is easy to see that it can only take values between 0 and 1 (In the classical case only. This definition can be used to compute intensity like described below in any regime.). We can use it to describe the amplitude of the electric field as such
 
 \begin{equation}
   E_0 = a_0 \frac{\omega m_e c}{e}\,.
@@ -69,12 +69,12 @@ It is very convenient in practice to use the wavelength and to extract the rest 
 \begin{equation}
   E_0 = \frac{a_0}{\lambda} 2\pi \frac{m_e c^2}{e} = \frac{a_0}{\lambda} 2\pi\cdot 511 kV\,.
 \end{equation}
-The normalized vector field helds also an important significance. One can see that its definition actually boils down to
+The normalized vector field holds also an important significance. One can see that its definition actually boils down to
 
 \begin{equation}
   a_0 = \frac{v_{max}^{classical}}{c}\,,
 \end{equation}
-so we can use it to find a boundary for the validity of the classical treatment. For simplicity, lets disect the \(a_0 = 1\) case, for which the motion should be completely relativistic, keeping in mind that the classical description stops being reliable well befor that. From the result concerning the Poynting vector of a plane wave~(\ref{def:poynting-plane-wave}), we can find the intensity of the pulse in this limiting case to be
+so we can use it to find a boundary for the validity of the classical treatment. For simplicity, lets disect the \(a_0 = 1\) case, for which the motion should be completely relativistic, keeping in mind that the classical description stops being reliable well before that. From the result concerning the Poynting vector of a plane wave~(\ref{def:poynting-plane-wave}), we can find the intensity of the pulse in this limiting case to be
 
 \begin{equation}
   I = c \frac{\varepsilon_0}{2} E_0^2 \propto \frac{a_0^2}{\lambda^2} 10^{18} W \frac{\mu m^2}{cm^2}\;,
@@ -82,7 +82,7 @@ so we can use it to find a boundary for the validity of the classical treatment.
 which says that already at intensities of \(10^{18} \frac{W}{cm^2}\) the motion of the electron should be treated completely within the grounds of special relativity.
 
 \subsection{Relativistic Treatment}
-In the light of our discussion in the previous subsection, we see that in order to study how electrons interact with high-intensity laser beams (namely, terwatt and petawatt lasers), we should do all our calculations relativistically. The equation of motion remains the same, but the relativistic momentum is \(\vb{p} = \gamma m_e \vb{v_e}\), where \(\gamma\) is the usual Lorentz factor. By taking the scalar product of~\cref{eq:equation-of-motion-electron} with \(\vb{p}\) we get
+In the light of our discussion in the previous subsection, we see that in order to study how electrons interact with high-intensity laser beams (namely, terawatt and petawatt lasers), we should do all our calculations relativistically. The equation of motion remains the same, but the relativistic momentum is \(\vb{p} = \gamma m_e \vb{v_e}\), where \(\gamma\) is the usual Lorentz factor. By taking the scalar product of~\cref{eq:equation-of-motion-electron} with \(\vb{p}\) we get
 
 \begin{equation}
   \frac{1}{2} \dv{\vb{p}^2}{t} = - e \vb{p}\vdot\vb{E}\,,
@@ -93,7 +93,7 @@ where we used the fact that \(\vb{p}\vdot\left(\vb{v_e}\cp\vb{B}\right)\), since
   \gamma = \frac{1}{\sqrt{1 - \frac{\vb{v}^2}{c^2}}} \Rightarrow
   \frac{1}{\gamma^2} = 1 - \frac{\vb{v}^2}{c^2} = 1 - \frac{1}{\gamma^2} \frac{\vb{p}^2}{m_e^2 c^2} \Rightarrow \gamma = \sqrt{1+\left(\frac{\vb{p}}{m_e c}\right)^2} \,.
 \end{equation*}
-Now we can expect to find a \(\dv{\vb{p}^2}{t}\) by taking the derivative of \(\gamma\) with respect to time
+Now we can expect to find \(\dv{\vb{p}^2}{t}\) by taking the derivative of \(\gamma\) with respect to time
 
 \begin{equation*}
   \dv{\gamma}{t} = \dv{t} \sqrt{1+\left(\frac{\vb{p}}{m_e c}\right)^2} = \frac{1}{\sqrt{1+\left(\frac{\vb{p}}{m_e c}\right)^2} } \frac{1}{m_e^2 c^2} \frac{1}{2} \dv{\vb{p}^2}{t} = \frac{1}{\gamma m_e^2 c^2}\frac{1}{2} \dv{\vb{p}^2}{t} \Rightarrow
@@ -113,7 +113,7 @@ This equation can also be rewritten as
   \label{eq:gamma-vx}
   \dv{\gamma}{t} = -\frac{e E_0}{m_e c} \frac{\vb{v_e}\vdot\vb{e_x}}{c} \cos(kz-\omega t) = - a_0 \omega \frac{v_x}{c} \cos(kz-\omega t)\,.
 \end{equation}
-In order to procees, we should also take a better look at the equation of motion as it is
+In order to proceed, we should also take a better look at the equation of motion as it is
 
 \begin{equation*}
   \dv{t} (\frac{\vb{p}}{m_e c}) = - \frac{e}{m_e c} \left[E_0 \vb{e_x} + B_0 \vb{v}\cp\vb{e_y}\right]\cos(kz-\omega t) =
@@ -312,7 +312,7 @@ In laser-plasma interaction in particular, all the conditions of this theorem ar
 
 \section{The Ponderomotive Force}
 
-In this section we will delve into the most relevant physical phenomenon for our studies, namely the ponderomotive force. Intuitively, if we have a focused laser beam, its field will strongly vary in the transverse direction. For an electron that is initially found on the axis of the pulse, the deflection is stronger than the restoring force. Because of this, the electron will be completely removed from the focal region after a couple of oscillations and will retain a non-zero kinetic energy. This effect is called ponderomotive scattering. Some results from simulations of electron movement in various laser beam profiles are presented later in~\cref{sec:ponderomotive-graphs}. In these simulations we solved numerically the equations of motion for the electron, but in this section we will do some approximated computations to get a better understanding of the physics that generate this effect.
+In this section we will delve into the most relevant physical phenomenon for our studies, namely the ponderomotive force. Intuitively, if we have a focused laser beam, its field will strongly vary in the transverse direction. For an electron that is initially found on the axis of the pulse, the deflection is stronger than the restoring force. Because of this, the electron will be completely removed from the focal region after a couple of oscillations and will retain a non-zero kinetic energy. This effect is called ponderomotive scattering.
 
 \subsection{Classical Derivation}
 
@@ -321,7 +321,7 @@ We already solved the motion of the electron in a plane wave, but for our curren
 \begin{equation}
   \vb{E} = \vb{E_0}(\vb{r}) \cos(\omega t)\,.
 \end{equation}
-Note that the plane wave field is just a particular case of this ansaz, but now the equation of motion~(\ref{eq:equation-of-motion-electron}) is valid only locally, at the electron position \(\vb{r_0}\). Let us approxiamates the field around \(\vb{r_0}\) by Taylor expansion
+Note that the plane wave field is just a particular case of this ansaz, but now the equation of motion~(\ref{eq:equation-of-motion-electron}) is valid only locally, at the electron position \(\vb{r_0}\). Let us approxiamate the field around \(\vb{r_0}\) by Taylor expansion
 
 \begin{equation}
   \vb{E_0}(\vb{r}) = \left[\vb{E_0}(\vb{r})\right]_{\vb{r}=\vb{r_0}} + \left[(\delta \vb{r}\vdot\grad)\vb{E_0}(\vb{r})\right] _{\vb{r}=\vb{r_0}} + \mathcal{O}(\delta\vb{r}^2)\,.
@@ -341,7 +341,7 @@ We can now write the equation of motion in first order and in second order, resp
     m_e\dv{\vb{v}^{(1)}}{t} = - e \left[ (\delta\vb{r}\vdot\grad) \vb{E_0}(\vb{r})\right]_{\vb{r}=\vb{r_0}} \cos(\omega t) + e \frac{1}{\omega} \vb{v}^{(0)}\cp \left[\curl{\vb{E_0}(\vb{r})}\right]_{\vb{r}=\vb{r_0}} \sin(\omega t) \,,
   \end{align}
 \end{subequations}
-where \(\dv{(\delta \vb{r})}{t} = \vb{v}^{(0)}\) and we have used the fact that \(v^{(0)}\ll c\).Equation~(\ref{eq:first-order}) is solved by direct integration
+where \(\dv{(\delta \vb{r})}{t} = \vb{v}^{(0)}\) and we have used the fact that \(v^{(0)}\ll c\). Equation~(\ref{eq:first-order}) is solved by direct integration
 
 \begin{subequations}
   \begin{align}
@@ -349,7 +349,7 @@ where \(\dv{(\delta \vb{r})}{t} = \vb{v}^{(0)}\) and we have used the fact that 
     \delta \vb{r} = \frac{e}{m_e \omega^2} \vb{E_0}(\vb{r_0}) \cos(\omega t)\,.
   \end{align}
 \end{subequations}
-These are pretty much the results from the plane wave, that is the oscillatory motion induced by the wave on the electron. The second order equation describes an additional effectthat arises. Replacing the above solutions in~\cref{eq:second-order} leads to
+These are pretty much the results from the plane wave, that is, the oscillatory motion induced by the wave on the electron. The second order equation describes an additional effect that arises. Replacing the above solutions in~\cref{eq:second-order} leads to
 
 \begin{equation}
     m_e\dv{\vb{v}^{(1)}}{t} = - \frac{e^2}{m_e \omega^2} \left[ (\vb{E_0}\vdot\grad)\vb{E_0}\cos[2](\omega t) + \vb{E_0}\cp\left(\curl{\vb{E_0}}\right)\sin[2](\omega t) \right]_{\vb{r}=\vb{r_0}}\,.
@@ -377,7 +377,7 @@ We will start with the Lagrangian for an electron in an arbitrary 4-vector poten
   \label{eq:lagrangian-0}
   L(\vb{x},\vb{v},t) = -\frac{m_e c^2}{\gamma} - e\vb{v}\vdot\vb{A} + e \phi\,.
 \end{equation}
-Since our system has an oscillation part given by the periodic time dependence of the 4-vector potential of the driving electromagnetic wave, we can change to action-angle variables \(S=S(\vb{x},t)\) and \(\eta = \eta (\vb{x},t)\), which are Lorentz invariant, so the motion will be governed by Hamilton's principle
+Since our system has an oscillatory part given by the periodic time dependence of the 4-vector potential of the driving electromagnetic wave, we can change to action-angle variables \(S=S(\vb{x},t)\) and \(\eta = \eta (\vb{x},t)\), which are Lorentz invariant, so the motion will be governed by Hamilton's principle
 
 \begin{equation}
   \label{eq:new-action}
@@ -400,7 +400,7 @@ We denote by \(N = \frac{n_f-n_1}{2\pi}\) to be the number of cycles over which 
 \begin{equation*}
   \delta \int_{\eta_i}^{\eta_f} \dd{\eta} \mathcal{L} = 0\,,
 \end{equation*}
-which is useful in order to do the following mathematical arguments
+which is useful in order to make the following mathematical arguments
 
 \begin{equation*}
   \abs{\delta \int_{\eta_i}^{\eta_f} \dd{\eta} \mathcal{L}_0} = \abs{\delta \int_{\eta_i}^{\eta_f} \dd{\eta} (\mathcal{L}_0 - \mathcal{L})} = \abs{\int_{\eta_i}^{\eta_f} \dd{\eta} \delta (\mathcal{L}_0 - \mathcal{L})} =

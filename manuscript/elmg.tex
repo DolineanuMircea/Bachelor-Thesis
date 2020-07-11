@@ -29,7 +29,7 @@ The Maxwell equations are~(\cite{jacksonClassicalElectrodynamics1999}):
   \end{align}
 \end{subequations}
 
-In the absence of magnetic and polarizable media, \(\vb{D}=\varepsilon_0 \vb{E}\) and \(\vb{B}=\mu_0 \vb{H}\) and the equations become:
+In the absence of magnetic and polarizable media, \(\vb{D}=\varepsilon_0 \vb{E}\) and \(\vb{B}=\mu_0 \vb{H}\) these equations become:
 
 \begin{subequations}
   \label{eq:maxwell}
@@ -42,10 +42,10 @@ In the absence of magnetic and polarizable media, \(\vb{D}=\varepsilon_0 \vb{E}\
 \end{subequations}
 
 \par
-While most readers probably have already had at least a basic introduction to the phenomena from which these equations arise and are well acquainted to how to make use of these equations, I would direct those who haven't towards the book by~\cite{fleischStudentGuideMaxwell2008}%
+While most readers probably already had at least a basic introduction to the phenomena from which these equations arise and are well endowed with the practical use of these equations, I would direct those who haven't towards the book by~\cite{fleischStudentGuideMaxwell2008}.
 
 \par
-By extracting the current density from~\cref{eq:ampere-law}, computing its divergence and then replacing the electric field term using~\cref{eq:coulomb-law} one obtains the continuity equation, which relates only the field sources to one another:
+By extracting the current density from~\cref{eq:ampere-law}, computing its divergence and then replacing the electric field term using~\cref{eq:coulomb-law}, one obtains the continuity equation, which relates only the field sources to one another:
 
 \begin{equation}
   \label{eq:continuity-equation}
@@ -77,7 +77,7 @@ Since the electric~(\(\vb{E}\)) and magnetic~(\(\vb{B}\)) fields are vectors, th
 which are valid for any vector function~\(\vb{v}\) and for any scalar function~\(f\).
 
 \par
-From~\cref{eq:gauss-law,id:div-rot} one can define the vector potential \(\vb{A}\) such that
+From~\cref{eq:gauss-law,id:div-rot}, one can define the vector potential \(\vb{A}\) such that
 
 \begin{equation}
   \label{eq:vector-potential}
@@ -107,7 +107,7 @@ Similarly, using~\cref{eq:faraday-scalar-potential} in~\cref{eq:ampere-law} and 
   \label{eq:curl-of-curl}
   \curl(\curl{\vb{v}}) = \grad(\div{\vb{v}}) - \laplacian{\vb{v}}\,,
 \end{equation}
-another equation of the potentials is obtained
+another equation for the potentials is obtained
 
 \begin{equation}
   \label{eq:ampere-potentials}
@@ -132,7 +132,7 @@ By a direct application of~\cref{id:algebra} one can show that a simultaneous tr
     \vb{A} \rightarrow \vb{A} - \grad{f} \,,
   \end{align}
 \end{subequations}
-leaves the electric and magnetic field unchanged. This is actually a quite natural equivalent of the intuitive fact that any potential is defined up to a constant. In the particular case of the electromagnetic potential,~\cref{gauge} define a gauge transformation. There are two widely used gauges.
+leaves the electric and magnetic fields unchanged. This is actually a quite natural equivalent of the intuitive fact that any potential is defined up to a constant. In the particular case of the electromagnetic potential,~\cref{gauge} defines a gauge transformation. There are two widely used gauges:
 
 \paragraph{Lorenz gauge}
 
@@ -175,7 +175,7 @@ where \(\mu,\,\nu=\overline{0,3}\) with 0 being the temporal index and 1, 2, 3 b
 \end{equation}
 
 \par
-Under this gauge, the potential equations~\cref{eq:coulomb-scalar-potential,eq:ampere-potentials} take the form:
+Under this gauge, the potential~\cref{eq:coulomb-scalar-potential,eq:ampere-potentials} take the form:
 
 \begin{subequations}
   \begin{align}
@@ -196,7 +196,7 @@ In principle, one can choose the most convenient gauge for his system, solve the
 
 \subsection{The Poynting Theorem}
 \label{section:poynting}
-The Poynting theorem is the form of the conservation of energy in the case of electromagnetic fields interacting with charges and currents. Since it is such an important and general result, this presentation of it will start from the more general form of the Maxwell equations~\cref{eq:maxwell-general}.
+The Poynting theorem is the form of the conservation of energy in the case of electromagnetic fields interacting with charges and currents. Since it is such an important and general result, this presentation of it will start from the more general form of the Maxwell equations(see~\cref{eq:maxwell-general}).
 \par
 In the derivation of this theorem, one usually starts from the local form of the Lorentz force~(\cite{griffithsIntroductionElectrodynamics1999}):
 
@@ -238,7 +238,7 @@ By extracting \(\vb{j}\) from~\cref{eq:ampere-law-general} and replacing in the 
 \begin{equation*}
   \dv{W}{t} = \int_\mathcal{V} \dd{\vb{r}} \left[ \vb{E}\vdot (\curl{\vb{H}}) - \vb{E}\vdot \pdv{\vb{D}}{t} \right]
 \end{equation*}
-Employing here the vector identity here
+Employing here the vector identity
 
 \begin{equation}
   \label{id:grad-of-vector-product}
@@ -267,14 +267,14 @@ which leads to a new way to write the expression of the rate of work done by the
   \label{th:poynting-0}
   \dv{W}{t} = - \int_\mathcal{V} \dd{\vb{r}} \left[\grad{(\vb{E}\cp\vb{H})} + \pdv{w_{em}}{t}\right] \,,
 \end{equation}
-where the Poynting vector is
+where the Poynting vector is defined to be
 
 \begin{equation}
   \label{def:poynting-vector}
   \vb{S}=\vb{E}\cp\vb{H}\,.
 \end{equation}
 
-In order to complete the derivation of Poynting's theorem, an we must see how it is to be interpreted. As such, a short paranthesis concerning \( w_{em}\) is in order.
+In order to complete the derivation of Poynting's theorem, we can physically interpret the new quantities we inroduced. As such, a short paranthesis concerning \( w_{em}\) is in order.
 
 \subsubsection{Electrostatic field energy density}
 For a system of N stationary point-like charged particles of charges \(q_{i}\) placed at \(\vb{r_{i}} \,,\,i=\overline{1,N}\) in a medium with permittivity \(\varepsilon\), the total potential energy of the system, when neglecting the infinite self-interaction terms, is~(\cite{jacksonClassicalElectrodynamics1999})
@@ -314,7 +314,7 @@ In order to reach the desired result, we still have to perform one more integrat
 \begin{equation*}
   \int_\mathcal{V} \dd{\vb{r}} \phi \grad{\phi} = \frac{1}{2} \int_\mathcal{V} \dd{\vb{r}} \grad{\phi^2} = \int_{\mathcal{S}_{\mathcal{V}}} \dd{\vb{a}} \phi^{2} \, ,
 \end{equation*}
-where in the last step we used Gauss' theorem. Now, if we itegrate over the entire space and keep in mind that the electrostatic potential should be zero at infinity, the above integral becames null. Using again the realtion between the gradient of the potential and the electric field we get
+where in the last step we used Gauss' theorem. Now, if we integrate over the entire space and keep in mind that the electrostatic potential should be zero at infinity, the above integral becames null. Using again the realtion between the gradient of the potential and the electric field we get
 
 \begin{equation}
   W_{e} = \frac{\varepsilon}{2} \int_\mathcal{V} \dd{\vb{r}} \vb{E}^{2}
@@ -343,12 +343,12 @@ This time around we start with a current loop in the case of magnetostatics (\(\
 where \(\gamma\) is the closed curve describing the loop and \(\phi_{B}\) is the magnetic flux through the loop.
 
 \par
-Since the autoinduced magnetic flux is \(\phi_{B}=LI\), where \(L\) is the inductance of the loop and \(I\) the intensity of the electric current flowing in it, the electromotive force caused by autoinduction is
+Since the selfinduced magnetic flux is \(\phi_{B}=LI\), where \(L\) is the inductance of the loop and \(I\) the intensity of the electric current flowing in it, the electromotive force caused by selfinduction is
 
 \begin{equation*}
   e = -L \dv{I}{t} \,.
 \end{equation*}
-Thus the rate of work against the increase of the current is
+Thus, the rate of work done against the increasing of the current is
 
 \begin{equation*}
   \dv{W_{B}}{t} = - I e = LI \dv{I}{t} = \dv{t} (\frac{LI^{2}}{2})\,.
@@ -380,7 +380,7 @@ We employ here the identity~(\ref{id:grad-of-vector-product}) to reach
 \begin{equation*}
   W_{B} = \frac{1}{2} \int_\mathcal{V} \dd{\vb{r}} \vb{H}\vdot (\curl{\vb{A}}) - \frac{1}{2} \int_\mathcal{V} \dd{\vb{r}} \div{(\vb{A}\cp\vb{H})} = \frac{1}{2} \int_\mathcal{V} \dd{\vb{r}} \vb{H}\vdot \vb{B} - \frac{1}{2} \int_{\mathcal{S}_\mathcal{V}} \dd{\vb{a}} \vdot (\vb{A}\cp\vb{H}) \,.
 \end{equation*}
-The same trick as in the previous subsection is appliable here. By extending the integration volume over the entire space and using the fact that the vector potential should be zero at infinity, the second integral vanishes.
+The same trick as in the previous subsection is appliable here. By extending the integration volume over the entire space and using the fact that the vector potential should be zero at infinity, the second integral vanishes:
 
 \begin{equation}
   W_{B} = \frac{1}{2} \int_\mathcal{V} \dd{\vb{r}} \vb{H}\vdot \vb{B}
@@ -396,7 +396,7 @@ The energy density of the magnetostatic field is defined to be
 
 \subsubsection{Interpretation of the Poynting theorem}
 
-We can see now that~(\ref{def:energy-density}) is simply the sum of~\cref{def:electrostatic-en-density} and~\cref{def:magnetostatic-en-density}. Summing up all the previous considerations, \(w_{em}\) holds the meaning of the energy density of the electromagnetic field itself, that is, the energy density present in space due to the presence of the electric and magnetic fields.
+We can see now that~(\ref{def:energy-density}) is simply the sum of~\cref{def:electrostatic-en-density} and~\cref{def:magnetostatic-en-density}. Bringing together all the previous considerations, we conclude that \(w_{em}\) holds the meaning of the energy density of the electromagnetic field itself, that is, the energy density present in space due to the presence of the electric and magnetic fields.
 
 \par
 The Poynting theorem~(\ref{th:poynting-0}) can be rewritten using Gauss' theorem in its integral form
@@ -479,7 +479,7 @@ The second term can be stylized by introducing a Kroneker-delta and writing \(v_
 \end{equation}
 
 \par
-The last step is possible due to the fact that we only work with space-like components and we chose the convenient metric~(\ref{metric}).
+The last step is possible due to the fact that we only work with space-like components and is easy to perform because we chose the convenient metric~(\ref{metric}).
 \par
 By defining the Maxwell stress tensor as
 
@@ -521,7 +521,7 @@ where \(\vb{P_{em}}\) and \(\vb{P_{mech}}\) are the electromagnetic and mechanic
 \end{equation}
 
 \section{Electromagnetic Waves}
-The short review of classical electrodynamics had as an ultimate goal to introduce the definitions, equations and formalism required in order to study electromagnetic waves. In this section I will start from the definition and properties of an electromagnetic wave and I will follow up with how one can describe laser pulses. The second part will contain a short introduction to the laser profiles used in research.
+The short review of classical electrodynamics had as an ultimate goal to introduce the definitions, equations and formalism required in order to study electromagnetic waves. In this section I will start from the definition and properties of an electromagnetic wave and I will follow up with how one can describe laser pulses. The second part will contain a short introduction to the laser profiles used in practical aplications.
 
 \subsection{Maxwell's Equations in Vacuum}
 The concept of electromagnetic waves arises naturally from the Maxwell equations~\cref{eq:maxwell-general} if we consider them in the absence of any sources
@@ -672,7 +672,7 @@ which can be computed using~\cref{def:real-electric-field} to be
 \begin{equation}
   w_{em} = \varepsilon_0 E_{0}^{2} \left[ \vb{s_r}^2 \cos[2](\vb{k}\vdot\vb{r}-\omega t) + \vb{s_i}^2 \sin[2](\vb{k}\vdot\vb{r}-\omega t) - \vb{s_r}\vdot\vb{s_i} \sin(2\vb{k}\vdot \vb{r} - 2 \omega t) \right] \,.
 \end{equation}
-This quantity could vary quite wildly in time depending on the wave's frequency, so we would rather compute a quantity that can be easured experimentally, which is of course the time average of the energy density
+This quantity could vary quite wildly in time depending on the wave's frequency, so we would rather compute a quantity that can be measured experimentally, which is of course the time average of the energy density
 
 \begin{equation}
   \expval{w_{em}} = \frac{1}{T} \int_{0}^{T} \dd{t} w_{em} = \frac{\varepsilon_0 E_0^2}{T} \int_{0}^{T} \dd{t} \left[ \vb{s_r}^2 \cos[2](\vb{k}\vdot\vb{r}-\omega t) + \vb{s_i}^2 \sin[2](\vb{k}\vdot\vb{r}-\omega t) - \vb{s_r}\vdot\vb{s_i} \sin(2\vb{k}\vdot \vb{r} - 2 \omega t) \right] \,.
@@ -792,7 +792,7 @@ The first paraxial approximation argument says that, due to diffraction, the var
 \begin{equation}
   \lambda \frac{\Delta (\partial_z u)}{\Delta z} \ll \partial_z u \,,
 \end{equation}
-which indicates that the double partial derivative with respect to z (the propagation axis) is negligible compared to the \(2 \ii k \partial_z u\) term. The second argument says that in the laplacian, the double partial derivative with respect to the z-axis can be neglected, such that one obtains
+which indicates that the double partial derivative with respect to z (the propagation axis) is negligible compared to the \(2 \ii k \partial_z u\) term. The second argument says that in the Laplacian, the double partial derivative with respect to the z coordinate can be neglected, such that one obtains
 
 \begin{equation}
   \label{eq:paraxial-wave-equation}
@@ -802,18 +802,18 @@ which is the paraxial wave equation.
 
 \subsection{Gaussian Beams}
 
-One can find solutions to~\cref{eq:paraxial-wave-equation} working in various coordinate systems, but the most convenient and useful for our purpose (and in practical aplications in general) is to work in cylindrical coordinated. In this case, the equation becomes
+One can find solutions to~\cref{eq:paraxial-wave-equation} working in various coordinate systems, but the most convenient and useful for our purpose (and in practical aplications in general) is to work in cylindrical coordinates. In this case, the equation becomes
 
 \begin{equation}
   \partial_r^2 u +\frac{1}{r} \partial_r u + \frac{1}{r} \partial_\varphi^2 u - 2 \ii k \partial_z u = 0 \,.
 \end{equation}
-To simplify our calculations even more, we can remove the \(\varphi\) dependence of \(u\), which is to imply axial symmetry for the wave. This gives
+To simplify our calculations even more, we can remove the \(\varphi\) dependence of \(u\), which means to imply axial symmetry for the wave. This gives
 
 \begin{equation}
   \label{eq:axial-symmetry-paraxial-equation}
   \partial_r^2 u +\frac{1}{r} \partial_r u- 2 \ii k \partial_z u = 0 \,.
 \end{equation}
-The radial part of the equation suggests that we should have a dependence of a complex exponential of \(r^2\). An educated guess would be a Gaussian distribution-like function of the form
+The radial part of the equation suggests that we should have a dependence proportional to a complex exponential of \(r^2\). An educated guess would be a Gaussian distribution-like function of the form
 
 \begin{equation}
   \label{def:guess-gauss}
@@ -851,7 +851,7 @@ The solution of~\cref{eq:q} is trivial
 \begin{equation*}
   q(z) = q(z_0) + z - z_0 \,,
 \end{equation*}
-which can be simplified by choosing our origin at \(z_0\)
+and can be simplified by choosing our origin at \(z_0\)
 
 \begin{equation}
   \label{sol:q}
@@ -886,7 +886,7 @@ We can conclude now that
   \left( \frac{1}{q} \right)_r = \frac{1}{R}\,.
 \end{equation}
 
-The imaginary part of \(\frac{1}{q}\) appears in the real exponential. This exponential should thus give the Gaussian distribution form of the wave, that is it should look like
+The imaginary part of \(\frac{1}{q}\) appears in the real exponential. This exponential should thus give the Gaussian distribution form of the wave, which means that it should look like
 
 \begin{equation}
   \ee^{-\left( \frac{r}{r_0} \right)^2}\,,
@@ -988,7 +988,7 @@ Including it, all the relevant auxiliary functions become
   \end{align}
 \end{subequations}
 
-We can immediately observe that \(w(z)\) at \(z=z_0\) is actually equal to \(\sqrt{2}w_0\). From this we can deduce that the \(z_0\) indicates how far from the origin the beam is collimated. It is very simple to understand by looking at figure~\cref{fig:gauss-beam}
+We can immediately observe that \(w(z)\) at \(z=z_0\) is actually equal to \(\sqrt{2}w_0\). From this we can deduce that the \(z_0\) indicates how far from the origin the beam is collimated. It is very simple to understand by looking at ~\cref{fig:gauss-beam}
 
 \begin{figure}[h]
   \centering
@@ -1041,7 +1041,7 @@ or, explicitly
 \end{equation}
 
 \subsubsection{The Magnetic Field}
-In order to derive the magnetic, one can impose the relation~(\ref{othogonality-of-fields})
+In order to derive the magnetic field, one can impose the relation~(\ref{othogonality-of-fields})
 
 \begin{equation*}
   \vb{B} = \frac{1}{c} \vb{n} \cp\vb{E} = \frac{1}{c} \vb{e_z} \cp\vb{E} = \frac{1}{c} E_x \vb{e_z} \cp\vb{e_x} + \frac{1}{c} E_y \vb{e_z} \cp\vb{e_y} = - \frac{1}{c} E_y \vb{e_x}+\frac{1}{c} E_x \vb{e_y} \,,
@@ -1166,7 +1166,7 @@ The final relations are straightforward
 \end{subequations}
 
 \subsection{Laguerre-Gauss Beams}
-This tipe of beam represents a correction for the Gauss one in order to remove the axial symmetry approximation. That is, we want fo find a function \(f(r,z,\varphi) = \zeta (r,z) s(r,z,\varphi)\) to be a solution of
+This tipe of beam represents a correction for the Gauss one in order to remove the axial symmetry approximation. That is, we want fo find a function \(f(r,z,\varphi) = \zeta (r,z) s(r,z,\varphi)\) which is intended to be a solution of
 
 \begin{equation}
   \partial_r^2 f +\frac{1}{r} \partial_r f + \frac{1}{r} \partial_\varphi^2 f - 2 \ii k \partial_z f = 0 \,,
@@ -1289,7 +1289,7 @@ Be aware that \(\partial L_{p\abs{m}}\) is not the derivative of the Laguerre ge
 
 Of course, in order to use these relations in simulations involving laser beams, one must attach also the temporal profile~(\ref{temporal-profile}).
 
-It is important to mention that the Laguerre-Gauss laser beams are not simply a solution resulting from mathematical sleight of hand, but they can be obtained in practice. Some examples of articles that deal with the production of Laguerre-Gauss modes (only a few selected from an expansive literature) are~\cite{bolzeTemporallyShapedLaguerre2018},~\cite{suedaLaguerreGaussianBeamGenerated2004} and~\cite{zeylikovichUltrashortLaguerreGaussianPulses2007}.
+It is important to mention that the Laguerre-Gauss laser beams are not simply a solution resulting from mathematical sleight of hand. They can be obtained in practice. Some examples of articles that deal with the production of Laguerre-Gauss modes (only a few selected from an expansive literature) are~\cite{bolzeTemporallyShapedLaguerre2018},~\cite{suedaLaguerreGaussianBeamGenerated2004} and~\cite{zeylikovichUltrashortLaguerreGaussianPulses2007}.
 
 Just for the sake of completion, I have also added a couple of figures illustrating different Laguerre-Gauss profiles (\ref{fig:lag-g-1}). The plots were obtained in Julia, with the help of the LaserTypes.jl package (available at \url{https://github.com/SebastianM-C/LaserTypes.jl}). The code is very similar to the examples used in the documentation of the package (which I helped designing). Note that for \(m=p=0\), the profile is the same as for a regular Gauss mode, so the illustrations provide an example for that as well.
 \clearpage
@@ -1301,7 +1301,7 @@ Just for the sake of completion, I have also added a couple of figures illustrat
 
 \subsection{Other Types of Beams}
 
-\subsubsection{Gauss Beams}
+\subsubsection{Hermite-Gauss Beams}
 One can also work directly in Carthesian coordinates in order to solve the paraxial wave equation. This will lead to obtaining the rectangular Gauss beam mode. The extension of this solution, in the same manner used to extend the cylindrical mode to the Laguerre-Gauss mode, is the Hermite-Gauss beam and, as the name suggests, uses the Hermite polynomials. However, these modes are not of interest in our endeavours. If the reader is interested to look upon them, the book by~\cite{goldsmithQuasiopticalSystemsGaussian1998} has a very concise and straightforward presentation of them in its first chapter.
 
 \subsubsection{Bessel Beams}
@@ -1310,7 +1310,7 @@ These are a direct solution to the paraxial equation without axial symmetry. The
 
 \section{Angular Momentum of Electromagnetic Waves}
 
-In this section I will simply mention how the orbital angular momentul can be defined. A thorough derivation of its expression for each of the presented laser profiles is a simple, but lengthy and redundant work. If one is interested in computing it in numerical simulations (which is the case for the present thesis), it can be computed from the values of the fields.
+In this section I will simply mention how the orbital angular momentul can be defined. A thorough derivation of its expression for each of the presented laser profiles is simple, but rather lengthy and redundant work. If one is interested in computing it in numerical simulations (which is the case for the present thesis), it can be computed from the values of the fields.
 
 By having the electromagnetic momentum defined in~(\ref{def:electromagnetic-momentum}), we can simply extend the expression of the angular momentum as is used in classical mechanics to our case, such that we have
 
